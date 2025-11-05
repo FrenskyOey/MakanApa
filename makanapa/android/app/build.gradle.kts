@@ -19,6 +19,12 @@ android {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
+
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.app.makanapa"
@@ -35,6 +41,19 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
+        }
+    }
+
+    flavorDimensions.add("default")
+    productFlavors {
+        create("production") {
+            dimension = "default"
+            resValue("string", "app_name", "Makan Apa")
+        }
+        create("staging") {
+            dimension = "default"
+            resValue("string", "app_name", "Makan Apa (DEV)")
+            versionNameSuffix = "-staging"
         }
     }
 }
