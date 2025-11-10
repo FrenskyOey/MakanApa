@@ -52,6 +52,8 @@ dependencies:
   package_info_plus: ^9.0.0
   gap: ^3.0.1
   introduction_screen: ^4.0.0
+  firebase_core: ^4.2.1
+  supabase_flutter: ^2.10.3
 
 dev_dependencies:
   flutter_test:

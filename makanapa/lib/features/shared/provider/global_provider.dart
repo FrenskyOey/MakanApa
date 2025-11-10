@@ -13,6 +13,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:isar_community/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'global_provider.g.dart';
 
@@ -67,6 +68,12 @@ Future<Dio> dio(Ref ref) async {
   dio.interceptors.add(chuckerInterceptor);
   dio.interceptors.add(logInterceptor);
   return dio;
+}
+
+@Riverpod(keepAlive: true)
+SupabaseClient supabaseClient(Ref ref) {
+  final supabase = Supabase.instance.client;
+  return supabase;
 }
 
 @Riverpod(keepAlive: true)

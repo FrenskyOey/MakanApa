@@ -7,5 +7,6 @@ class KeyConstant {
   static const String supabaseApiKey = 'SUPABASE_ANON_KEY';
 
   static const String apiKey = 'API_KEY';
+  static const String supaKey = 'SUPABASE_KEY';
   static const String baseUrl = 'BASE_API_URL';
 }

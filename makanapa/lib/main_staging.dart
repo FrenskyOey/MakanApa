@@ -10,6 +10,7 @@ void main() async {
   final flavorConfig = FlavorConfig()
     ..title = 'Makan Apa'
     ..baseUrl = 'https://digimon-api.vercel.app'
+    ..supabaseUrl = 'https://tajpcrucnaiuviirjned.supabase.co'
     ..env = KeyConstant.envStagingFile
     ..flavor = Flavor.staging;
 

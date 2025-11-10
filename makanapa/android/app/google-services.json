@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1021070550729",
+    "project_id": "makanapa-475ad",
+    "storage_bucket": "makanapa-475ad.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1021070550729:android:de4c4a60b9bc40bf748f18",
+        "android_client_info": {
+          "package_name": "com.app.makanapa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8SbcXCrHksHsQsV1SYzBeEFSILL5n1Ys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

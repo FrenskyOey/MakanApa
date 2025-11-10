@@ -8,11 +8,29 @@ class SplashScreen extends HookConsumerWidget {
   const SplashScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    /*Future<void> loadDb() async {
+      final results = await Supabase.instance.client
+          .schema('food')
+          .from('Resep')
+          .select();
+      final counts = results.length;
+
+      if (!context.mounted) {
+        return;
+      }
+
+      SnackBarHelper.showSuccess(
+        context,
+        "Resep Counts : ${counts.toString()}",
+      );
+    }*/
+
     useEffect(() {
       Future.delayed(const Duration(seconds: 2)).then((_) {
         if (!context.mounted) {
           return;
         }
+        //loadDb();
         //context.goNamed(RouteNames.intro);
       });
       return null;
