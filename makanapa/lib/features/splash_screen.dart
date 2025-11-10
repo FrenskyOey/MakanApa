@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:makanapa/core/configs/routes/route_names.dart';
 import 'package:makanapa/core/extension/index.dart';
 
 class SplashScreen extends HookConsumerWidget {
@@ -30,8 +32,8 @@ class SplashScreen extends HookConsumerWidget {
         if (!context.mounted) {
           return;
         }
+        context.goNamed(RouteNames.intro);
         //loadDb();
-        //context.goNamed(RouteNames.intro);
       });
       return null;
     }, []);

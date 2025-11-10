@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:makanapa/core/configs/routes/route_names.dart';
 import 'package:makanapa/features/not_found_screen.dart';
+import 'package:makanapa/features/onboarding/presentation/intro/screen/intro_screen.dart';
 import 'package:makanapa/features/splash_screen.dart';
 
 part 'redirection.dart';
@@ -28,6 +29,13 @@ final routeProvider = Provider((ref) {
         path: "/splash-screen",
         builder: (context, state) {
           return const SplashScreen();
+        },
+      ),
+      GoRoute(
+        name: RouteNames.intro,
+        path: "/intro",
+        builder: (context, state) {
+          return const IntroScreen();
         },
       ),
     ],
