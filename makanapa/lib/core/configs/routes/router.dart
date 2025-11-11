@@ -7,6 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'package:makanapa/core/configs/routes/route_names.dart';
 import 'package:makanapa/features/not_found_screen.dart';
 import 'package:makanapa/features/onboarding/presentation/intro/screen/intro_screen.dart';
+import 'package:makanapa/features/onboarding/presentation/login/screens/login_screen.dart';
+import 'package:makanapa/features/onboarding/presentation/signup/screens/signup_screen.dart';
 import 'package:makanapa/features/splash_screen.dart';
 
 part 'redirection.dart';
@@ -36,6 +38,20 @@ final routeProvider = Provider((ref) {
         path: "/intro",
         builder: (context, state) {
           return const IntroScreen();
+        },
+      ),
+      GoRoute(
+        name: RouteNames.login,
+        path: "/login",
+        builder: (context, state) {
+          return const LoginScreen();
+        },
+      ),
+      GoRoute(
+        name: RouteNames.signUp,
+        path: "/signup",
+        builder: (context, state) {
+          return const SignupScreen();
         },
       ),
     ],

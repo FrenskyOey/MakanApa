@@ -1,15 +1,16 @@
-/*
 import 'package:flutter/material.dart';
 
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:makanapa/core/extension/index.dart';
+import 'package:makanapa/core/themes/dimens_constant.dart';
+import 'package:makanapa/core/widgets/gradient_text.dart';
 
-class TemplateScreen extends HookConsumerWidget {
-  const TemplateScreen({super.key});
+class SignupScreen extends HookConsumerWidget {
+  const SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(templateControllerProvider);
+    /*final state = ref.watch(templateControllerProvider);
 
     ref.listen(templateEventProvider, (prev, next) {
       if (next == null) {
@@ -36,6 +37,7 @@ class TemplateScreen extends HookConsumerWidget {
       });
      
     }, []);
+    */
 
     return Scaffold(
       body: SizedBox.expand(
@@ -43,7 +45,7 @@ class TemplateScreen extends HookConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Template Screen", style: context.textTheme.headlineMedium),
+            Text("SignUp Screen", style: context.textTheme.headlineMedium),
             Dimens.xxl.space,
             Icon(Icons.phonelink_erase, size: 80, color: context.secondary),
             Dimens.xxl.space,
@@ -55,5 +57,3 @@ class TemplateScreen extends HookConsumerWidget {
     );
   }
 }
-
- */
