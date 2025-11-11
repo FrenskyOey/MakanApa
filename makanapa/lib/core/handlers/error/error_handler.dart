@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:isar_community/isar.dart';
 import 'package:makanapa/core/handlers/error/src/isar_error_handler.dart';
 import 'package:makanapa/core/handlers/log/log_helper.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'index.dart';
 
 abstract class BaseErrorHandler {
@@ -27,12 +28,15 @@ class _ErrorFactory {
       // 3. Data Parsing and Format Errors
       FormatException() || TypeError() => ParserErrorHandler(),
 
-      // 3. Data Parsing and Format Errors
+      // 4. Isar Errors
       IsarError() => IsarErrorHandler(),
+
+      // 5. Supabase Errors
+      AuthException() || PostgrestException() => SupabaseErrorHandler(),
 
       // adding another error handlers here like Supabase, Firebase, GraphQL, etc.
 
-      // 4. Catch-all for unexpected issues
+      // 6. Catch-all for unexpected issues
       _ => GenericErrorHandler(),
     };
   }

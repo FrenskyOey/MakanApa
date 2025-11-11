@@ -1,4 +1,4 @@
-import 'package:makanapa/core/constants/preferences_constant.dart';
+import 'package:makanapa/core/constants/pref_constant.dart';
 import 'package:makanapa/features/shared/models/device_config.dart';
 import 'package:makanapa/features/shared/provider/global_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -66,7 +66,7 @@ class SharedLocalDataSourceImpl implements ShareLocalDataSource {
 
   @override
   String authToken() {
-    final String? token = prefs.getString(PreferencesConstant.AUTH_TOKEN_KEY);
+    final String? token = prefs.getString(PrefConstant.authToken);
     return token ?? "";
   }
 }
