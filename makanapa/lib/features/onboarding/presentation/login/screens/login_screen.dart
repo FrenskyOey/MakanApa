@@ -38,6 +38,7 @@ class LoginScreen extends HookConsumerWidget {
         },
         orElse: () {},
       );
+      ref.read(loginControllerProvider.notifier).resetEventState();
     });
 
     Widget mainBody() {

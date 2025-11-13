@@ -4,6 +4,7 @@ class KeyConstant {
 
   static const String firebaseApiKey = 'FIREBASE_ADMIN_API_KEY';
   static const String gMapsApiKey = 'GOOGLE_MAPS_API_KEY';
+  static const String gClientId = 'GOOGLE_SIGNIN_SERVER_ID';
   static const String supabaseApiKey = 'SUPABASE_ANON_KEY';
 
   static const String apiKey = 'API_KEY';

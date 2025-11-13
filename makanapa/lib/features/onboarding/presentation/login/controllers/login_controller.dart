@@ -1,4 +1,5 @@
 import 'package:makanapa/core/states/data_state.dart';
+import 'package:makanapa/features/onboarding/domain/models/google_sign_in_request.dart';
 import 'package:makanapa/features/onboarding/domain/usecases/validator_usecase.dart';
 import 'package:makanapa/features/onboarding/presentation/login/controllers/state/login_event_state.dart';
 import 'package:makanapa/features/onboarding/presentation/login/controllers/state/login_ui_state.dart';
@@ -34,10 +35,36 @@ class LoginController extends _$LoginController {
     state = state.copyWith(eventState: LoginEventState.toSignUpPage());
   }
 
+  void resetEventState() {
+    state = state.copyWith(eventState: LoginEventState.initial());
+  }
+
   Future<void> loginWithEmail(String email, String password) async {
     state = state.copyWith(loginState: const Loading());
     final repo = await ref.read(loginRepositoryProvider.future);
     final response = await repo.signInWithEmailAndPassword(email, password);
+
+    state = response.fold(
+      (l) {
+        return state.copyWith(
+          loginState: Error(l),
+          eventState: LoginEventState.toastError(l),
+        );
+      },
+      (r) {
+        ref.read(tokenProvider.notifier).reloadToken();
+        return state.copyWith(
+          loginState: Success(r),
+          eventState: LoginEventState.toHomePage(),
+        );
+      },
+    );
+  }
+
+  Future<void> loginWithGoogle(GoogleSignInRequest request) async {
+    state = state.copyWith(loginState: const Loading());
+    final repo = await ref.read(loginRepositoryProvider.future);
+    final response = await repo.signInWithGoogle(request);
 
     state = response.fold(
       (l) {
