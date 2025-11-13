@@ -6,26 +6,29 @@ FutureOr<String?> handleRedirect(
   Ref ref,
 ) async {
   ScaffoldMessenger.of(context).hideCurrentSnackBar();
-  final isSplashScreen = state.matchedLocation == RouteNames.splash;
-  final isIntro = state.matchedLocation == RouteNames.intro;
+  final publicRoutes = {
+    RouteNames.splash,
+    RouteNames.intro,
+    RouteNames.login,
+    RouteNames.signUp,
+  };
 
-  // by pass checking login on splash and into page
-  if (isSplashScreen || isIntro) {
+  // Bypass authentication check for public routes.
+  if (publicRoutes.contains(state.matchedLocation)) {
     return null;
   }
 
-  /*final isAuthenticated = await _isAuthenticated(ref);
+  final isAuthenticated = await _isAuthenticated(ref);
   if (!isAuthenticated) {
     return RouteNames.intro;
-  }*/
+  }
 
   return null;
 }
 
-/*
 Future<bool> _isAuthenticated(Ref ref) async {
-  final sharedDataSources = await ref.read(shareLocalDataSourceProvider.future);
-  final tokens = sharedDataSources.authToken();
-
-  return tokens.isNotNullOrEmpty;
-}*/
+  final tokenState = ref
+      .read(tokenProvider)
+      .maybeWhen(loginState: (token) => true, orElse: () => false);
+  return tokenState;
+}

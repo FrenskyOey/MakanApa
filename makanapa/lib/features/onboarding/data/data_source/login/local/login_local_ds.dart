@@ -27,10 +27,21 @@ class LoginLocalDataSourceImpl implements LoginLocalDataSource {
   }
 
   @override
+  Future<String?> getUserId() async {
+    return prefs.getString(PrefConstant.currentUserId);
+  }
+
+  @override
+  Future<void> setUserId(String userId) async {
+    await prefs.setString(PrefConstant.currentUserId, userId);
+  }
+
+  @override
   Future<void> clearTokens() async {
     await Future.wait([
       prefs.remove(PrefConstant.authToken),
       prefs.remove(PrefConstant.refreshToken),
+      prefs.remove(PrefConstant.currentUserId),
     ]);
   }
 }

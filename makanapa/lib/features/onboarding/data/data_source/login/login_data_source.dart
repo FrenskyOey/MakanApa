@@ -17,5 +17,7 @@ abstract class LoginLocalDataSource {
   });
   Future<String?> getAccessToken();
   Future<String?> getRefreshToken();
+  Future<String?> getUserId();
+  Future<void> setUserId(String userId);
   Future<void> clearTokens();
 }

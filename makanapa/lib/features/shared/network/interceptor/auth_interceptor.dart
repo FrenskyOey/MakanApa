@@ -1,23 +1,34 @@
 import 'package:dio/dio.dart';
-import 'package:makanapa/features/shared/data-sources/local/shared_local_ds.dart';
 import 'package:makanapa/features/shared/models/device_config.dart';
+import 'package:makanapa/features/shared/provider/token/token_provider.dart';
+import 'package:makanapa/features/shared/provider/token/token_state.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 /// A Dio Interceptor that adds Auth token and Device/App info to request headers.
 class AuthInterceptor extends Interceptor {
-  final ShareLocalDataSource dataSource;
-  AuthInterceptor({required this.dataSource});
+  final DeviceConfig deviceConfig;
+  final Ref ref;
+  final Dio dio;
+  bool _isRefreshing = false;
+
+  // A list to hold requests that failed while the token was being refreshed.
+  final List<(RequestOptions, ErrorInterceptorHandler)> _failedRequests = [];
+
+  AuthInterceptor({
+    required this.deviceConfig,
+    required this.ref,
+    required this.dio,
+  });
 
   @override
   void onRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    // 1. Load token and device Config
-    final String token = dataSource.authToken();
-    final DeviceConfig deviceConfig = await dataSource.deviceConfig();
+    final tokenState = ref.read(tokenProvider);
+    final token = tokenState.whenOrNull(loginState: (token) => token);
 
-    if (token.isNotEmpty) {
-      // Add Authorization header
+    if (token != null && token.isNotEmpty) {
       options.headers['Authorization'] = 'Bearer $token';
     }
 
@@ -34,13 +45,72 @@ class AuthInterceptor extends Interceptor {
     handler.next(options);
   }
 
-  // You can optionally implement onError and onResponse as needed.
-  // For instance, onError could check for 401/403 errors and trigger a logout.
-
   @override
-  void onError(DioException err, ErrorInterceptorHandler handler) {
-    // parsing error here latter if needed
+  void onError(DioException err, ErrorInterceptorHandler handler) async {
+    // will handling refresh token
+    if (err.response?.statusCode != 401) {
+      return handler.next(err);
+    }
+
+    // Add the failed request to our queue
+    _failedRequests.add((err.requestOptions, handler));
+
+    // If a refresh is not already in progress, start one.
+    if (!_isRefreshing) {
+      _isRefreshing = true;
+
+      try {
+        final newToken = await ref.read(tokenProvider.notifier).refreshToken();
+
+        if (newToken != null) {
+          await _retryQueuedRequests(newToken);
+        } else {
+          // logout event should be hapening and should route to intro page
+          _rejectQueuedRequests(err);
+        }
+      } catch (e) {
+        _rejectQueuedRequests(
+          DioException(requestOptions: err.requestOptions, error: e),
+        );
+      } finally {
+        // Reset the state
+        _isRefreshing = false;
+        _failedRequests.clear();
+      }
+    }
     super.onError(err, handler);
+  }
+
+  /// Retries all the requests that were queued while the token was being refreshed.
+  Future<void> _retryQueuedRequests(String newToken) async {
+    for (final request in _failedRequests) {
+      final options = request.$1;
+      final handler = request.$2;
+
+      // Update the header with the new token
+      options.headers['Authorization'] = 'Bearer $newToken';
+
+      try {
+        // Retry the request
+        final response = await dio.fetch(options);
+        handler.resolve(response);
+      } catch (e) {
+        // If retrying fails, reject the request
+        handler.reject(
+          e is DioException
+              ? e
+              : DioException(requestOptions: options, error: e),
+        );
+      }
+    }
+  }
+
+  /// Rejects all the requests that were queued.
+  void _rejectQueuedRequests(DioException error) {
+    for (final request in _failedRequests) {
+      final handler = request.$2;
+      handler.reject(error);
+    }
   }
 
   @override

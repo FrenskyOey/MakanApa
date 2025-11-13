@@ -11,7 +11,8 @@ abstract class LoginRepository {
     GoogleSignInRequest request,
   );
   Future<Either<String, void>> logout();
-  Future<Either<String, String?>> getAccessToken();
-  Future<Either<String, String?>> getRefreshToken();
+
+  Future<String?> getRefreshToken();
+  Future<String?> getAccessToken();
   Future<Either<String, String>> performTokenRefresh();
 }

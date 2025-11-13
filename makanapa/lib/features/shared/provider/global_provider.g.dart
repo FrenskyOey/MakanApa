@@ -40,7 +40,7 @@ final class DioProvider
   }
 }
 
-String _$dioHash() => r'ea7729addc91c59bdfdb74430acca31fcf8893af';
+String _$dioHash() => r'76af3c876236be2f659a5e4f162f674f7ea8fa09';
 
 @ProviderFor(supabaseClient)
 const supabaseClientProvider = SupabaseClientProvider._();

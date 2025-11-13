@@ -3,6 +3,7 @@ import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:dio/dio.dart';
 import 'package:makanapa/core/configs/flavors_config.dart';
 import 'package:makanapa/core/handlers/log/log_helper.dart';
+import 'package:makanapa/features/onboarding/data/models/entity/user_entity.dart';
 import 'package:makanapa/features/shared/data-sources/local/shared_local_ds.dart';
 import 'package:makanapa/features/shared/models/entity/email.dart';
 import 'package:makanapa/features/shared/network/interceptor/auth_interceptor.dart';
@@ -20,11 +21,7 @@ part 'global_provider.g.dart';
 @Riverpod(keepAlive: true)
 Future<Dio> dio(Ref ref) async {
   final flavorConfig = ref.read(flavorConfigProvider);
-  final ShareLocalDataSource dataSource = await ref.watch(
-    shareLocalDataSourceProvider.future,
-  );
 
-  final authInterceptor = AuthInterceptor(dataSource: dataSource);
   final chuckerInterceptor = ChuckerDioInterceptor();
   final logInterceptor = LogInterceptor(
     requestBody: true,
@@ -47,7 +44,6 @@ Future<Dio> dio(Ref ref) async {
   final dio = Dio(
     BaseOptions(
       baseUrl: flavorConfig.baseUrl,
-
       // *** ESSENTIAL CONFIGURATIONS ***
       // 1. Timeouts: Crucial for a good user experience on slow networks.
       connectTimeout: kConnectTimeout,
@@ -64,9 +60,22 @@ Future<Dio> dio(Ref ref) async {
     ),
   );
 
-  dio.interceptors.add(authInterceptor);
   dio.interceptors.add(chuckerInterceptor);
   dio.interceptors.add(logInterceptor);
+
+  final ShareLocalDataSource dataSource = await ref.watch(
+    shareLocalDataSourceProvider.future,
+  );
+  final config = await dataSource.deviceConfig();
+
+  final authInterceptor = AuthInterceptor(
+    deviceConfig: config,
+    ref: ref,
+    dio: dio,
+  );
+
+  dio.interceptors.add(authInterceptor);
+
   return dio;
 }
 
@@ -86,7 +95,7 @@ Future<SharedPreferences> sharedPreferences(Ref ref) async {
 Future<Isar> isar(Ref ref) async {
   final directory = await getApplicationDocumentsDirectory();
   Isar isar = await Isar.open(
-    [EmailSchema],
+    [EmailSchema, UserEntitySchema],
     inspector: true,
     directory: directory.path,
   );

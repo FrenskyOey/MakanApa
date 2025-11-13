@@ -1,19 +1,48 @@
-/*
+import 'package:makanapa/core/states/data_state.dart';
+import 'package:makanapa/features/onboarding/domain/models/auth.dart';
+import 'package:makanapa/features/onboarding/presentation/login/controllers/state/login_event_state.dart';
 
-class TemplateUIState {
-  final DataState<Template> state;
-  final bool hideLoading;
+class LoginUIState {
+  final String email;
+  final String password;
+  final String errorEmail;
+  final String errorPassword;
+  final DataState<AuthData> loginState;
+  final LoginEventState eventState;
 
-  TemplateUIState({this.state = DataState.Initial(), required this.hideLoading = true});
+  LoginUIState({
+    this.email = '',
+    this.password = '',
+    this.errorEmail = '',
+    this.errorPassword = '',
+    this.loginState = const Initial(),
+    this.eventState = const LoginEventState.initial(),
+  });
 
-  TemplateUIState copyWith({bool? hideLoading,DataState<Template>? state}) {
-    return TemplateUIState(
-      state: state ?? this.state,
-      hideLoading: hideLoading ?? this.hideLoading,
+  bool get isLoginAllowed {
+    // Your logic: "enable if both of error is empty or null"
+    bool hasNoErrors = errorEmail.isEmpty && errorPassword.isEmpty;
+    bool hasData = email.trim().isNotEmpty && password.trim().isNotEmpty;
+    // The button is valid ONLY if there are no errors AND there is data.
+    return hasNoErrors && hasData;
+  }
+
+  LoginUIState copyWith({
+    bool? isLoginAllowed,
+    String? email,
+    String? password,
+    String? errorEmail,
+    String? errorPassword,
+    DataState<AuthData>? loginState,
+    LoginEventState? eventState,
+  }) {
+    return LoginUIState(
+      email: email ?? this.email,
+      password: password ?? this.password,
+      errorEmail: errorEmail ?? this.errorEmail,
+      errorPassword: errorPassword ?? this.errorPassword,
+      loginState: loginState ?? this.loginState,
+      eventState: eventState ?? this.eventState,
     );
   }
 }
-
-
-
- */

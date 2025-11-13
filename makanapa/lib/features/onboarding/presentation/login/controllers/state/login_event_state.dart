@@ -1,14 +1,11 @@
-/*
 import 'package:freezed_annotation/freezed_annotation.dart';
-part 'template_event_state.freezed.dart';
+part 'login_event_state.freezed.dart';
 
 @freezed
-class TemplateEventState with _$TemplateEventState {
+class LoginEventState with _$LoginEventState {
   // handling toast Event
-  const factory TemplateEventState.toastError(String messgae) = _ToastError;
-  const factory TemplateEventState.toastSuccess(String messgae) = _ToastSuccess;
-
-  // handling open detail page
-  const factory TemplateEventState.openUser(Soldier selectedSoldier) = _OpenUser;
+  const factory LoginEventState.initial() = _Initial;
+  const factory LoginEventState.toastError(String messgae) = _ToastError;
+  const factory LoginEventState.toHomePage() = _ToHomePage;
+  const factory LoginEventState.toSignUpPage() = _ToSignUpPage;
 }
-*/
