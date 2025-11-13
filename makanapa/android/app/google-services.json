@@ -12,7 +12,12 @@
           "package_name": "com.app.makanapa"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1021070550729-a937sprmqdn8chsciv8ttr5nv54ffgpe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD8SbcXCrHksHsQsV1SYzBeEFSILL5n1Ys"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1021070550729-a937sprmqdn8chsciv8ttr5nv54ffgpe.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1021070550729-750kq0pmfc8slb5kmb1f6f4ns58qe2up.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.makanapa"
+              }
+            }
+          ]
         }
       }
     }
