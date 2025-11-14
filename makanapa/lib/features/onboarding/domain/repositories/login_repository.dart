@@ -11,13 +11,10 @@ abstract class LoginRepository {
   Future<Either<String, AuthData>> signInWithGoogle(
     GoogleSignInRequest request,
   );
-
   Future<Either<String, AuthData>> signUpWithEmailAndPassword(
     SignupRequest request,
   );
-
   Future<Either<String, void>> logout();
-
   Future<String?> getRefreshToken();
   Future<String?> getAccessToken();
   Future<Either<String, String>> performTokenRefresh();
