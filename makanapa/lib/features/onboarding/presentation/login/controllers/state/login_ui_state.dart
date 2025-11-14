@@ -1,5 +1,3 @@
-import 'package:makanapa/core/states/data_state.dart';
-import 'package:makanapa/features/onboarding/domain/models/auth.dart';
 import 'package:makanapa/features/onboarding/presentation/login/controllers/state/login_event_state.dart';
 
 class LoginUIState {
@@ -7,7 +5,6 @@ class LoginUIState {
   final String password;
   final String errorEmail;
   final String errorPassword;
-  final DataState<AuthData> loginState;
   final LoginEventState eventState;
 
   LoginUIState({
@@ -15,7 +12,6 @@ class LoginUIState {
     this.password = '',
     this.errorEmail = '',
     this.errorPassword = '',
-    this.loginState = const Initial(),
     this.eventState = const LoginEventState.initial(),
   });
 
@@ -33,7 +29,6 @@ class LoginUIState {
     String? password,
     String? errorEmail,
     String? errorPassword,
-    DataState<AuthData>? loginState,
     LoginEventState? eventState,
   }) {
     return LoginUIState(
@@ -41,7 +36,6 @@ class LoginUIState {
       password: password ?? this.password,
       errorEmail: errorEmail ?? this.errorEmail,
       errorPassword: errorPassword ?? this.errorPassword,
-      loginState: loginState ?? this.loginState,
       eventState: eventState ?? this.eventState,
     );
   }
