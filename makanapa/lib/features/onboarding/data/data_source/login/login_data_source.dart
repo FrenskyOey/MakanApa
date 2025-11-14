@@ -1,4 +1,5 @@
 import 'package:makanapa/features/onboarding/data/models/response/auth_data_response.dart';
+import 'package:makanapa/features/onboarding/domain/models/signup_request.dart';
 
 abstract class LoginRemoteDataSource {
   Future<AuthDataResponse> signInWithEmailAndPassword(
@@ -6,6 +7,9 @@ abstract class LoginRemoteDataSource {
     String password,
   );
   Future<AuthDataResponse> signInWithGoogle(String idToken, String accessToken);
+
+  Future<AuthDataResponse> signUpWithEmailAndPassword(SignupRequest request);
+
   Future<void> signOut();
   Future<String> refreshToken(String refreshToken);
 }

@@ -1,21 +1,99 @@
-/*
+import 'package:makanapa/features/onboarding/domain/models/signup_request.dart';
+import 'package:makanapa/features/onboarding/domain/usecases/validator_usecase.dart';
+import 'package:makanapa/features/onboarding/presentation/signup/controllers/state/signup_event_state.dart';
+import 'package:makanapa/features/onboarding/presentation/signup/controllers/state/signup_ui_state.dart';
+import 'package:makanapa/features/onboarding/provider/onboarding_provider.dart';
+import 'package:makanapa/features/shared/provider/token/token_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'template_controller.g.dart';
+part 'signup_controller.g.dart';
 
 @riverpod
-class TemplateController extends _$TemplateController {
-  final DataState<Template> _template = DataState.Initial();
+class SignUpController extends _$SignUpController {
+  //final DataState<Template> _template = DataState.Initial();
+  final _useCase = ValidatorUsecase();
 
   @override
-  TemplateUIState build() async {
-    return TemplateUiState()
+  SignupUiState build() {
+    return SignupUiState();
   }
 
-  Future<void> loadData() async {
-    // do something here 
-    final repository = await ref.read(templateRepositoryProvider.future);
-    final result = await repository.getTemplate();
-    state = .....
+  String isInputEmailValid(String input) {
+    final errors = _useCase.validateEmail(input) ?? "";
+    state = state.copyWith(email: input, errorEmail: errors);
+    return errors;
   }
-  */
+
+  String isInputPasswordValid(String input) {
+    final passwordErrors = _useCase.validatePassword(input) ?? "";
+
+    // Re-validate the confirm password if it's not empty
+    String confirmPasswordError = state.errorConfirmPassword;
+    if (state.confirmPassword.isNotEmpty) {
+      if (input != state.confirmPassword) {
+        confirmPasswordError = "Kata sandi tidak cocok.";
+      } else {
+        confirmPasswordError = ""; // Passwords now match, clear the error
+      }
+    }
+
+    state = state.copyWith(
+      password: input,
+      errorPassword: passwordErrors,
+      errorConfirmPassword: confirmPasswordError,
+    );
+    return passwordErrors;
+  }
+
+  String isUserNameValid(String input) {
+    final errors = _useCase.validateUserName(input) ?? "";
+    state = state.copyWith(name: input, errorName: errors);
+    return errors;
+  }
+
+  String isPhoneNumberValid(String input) {
+    final errors = _useCase.validatePhoneNumber(input) ?? "";
+    state = state.copyWith(phoneNumber: input, errorPhone: errors);
+    return errors;
+  }
+
+  String isConfirmPasswordValid(String input) {
+    String error = ""; // Start with no error
+    if (input.isEmpty) {
+      error = "Konfirmasi kata sandi tidak boleh kosong.";
+    } else if (input != state.password) {
+      error =
+          "Kata sandi tidak cocok."; // Check against the current password in the state
+    }
+    state = state.copyWith(confirmPassword: input, errorConfirmPassword: error);
+    return error;
+  }
+
+  void resetEventState() {
+    state = state.copyWith(eventState: SignUpEventState.initial());
+  }
+
+  Future<void> signUpWithEmail() async {
+    final SignupRequest request = SignupRequest(
+      email: state.email,
+      password: state.password,
+      userName: state.name,
+      phone: state.phoneNumber,
+    );
+
+    state = state.copyWith(eventState: SignUpEventState.showLoading());
+    await Future.delayed(Duration(seconds: 2));
+    final repo = await ref.read(loginRepositoryProvider.future);
+    final response = await repo.signUpWithEmailAndPassword(request);
+
+    state = response.fold(
+      (l) {
+        return state.copyWith(eventState: SignUpEventState.toastError(l));
+      },
+      (r) {
+        ref.read(tokenProvider.notifier).reloadToken();
+        return state.copyWith(eventState: SignUpEventState.toHomePage());
+      },
+    );
+  }
+}
