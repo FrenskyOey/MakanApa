@@ -1,7 +1,7 @@
 class ValidatorUsecase {
   String? validateEmail(String email) {
     if (email.isEmpty) {
-      return 'Email cannot be empty.';
+      return 'Email tidak boleh kosong.';
     }
 
     final emailRegex = RegExp(
@@ -9,19 +9,42 @@ class ValidatorUsecase {
     );
 
     if (!emailRegex.hasMatch(email)) {
-      return 'Please enter a valid email address.';
+      return 'Harap masukkan alamat email yang valid.';
     }
 
     return null;
   }
 
+  String? validateUserName(String name) {
+    if (name.isEmpty) {
+      return 'Nama tidak boleh kosong.';
+    }
+    if (name.length < 3) {
+      return 'Nama harus memiliki minimal 3 karakter.';
+    }
+    return null;
+  }
+
+  String? validatePhoneNumber(String phoneNumber) {
+    if (phoneNumber.isEmpty) {
+      return 'Nomor telepon tidak boleh kosong.';
+    }
+
+    final phoneRegex = RegExp(r'^(?:\+62|0)8[1-9][0-9]{7,10}$');
+
+    if (!phoneRegex.hasMatch(phoneNumber)) {
+      return 'Harap masukkan nomor telepon Indonesia yang valid.';
+    }
+    return null;
+  }
+
   String? validatePassword(String password) {
     if (password.isEmpty) {
-      return 'Password cannot be empty.';
+      return 'Kata sandi tidak boleh kosong.';
     }
 
     if (password.length < 8) {
-      return 'Password must be at least 8 characters long.';
+      return 'Kata sandi harus memiliki minimal 8 karakter.';
     }
 
     /*

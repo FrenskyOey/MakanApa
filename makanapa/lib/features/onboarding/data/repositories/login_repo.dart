@@ -5,6 +5,7 @@ import 'package:makanapa/features/onboarding/data/data_source/user/user_data_sou
 import 'package:makanapa/features/onboarding/data/models/response/auth_data_response.dart';
 import 'package:makanapa/features/onboarding/domain/models/auth.dart';
 import 'package:makanapa/features/onboarding/domain/models/google_sign_in_request.dart';
+import 'package:makanapa/features/onboarding/domain/models/signup_request.dart';
 import 'package:makanapa/features/onboarding/domain/repositories/login_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -71,6 +72,30 @@ class LoginRepositoryImp implements LoginRepository {
       await _fetchAndSaveUserProfile(authResponse);
       return Right(authResponse.toDomain());
     } catch (e, stackTrace) {
+      final message = handleError(e, stackTrace);
+      return Left(message);
+    }
+  }
+
+  @override
+  Future<Either<String, AuthData>> signUpWithEmailAndPassword(
+    SignupRequest request,
+  ) async {
+    try {
+      final authResponse = await remoteDataSource.signUpWithEmailAndPassword(
+        request,
+      );
+      await _saveTokens(authResponse);
+
+      final newUserResponse = await userRemoteDataSource.createUser(
+        authResponse,
+        userName: request.userName,
+        phoneNumber: request.phone,
+      );
+      await userLocalDataSource.saveUser(newUserResponse.toDomain());
+      return Right(authResponse.toDomain());
+    } catch (e, stackTrace) {
+      // handling error using handleErrorMethod
       final message = handleError(e, stackTrace);
       return Left(message);
     }

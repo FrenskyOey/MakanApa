@@ -1,19 +1,76 @@
-/*
+import 'package:makanapa/features/onboarding/presentation/signup/controllers/state/signup_event_state.dart';
 
-class TemplateUIState {
-  final DataState<Template> state;
-  final bool hideLoading;
+class SignupUiState {
+  final String name;
+  final String email;
+  final String phoneNumber;
+  final String password;
+  final String confirmPassword;
+  final String errorEmail;
+  final String errorName;
+  final String errorPhone;
+  final String errorPassword;
+  final String errorConfirmPassword;
+  final SignUpEventState eventState;
 
-  TemplateUIState({this.state = DataState.Initial(), required this.hideLoading = true});
+  SignupUiState({
+    this.email = '',
+    this.password = '',
+    this.confirmPassword = '',
+    this.phoneNumber = '',
+    this.name = '',
+    this.errorEmail = '',
+    this.errorPassword = '',
+    this.errorName = '',
+    this.errorPhone = '',
+    this.errorConfirmPassword = '',
+    this.eventState = const SignUpEventState.initial(),
+  });
 
-  TemplateUIState copyWith({bool? hideLoading,DataState<Template>? state}) {
-    return TemplateUIState(
-      state: state ?? this.state,
-      hideLoading: hideLoading ?? this.hideLoading,
+  bool get isSignUpAllowed {
+    // Your logic: "enable if both of error is empty or null"
+    bool hasNoErrors =
+        errorEmail.isEmpty &&
+        errorPassword.isEmpty &&
+        errorName.isEmpty &&
+        errorPhone.isEmpty &&
+        errorConfirmPassword.isEmpty;
+    bool hasData =
+        email.trim().isNotEmpty &&
+        password.trim().isNotEmpty &&
+        name.trim().isNotEmpty &&
+        phoneNumber.trim().isNotEmpty &&
+        confirmPassword.trim().isNotEmpty;
+    // The button is valid ONLY if there are no errors AND there is data.
+    return hasNoErrors && hasData;
+  }
+
+  SignupUiState copyWith({
+    bool? isLoginAllowed,
+    String? email,
+    String? password,
+    String? name,
+    String? confirmPassword,
+    String? phoneNumber,
+    String? errorEmail,
+    String? errorPassword,
+    String? errorName,
+    String? errorConfirmPassword,
+    String? errorPhone,
+    SignUpEventState? eventState,
+  }) {
+    return SignupUiState(
+      email: email ?? this.email,
+      password: password ?? this.password,
+      confirmPassword: confirmPassword ?? this.confirmPassword,
+      name: name ?? this.name,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      errorName: errorName ?? this.errorName,
+      errorPhone: errorPhone ?? this.errorPhone,
+      errorEmail: errorEmail ?? this.errorEmail,
+      errorPassword: errorPassword ?? this.errorPassword,
+      errorConfirmPassword: errorConfirmPassword ?? this.errorConfirmPassword,
+      eventState: eventState ?? this.eventState,
     );
   }
 }
-
-
-
- */
