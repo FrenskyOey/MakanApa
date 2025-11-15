@@ -70,6 +70,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1021070550729',
     projectId: 'makanapa-475ad',
     storageBucket: 'makanapa-475ad.firebasestorage.app',
+    androidClientId: '1021070550729-14t73nqhv8vdl7lgm8m5a2dhc92bhf0f.apps.googleusercontent.com',
+    iosClientId: '1021070550729-750kq0pmfc8slb5kmb1f6f4ns58qe2up.apps.googleusercontent.com',
     iosBundleId: 'com.app.makanapa',
   );
+
 }

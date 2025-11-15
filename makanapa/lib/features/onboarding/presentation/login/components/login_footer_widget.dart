@@ -8,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:makanapa/core/constants/key_constant.dart';
 import 'package:makanapa/core/extension/index.dart';
+import 'package:makanapa/core/handlers/error/error_handler.dart';
 import 'package:makanapa/core/handlers/log/log_helper.dart';
 import 'package:makanapa/core/helpers/snackbar_helper.dart';
 import 'package:makanapa/core/themes/app_color.dart';
@@ -25,7 +26,8 @@ class LoginFooter extends StatefulHookConsumerWidget {
 
 class _LoginFooterState extends ConsumerState<LoginFooter> {
   late final GoogleSignIn _googleSignIn;
-  final List<String> scopes = <String>['email', 'profile'];
+  final List<String> _scopes = <String>['email', 'profile'];
+  bool _isLoginOnGoing = false;
 
   Future<void> _handleAuthenticationEvent(
     GoogleSignInAuthenticationEvent event,
@@ -39,11 +41,15 @@ class _LoginFooterState extends ConsumerState<LoginFooter> {
       return;
     }
 
+    if (_isLoginOnGoing) {
+      return;
+    }
+
     final idToken = user.authentication.idToken;
 
     final authorization =
-        await user.authorizationClient.authorizationForScopes(scopes) ??
-        await user.authorizationClient.authorizeScopes(scopes);
+        await user.authorizationClient.authorizationForScopes(_scopes) ??
+        await user.authorizationClient.authorizeScopes(_scopes);
 
     if (idToken == null) {
       LogHelper.error("Id Token is null");
@@ -58,10 +64,22 @@ class _LoginFooterState extends ConsumerState<LoginFooter> {
       avatar: user.photoUrl,
     );
 
+    _isLoginOnGoing = true;
     ref.read(loginControllerProvider.notifier).loginWithGoogle(googleRequest);
   }
 
-  Future<void> _handleAuthenticationError(Object e) async {}
+  Future<void> _handleAuthenticationError(Object e) async {
+    if (context.mounted) {
+      if (e is Exception == false) {
+        return;
+      }
+      final error = handleError(e);
+      if (error == 'Proses masuk dengan Google dibatalkan.') {
+        return;
+      }
+      SnackBarHelper.showError(context, error);
+    }
+  }
 
   @override
   void initState() {
@@ -85,7 +103,12 @@ class _LoginFooterState extends ConsumerState<LoginFooter> {
         await GoogleSignIn.instance.authenticate();
       } catch (e) {
         if (context.mounted) {
-          SnackBarHelper.showError(context, e.toString());
+          _isLoginOnGoing = false;
+          final error = handleError(e);
+          if (error == 'Proses masuk dengan Google dibatalkan.') {
+            return;
+          }
+          SnackBarHelper.showError(context, error);
         }
       }
     }

@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:makanapa/core/configs/routes/route_names.dart';
 import 'package:makanapa/core/extension/index.dart';
 import 'package:makanapa/core/helpers/snackbar_helper.dart';
-import 'package:makanapa/core/states/data_state.dart' as data_state;
-import 'package:makanapa/core/themes/app_color.dart';
+import 'package:makanapa/core/states/data_state.dart';
 import 'package:makanapa/core/themes/dimens_constant.dart';
+import 'package:makanapa/core/widgets/state/screen_content.dart';
 import 'package:makanapa/features/onboarding/presentation/login/components/login_footer_widget.dart';
 import 'package:makanapa/features/onboarding/presentation/login/components/login_form_widget.dart';
 import 'package:makanapa/features/onboarding/presentation/login/components/login_header_widget.dart';
@@ -18,17 +18,19 @@ class LoginScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final loginState = ref.watch(
-      loginControllerProvider.select((value) => value.loginState),
+    final eventState = ref.watch(
+      loginControllerProvider.select((s) => s.eventState),
     );
 
     ref.listen(loginControllerProvider.select((value) => value.eventState), (
       prev,
       next,
     ) {
-      next.maybeWhen(
-        toastError: (messgae) {
-          SnackBarHelper.showError(context, messgae);
+      // Handle side-effects like navigation or showing a snackbar
+      // The listen callback is perfect for actions that should only happen once per state change.
+      next.whenOrNull(
+        toastError: (message) {
+          SnackBarHelper.showError(context, message);
         },
         toHomePage: () {
           context.goNamed(RouteNames.main);
@@ -36,15 +38,28 @@ class LoginScreen extends HookConsumerWidget {
         toSignUpPage: () {
           context.pushNamed(RouteNames.signUp);
         },
-        orElse: () {},
       );
-      ref.read(loginControllerProvider.notifier).resetEventState();
+
+      final shouldReset = next.maybeWhen(
+        showLoading: () => false, // Don't reset when loading starts
+        orElse: () => true, // Reset for all other events
+      );
+
+      if (shouldReset) {
+        ref.read(loginControllerProvider.notifier).resetEventState();
+      }
     });
 
     Widget mainBody() {
       return SingleChildScrollView(
         child: SizedBox(
           width: double.infinity,
+          // Use a constrained box to ensure the content is scrollable even on larger screens
+          // while keeping the content centered vertically.
+          height:
+              MediaQuery.sizeOf(context).height -
+              MediaQuery.paddingOf(context).top -
+              MediaQuery.paddingOf(context).bottom,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -76,28 +91,17 @@ class LoginScreen extends HookConsumerWidget {
       );
     }
 
-    Widget buildProgressBar() {
-      return Center(
-        child: SizedBox(
-          height: 30,
-          width: 30,
-          child: CircularProgressIndicator(
-            strokeWidth: 2,
-            color: AppColor.secondary,
-          ),
-        ).paddingAll(Dimens.md),
-      );
-    }
-
-    Widget contents() {
-      switch (loginState) {
-        case data_state.Loading():
-          return buildProgressBar();
-        default:
-          return mainBody();
-      }
-    }
-
-    return Scaffold(body: SafeArea(child: contents()));
+    return Scaffold(
+      body: ScreenContent<String>(
+        state: Success(""),
+        overlayLoading: eventState.maybeWhen(
+          showLoading: () => true,
+          orElse: () => false,
+        ),
+        successWidget: (data) {
+          return SafeArea(child: mainBody());
+        },
+      ),
+    );
   }
 }

@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:isar_community/isar.dart';
-import 'package:makanapa/core/handlers/error/src/isar_error_handler.dart';
 import 'package:makanapa/core/handlers/log/log_helper.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'index.dart';
@@ -33,6 +33,9 @@ class _ErrorFactory {
 
       // 5. Supabase Errors
       AuthException() || PostgrestException() => SupabaseErrorHandler(),
+
+      // 5. Google Sign In Errors
+      GoogleSignInException() => GoogleErrorHandler(),
 
       // adding another error handlers here like Supabase, Firebase, GraphQL, etc.
 

@@ -59,7 +59,7 @@ const EmailSchema = CollectionSchema(
   getId: _emailGetId,
   getLinks: _emailGetLinks,
   attach: _emailAttach,
-  version: '3.3.0-dev.3',
+  version: '3.3.0',
 );
 
 int _emailEstimateSize(
