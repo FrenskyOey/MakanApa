@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:makanapa/core/themes/app_color.dart';
+import 'package:makanapa/core/extension/index.dart';
 
 /// Extension methods on BuildContext to easily access Theme data.
 ///
@@ -44,9 +44,9 @@ extension ColorExtensions on BuildContext {
   Color get onError => colorScheme.onError;
 
   /// High-emphasis color for text and icons over background color.
-  Color get textPrimary => AppColor.textPrimary();
+  Color get textPrimary => titleMedium!.color!;
 
-  Color get textSecondary => AppColor.textSecondary();
+  Color get textSecondary => labelMedium!.color!;
 }
 
 // Example of how you would use this extension:
