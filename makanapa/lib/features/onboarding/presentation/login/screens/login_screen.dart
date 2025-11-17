@@ -33,7 +33,7 @@ class LoginScreen extends HookConsumerWidget {
           SnackBarHelper.showError(context, message);
         },
         toHomePage: () {
-          context.goNamed(RouteNames.main);
+          context.goNamed(RouteNames.home);
         },
         toSignUpPage: () {
           context.pushNamed(RouteNames.signUp);

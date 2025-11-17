@@ -17,7 +17,7 @@ class SplashScreen extends HookConsumerWidget {
 
     state.maybeWhen(
       loginState: (token) {
-        context.goNamed(RouteNames.main);
+        context.goNamed(RouteNames.home);
       },
       orElse: () {
         context.goNamed(RouteNames.intro);

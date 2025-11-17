@@ -31,7 +31,7 @@ class SignupScreen extends HookConsumerWidget {
           SnackBarHelper.showError(context, messgae);
         },
         toHomePage: () {
-          context.goNamed(RouteNames.main);
+          context.goNamed(RouteNames.home);
         },
         backPress: () {
           context.pop();
