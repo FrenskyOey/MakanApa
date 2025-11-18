@@ -65,11 +65,15 @@ class LoginRepositoryImp implements LoginRepository {
         email,
         password,
       );
-      // Persist tokens and user id locally
-      await _saveTokens(authResponse);
+      await Future.wait([
+        _saveTokens(authResponse),
+        localDataSource.setUserLoginType("email"),
+      ]);
+
       // Fetch user profile from remote. If not found
       // create the user remotely then continue.
       await _fetchAndSaveUserProfile(authResponse);
+
       return Right(authResponse.toDomain());
     } catch (e, stackTrace) {
       final message = handleError(e, stackTrace);
@@ -85,7 +89,11 @@ class LoginRepositoryImp implements LoginRepository {
       final authResponse = await remoteDataSource.signUpWithEmailAndPassword(
         request,
       );
-      await _saveTokens(authResponse);
+
+      await Future.wait([
+        _saveTokens(authResponse),
+        localDataSource.setUserLoginType("email"),
+      ]);
 
       final newUserResponse = await userRemoteDataSource.createUser(
         authResponse,
@@ -111,7 +119,10 @@ class LoginRepositoryImp implements LoginRepository {
         request.accessToken,
       );
       // Persist tokens and user id locally
-      await _saveTokens(authResponse);
+      await Future.wait([
+        _saveTokens(authResponse),
+        localDataSource.setUserLoginType("google"),
+      ]);
       // Fetch user profile from remote. If not found
       // create the user remotely then continue.
       await _fetchAndSaveUserProfile(
@@ -136,10 +147,10 @@ class LoginRepositoryImp implements LoginRepository {
     try {
       final newAuthResponse = await remoteDataSource.refreshToken(refreshToken);
       await localDataSource.saveTokens(
-        accessToken: newAuthResponse,
-        refreshToken: refreshToken,
+        accessToken: newAuthResponse.$1,
+        refreshToken: newAuthResponse.$2,
       );
-      return Right(newAuthResponse);
+      return Right(newAuthResponse.$1);
     } catch (e, stackTrace) {
       final message = handleError(e, stackTrace);
       return Left(message);

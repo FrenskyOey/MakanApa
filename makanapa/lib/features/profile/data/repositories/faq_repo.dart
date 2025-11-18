@@ -10,7 +10,13 @@ class FaqRepo implements FaqRepository {
   FaqRepo({required this.remoteDataSource, required this.localDataSource});
 
   @override
-  Stream<Either<String, List<Faq>>> getFaq() {
+  Stream<List<Faq>?> getFaq() {
+    // TODO: implement getFaq
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<String, void>> reloadFaqData() async {
     // TODO: implement getFaq
     throw UnimplementedError();
   }

@@ -2,6 +2,8 @@
 
 import 'package:dio/dio.dart';
 import 'package:isar_community/isar.dart';
+import 'package:makanapa/features/onboarding/data/data_source/user/user_data_source.dart';
+import 'package:makanapa/features/onboarding/provider/onboarding_provider.dart';
 import 'package:makanapa/features/profile/data/data_source/faq/faq_data_source.dart';
 import 'package:makanapa/features/profile/data/data_source/faq/local/faq_local_ds.dart';
 import 'package:makanapa/features/profile/data/data_source/faq/remote/faq_remote_ds.dart';
@@ -51,9 +53,19 @@ Future<ProfileRepository> profileRepository(Ref ref) async {
   final ProfileLocalDataSource localDataSource = await ref.watch(
     profileLocalDataSourceProvider.future,
   );
+
+  final UserLocalDataSource userLocalDataSource = await ref.watch(
+    userLocalDataSourceProvider.future,
+  );
+  final UserRemoteDataSource userRemoteDataSource = await ref.watch(
+    userRemoteDataSourceProvider.future,
+  );
+
   return ProfileRepo(
     remoteDataSource: remoteDataSource,
     localDataSource: localDataSource,
+    userLocalDataSource: userLocalDataSource,
+    userRemoteDataSource: userRemoteDataSource,
   );
 }
 

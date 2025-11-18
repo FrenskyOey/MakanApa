@@ -2,10 +2,11 @@ import 'package:dartz/dartz.dart';
 import 'package:makanapa/features/onboarding/domain/models/user.dart';
 
 abstract class ProfileRepository {
-  Stream<Either<String, UserData>> getUserProfile();
-  Future<Either<String, void>> updateUserProfile(UserData userProfile);
+  Stream<UserData?> getUserProfileStream();
+  Future<Either<String, void>> reloadUserProfile();
+  Future<Either<String, bool>> updateUserProfile(UserData userProfile);
   Future<Either<String, String>> updateUserAvatar(String image);
-  Future<Either<String, void>> changePassword(
+  Future<Either<String, bool>> changePassword(
     String oldPassword,
     String newPassword,
   );
