@@ -14,22 +14,15 @@ class ProfileRemoteDs implements ProfileRemoteDataSource {
     String userEmail,
     String oldPassword,
   ) async {
-    try {
-      final response = await supabase.auth.signInWithPassword(
-        email: userEmail,
-        password: oldPassword,
-      );
-
-      final session = response.session;
-      final user = response.user;
-
-      if (user == null || session == null) {
-        return null;
-      }
-      return (session.accessToken, session.refreshToken ?? "");
-    } catch (e) {
+    final response = await supabase.auth.signInWithPassword(
+      email: userEmail,
+      password: oldPassword,
+    );
+    final session = response.session;
+    if (session == null) {
       return null;
     }
+    return (session.accessToken, session.refreshToken ?? "");
   }
 
   @override
@@ -50,12 +43,14 @@ class ProfileRemoteDs implements ProfileRemoteDataSource {
 
   @override
   Future<void> updateUserProfile(UserData request) async {
-    await supabase.from('user_profile').insert({
-      'uid': authData.userId,
-      'user_name': userName,
-      'email': authData.email,
-      'phone_number': phoneNumber,
-      'avatar': avatar,
-    });
+    await supabase
+        .from('user_profile')
+        .update({
+          'user_name': request.name,
+          'email': request.email,
+          'phone_number': request.phone,
+          'avatar': request.avatar,
+        })
+        .eq('uid', request.userId);
   }
 }

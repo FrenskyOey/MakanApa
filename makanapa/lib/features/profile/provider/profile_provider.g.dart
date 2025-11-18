@@ -216,7 +216,7 @@ final class ProfileRepositoryProvider
   }
 }
 
-String _$profileRepositoryHash() => r'fc4832cbae96e45f70f59403b9afed02cc6e7c26';
+String _$profileRepositoryHash() => r'480aa25c2a71579009a8faafe882a87d311d8b5e';
 
 @ProviderFor(faqRepository)
 const faqRepositoryProvider = FaqRepositoryProvider._();

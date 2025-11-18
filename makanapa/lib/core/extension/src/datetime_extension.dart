@@ -11,11 +11,25 @@ extension DateTimeExtensions on DateTime {
     return '${_twoDigits(hour)}:${_twoDigits(minute)}';
   }
 
+  String get toTimeSecondString {
+    return '${_twoDigits(hour)}:${_twoDigits(minute)}:${_twoDigits(second)}';
+  }
+
   /// Returns a readable date format, e.g., 'Oct 24, 2025'.
   String toReadableDate({String separator = ', '}) {
     const months = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
     ];
     final monthName = months[month - 1];
     return '$monthName $day$separator$year';
@@ -32,15 +46,19 @@ extension DateTimeExtensions on DateTime {
   /// Checks if this date falls on yesterday.
   bool get isYesterday {
     final yesterday = DateTime.now().subtract(const Duration(days: 1));
-    return year == yesterday.year && month == yesterday.month && day == yesterday.day;
+    return year == yesterday.year &&
+        month == yesterday.month &&
+        day == yesterday.day;
   }
 
   /// Checks if this date falls on tomorrow.
   bool get isTomorrow {
     final tomorrow = DateTime.now().add(const Duration(days: 1));
-    return year == tomorrow.year && month == tomorrow.month && day == tomorrow.day;
+    return year == tomorrow.year &&
+        month == tomorrow.month &&
+        day == tomorrow.day;
   }
-  
+
   /// Checks if this date is the same day as another date, ignoring time.
   bool isSameDay(DateTime other) {
     return year == other.year && month == other.month && day == other.day;
