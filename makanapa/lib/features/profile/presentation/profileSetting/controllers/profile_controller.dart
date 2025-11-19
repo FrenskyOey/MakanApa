@@ -16,6 +16,7 @@ class ProfileController extends _$ProfileController {
   @override
   ProfileUIState build() {
     _initStream();
+    _initType();
 
     // Register a callback to cancel the stream subscription when the provider is disposed.
     ref.onDispose(() {
@@ -36,6 +37,12 @@ class ProfileController extends _$ProfileController {
     });
   }
 
+  void _initType() async {
+    final repo = await ref.read(profileRepositoryProvider.future);
+    final userType = await repo.getUserType();
+    state = state.copyWith(userType: userType);
+  }
+
   void resetState() {
     state = state.copyWith(eventState: ProfileEventState.initial());
   }
@@ -52,13 +59,6 @@ class ProfileController extends _$ProfileController {
     if (state.userData == null) {
       return;
     }
-
-    /*DateTime now = DateTime.now();
-    String time = now.toTimeSecondString; // e.g., "16:40"
-
-    final repo = await ref.read(profileRepositoryProvider.future);
-    await repo.updateUserProfile(state.userData!.copyWith(name: "Name $time"));
-    */
 
     state = state.copyWith(
       eventState: ProfileEventState.openEditProfile(state.userData!),

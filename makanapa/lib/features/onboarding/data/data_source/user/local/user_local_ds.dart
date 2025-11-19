@@ -1,11 +1,15 @@
 import 'package:isar_community/isar.dart';
+import 'package:makanapa/core/constants/pref_constant.dart';
 import 'package:makanapa/features/onboarding/data/data_source/user/user_data_source.dart';
 import 'package:makanapa/features/onboarding/data/models/entity/user_entity.dart';
 import 'package:makanapa/features/onboarding/domain/models/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserLocalDataSourceImpl implements UserLocalDataSource {
   final Isar isar;
-  UserLocalDataSourceImpl({required this.isar});
+  final SharedPreferences prefs;
+  UserLocalDataSourceImpl({required this.isar, required this.prefs});
+
   @override
   Future<void> saveUser(UserData user) async {
     await isar.writeTxn(() async {
@@ -37,8 +41,17 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
 
   @override
   Future<UserEntity?> getCurrentUser() async {
-    // Since there should only be one user saved at a time,
-    // we can just get the first one found.
-    return await isar.userEntitys.where().findFirst();
+    final userId = prefs.getString(PrefConstant.currentUserId);
+
+    if (userId == null) {
+      return null;
+    }
+
+    final users = await isar.userEntitys
+        .filter()
+        .userIdEqualTo(userId)
+        .findFirst();
+
+    return users;
   }
 }

@@ -1,14 +1,11 @@
-/*
 import 'package:freezed_annotation/freezed_annotation.dart';
-part 'template_event_state.freezed.dart';
+part 'change_password_event_state.freezed.dart';
 
 @freezed
-class TemplateEventState with _$TemplateEventState {
+class ChangePasswordEventState with _$ChangePasswordEventState {
   // handling toast Event
-  const factory TemplateEventState.toastError(String messgae) = _ToastError;
-  const factory TemplateEventState.toastSuccess(String messgae) = _ToastSuccess;
-
-  // handling open detail page
-  const factory TemplateEventState.openUser(Soldier selectedSoldier) = _OpenUser;
+  const factory ChangePasswordEventState.initial() = _Intial;
+  const factory ChangePasswordEventState.toastError(String message) =
+      _ToastError;
+  const factory ChangePasswordEventState.showLogoutDialog() = _ShowLogoutDialog;
 }
-*/

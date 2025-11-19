@@ -36,7 +36,8 @@ Future<UserRemoteDataSource> userRemoteDataSource(Ref ref) async {
 @riverpod
 Future<UserLocalDataSource> userLocalDataSource(Ref ref) async {
   final isar = await ref.watch(isarProvider.future);
-  return UserLocalDataSourceImpl(isar: isar);
+  final prefs = await ref.watch(sharedPreferencesProvider.future);
+  return UserLocalDataSourceImpl(isar: isar, prefs: prefs);
 }
 
 @Riverpod(keepAlive: true)
@@ -45,7 +46,12 @@ Future<LoginRepository> loginRepository(Ref ref) async {
   final localRepo = await ref.watch(loginLocalDataSourceProvider.future);
   final userRemoteRepo = await ref.watch(userRemoteDataSourceProvider.future);
   final userLocalRepo = await ref.watch(userLocalDataSourceProvider.future);
-  return LoginRepositoryImp(remoteDataSource: remoteRepo, localDataSource: localRepo, userRemoteDataSource: userRemoteRepo, userLocalDataSource: userLocalRepo);
+  return LoginRepositoryImp(
+    remoteDataSource: remoteRepo,
+    localDataSource: localRepo,
+    userRemoteDataSource: userRemoteRepo,
+    userLocalDataSource: userLocalRepo,
+  );
 }
 
 @Riverpod(keepAlive: true)
@@ -53,6 +59,9 @@ Future<UserRepository> userRepo(Ref ref) async {
   final remoteRepo = await ref.watch(userRemoteDataSourceProvider.future);
   final localRepo = await ref.watch(userLocalDataSourceProvider.future);
   final authLocalRepo = await ref.watch(loginLocalDataSourceProvider.future);
-  return UserRepositoryImp(remoteDataSource: remoteRepo, localDataSource: localRepo, authLocalSource: authLocalRepo);
+  return UserRepositoryImp(
+    remoteDataSource: remoteRepo,
+    localDataSource: localRepo,
+    authLocalSource: authLocalRepo,
+  );
 }
-

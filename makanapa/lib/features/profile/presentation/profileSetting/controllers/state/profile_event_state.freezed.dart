@@ -55,12 +55,11 @@ extension ProfileEventStatePatterns on ProfileEventState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _OpenProfile value)?  openProfile,TResult Function( _OpenEditProfile value)?  openEditProfile,TResult Function( _OpenChangePassword value)?  openChangePassword,TResult Function( _OpenAboutUs value)?  openAboutUs,TResult Function( _LogOut value)?  logout,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _OpenEditProfile value)?  openEditProfile,TResult Function( _OpenChangePassword value)?  openChangePassword,TResult Function( _OpenAboutUs value)?  openAboutUs,TResult Function( _LogOut value)?  logout,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial(_that);case _OpenProfile() when openProfile != null:
-return openProfile(_that);case _OpenEditProfile() when openEditProfile != null:
+return initial(_that);case _OpenEditProfile() when openEditProfile != null:
 return openEditProfile(_that);case _OpenChangePassword() when openChangePassword != null:
 return openChangePassword(_that);case _OpenAboutUs() when openAboutUs != null:
 return openAboutUs(_that);case _LogOut() when logout != null:
@@ -82,12 +81,11 @@ return logout(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _OpenProfile value)  openProfile,required TResult Function( _OpenEditProfile value)  openEditProfile,required TResult Function( _OpenChangePassword value)  openChangePassword,required TResult Function( _OpenAboutUs value)  openAboutUs,required TResult Function( _LogOut value)  logout,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _OpenEditProfile value)  openEditProfile,required TResult Function( _OpenChangePassword value)  openChangePassword,required TResult Function( _OpenAboutUs value)  openAboutUs,required TResult Function( _LogOut value)  logout,}){
 final _that = this;
 switch (_that) {
 case _Initial():
-return initial(_that);case _OpenProfile():
-return openProfile(_that);case _OpenEditProfile():
+return initial(_that);case _OpenEditProfile():
 return openEditProfile(_that);case _OpenChangePassword():
 return openChangePassword(_that);case _OpenAboutUs():
 return openAboutUs(_that);case _LogOut():
@@ -108,12 +106,11 @@ return logout(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _OpenProfile value)?  openProfile,TResult? Function( _OpenEditProfile value)?  openEditProfile,TResult? Function( _OpenChangePassword value)?  openChangePassword,TResult? Function( _OpenAboutUs value)?  openAboutUs,TResult? Function( _LogOut value)?  logout,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _OpenEditProfile value)?  openEditProfile,TResult? Function( _OpenChangePassword value)?  openChangePassword,TResult? Function( _OpenAboutUs value)?  openAboutUs,TResult? Function( _LogOut value)?  logout,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial(_that);case _OpenProfile() when openProfile != null:
-return openProfile(_that);case _OpenEditProfile() when openEditProfile != null:
+return initial(_that);case _OpenEditProfile() when openEditProfile != null:
 return openEditProfile(_that);case _OpenChangePassword() when openChangePassword != null:
 return openChangePassword(_that);case _OpenAboutUs() when openAboutUs != null:
 return openAboutUs(_that);case _LogOut() when logout != null:
@@ -134,11 +131,10 @@ return logout(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  openProfile,TResult Function( UserData data)?  openEditProfile,TResult Function()?  openChangePassword,TResult Function()?  openAboutUs,TResult Function()?  logout,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function( UserData data)?  openEditProfile,TResult Function()?  openChangePassword,TResult Function()?  openAboutUs,TResult Function()?  logout,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial();case _OpenProfile() when openProfile != null:
-return openProfile();case _OpenEditProfile() when openEditProfile != null:
+return initial();case _OpenEditProfile() when openEditProfile != null:
 return openEditProfile(_that.data);case _OpenChangePassword() when openChangePassword != null:
 return openChangePassword();case _OpenAboutUs() when openAboutUs != null:
 return openAboutUs();case _LogOut() when logout != null:
@@ -160,11 +156,10 @@ return logout();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  openProfile,required TResult Function( UserData data)  openEditProfile,required TResult Function()  openChangePassword,required TResult Function()  openAboutUs,required TResult Function()  logout,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function( UserData data)  openEditProfile,required TResult Function()  openChangePassword,required TResult Function()  openAboutUs,required TResult Function()  logout,}) {final _that = this;
 switch (_that) {
 case _Initial():
-return initial();case _OpenProfile():
-return openProfile();case _OpenEditProfile():
+return initial();case _OpenEditProfile():
 return openEditProfile(_that.data);case _OpenChangePassword():
 return openChangePassword();case _OpenAboutUs():
 return openAboutUs();case _LogOut():
@@ -185,11 +180,10 @@ return logout();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  openProfile,TResult? Function( UserData data)?  openEditProfile,TResult? Function()?  openChangePassword,TResult? Function()?  openAboutUs,TResult? Function()?  logout,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function( UserData data)?  openEditProfile,TResult? Function()?  openChangePassword,TResult? Function()?  openAboutUs,TResult? Function()?  logout,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial();case _OpenProfile() when openProfile != null:
-return openProfile();case _OpenEditProfile() when openEditProfile != null:
+return initial();case _OpenEditProfile() when openEditProfile != null:
 return openEditProfile(_that.data);case _OpenChangePassword() when openChangePassword != null:
 return openChangePassword();case _OpenAboutUs() when openAboutUs != null:
 return openAboutUs();case _LogOut() when logout != null:
@@ -225,38 +219,6 @@ int get hashCode => runtimeType.hashCode;
 @override
 String toString() {
   return 'ProfileEventState.initial()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class _OpenProfile implements ProfileEventState {
-  const _OpenProfile();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OpenProfile);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'ProfileEventState.openProfile()';
 }
 
 

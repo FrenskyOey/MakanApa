@@ -12,6 +12,7 @@ import 'package:makanapa/features/not_found_screen.dart';
 import 'package:makanapa/features/onboarding/presentation/intro/screen/intro_screen.dart';
 import 'package:makanapa/features/onboarding/presentation/login/screens/login_screen.dart';
 import 'package:makanapa/features/onboarding/presentation/signup/screens/signup_screen.dart';
+import 'package:makanapa/features/profile/presentation/changePassword/screens/change_password_screen.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/screens/profile_screen.dart';
 import 'package:makanapa/features/receipt/presentation/screens/receipt_screen.dart';
 import 'package:makanapa/features/shared/provider/token/token_provider.dart';
@@ -105,6 +106,13 @@ final routeProvider = Provider((ref) {
             ],
           ),
         ],
+      ),
+      GoRoute(
+        name: RouteNames.changePassword,
+        path: "/change-password",
+        builder: (context, state) {
+          return const ChangePasswordScreen();
+        },
       ),
     ],
   );
