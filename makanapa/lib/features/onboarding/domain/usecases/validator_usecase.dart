@@ -40,11 +40,11 @@ class ValidatorUsecase {
 
   String? validatePassword(String password) {
     if (password.isEmpty) {
-      return 'Kata sandi tidak boleh kosong.';
+      return 'Password tidak boleh kosong.';
     }
 
     if (password.length < 8) {
-      return 'Kata sandi harus memiliki minimal 8 karakter.';
+      return 'Password harus memiliki minimal 8 karakter.';
     }
 
     /*

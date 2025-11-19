@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:makanapa/core/configs/routes/route_names.dart';
 import 'package:makanapa/core/extension/index.dart';
 import 'package:makanapa/core/helpers/snackbar_helper.dart';
 import 'package:makanapa/core/themes/dimens_constant.dart';
-import 'package:makanapa/features/profile/presentation/profileSetting/components/option_content_widget.dart';
+import 'package:makanapa/features/profile/presentation/profileSetting/components/option_list_widget.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/components/profile_widget.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/controllers/profile_controller.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/controllers/state/profile_event_state.dart';
@@ -25,14 +27,9 @@ class ProfileScreen extends HookConsumerWidget {
           SnackBarHelper.showError(context, "Not ready yet");
         },
         openChangePassword: () {
-          // TO DO
-          SnackBarHelper.showError(context, "Not ready yet");
+          context.pushNamed(RouteNames.changePassword);
         },
         openEditProfile: (userData) {
-          // TO DO
-          SnackBarHelper.showError(context, "Not ready yet");
-        },
-        logout: () {
           // TO DO
           SnackBarHelper.showError(context, "Not ready yet");
         },
@@ -80,7 +77,7 @@ class ProfileScreen extends HookConsumerWidget {
                 Dimens.md.space,
                 const ProfileWidget(),
                 Dimens.lg.space,
-                const OptionContentWidget(),
+                const OptionListWidget(),
                 Dimens.xxl.space,
                 Text(
                   '© 2025 MakanApa. All Rights Reserved.',

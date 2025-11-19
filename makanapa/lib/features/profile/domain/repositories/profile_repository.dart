@@ -6,6 +6,7 @@ abstract class ProfileRepository {
   Future<Either<String, void>> reloadUserProfile();
   Future<Either<String, bool>> updateUserProfile(UserData userProfile);
   Future<Either<String, String>> updateUserAvatar(String image);
+  Future<String> getUserType();
   Future<Either<String, bool>> changePassword(
     String oldPassword,
     String newPassword,

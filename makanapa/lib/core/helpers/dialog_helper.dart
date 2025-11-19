@@ -13,19 +13,23 @@ class DialogHelper {
     required String content,
     String primaryButtonText = "Confirm",
     bool hideCloseBtn = false,
+    bool dismissable = true,
     required ValueChanged<DialogButtonType> onButtonPress,
   }) {
     showDialog(
       context: context,
-      barrierDismissible: true,
+      barrierDismissible: dismissable,
       builder: (context) {
-        return _CustomDialog(
-          title: title,
-          content: content,
-          primaryButtonText: primaryButtonText,
-          secondaryButtonText: null,
-          hideCloseBtn: hideCloseBtn,
-          onButtonPress: onButtonPress,
+        return PopScope(
+          canPop: dismissable,
+          child: _CustomDialog(
+            title: title,
+            content: content,
+            primaryButtonText: primaryButtonText,
+            secondaryButtonText: null,
+            hideCloseBtn: hideCloseBtn,
+            onButtonPress: onButtonPress,
+          ),
         );
       },
     );
@@ -85,7 +89,7 @@ class _CustomDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(Dimens.md),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: context.theme.cardColor,
       contentPadding: EdgeInsets.zero,
 
       // The main content structure
@@ -148,10 +152,7 @@ class _CustomDialog extends StatelessWidget {
               Flexible(
                 child: Text(
                   content,
-                  style: context.bodyMedium?.copyWith(
-                    color: Colors.grey.shade700,
-                    height: 1.5,
-                  ),
+                  style: context.bodyMedium?.copyWith(height: 1.5),
                 ),
               ),
 

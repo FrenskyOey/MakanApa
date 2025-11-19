@@ -109,4 +109,10 @@ class ProfileRepo implements ProfileRepository {
       return Left(message);
     }
   }
+
+  @override
+  Future<String> getUserType() async {
+    final type = await localDataSource.getUserLoginType();
+    return type ?? "email";
+  }
 }

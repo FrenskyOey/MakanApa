@@ -4,11 +4,15 @@ import 'package:makanapa/features/profile/presentation/profileSetting/components
 import 'package:makanapa/features/profile/presentation/profileSetting/controllers/profile_controller.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/model/OptionItem.dart';
 
-class OptionContentWidget extends HookConsumerWidget {
-  const OptionContentWidget({super.key});
+class OptionListWidget extends HookConsumerWidget {
+  const OptionListWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final types = ref.watch(
+      profileControllerProvider.select((s) => s.userType),
+    );
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -24,17 +28,18 @@ class OptionContentWidget extends HookConsumerWidget {
             ref.read(profileControllerProvider.notifier).openAboutUs();
           },
         ),
-        OptionWidget(
-          item: OptionItem(
-            icon: Icons.key,
-            title: "Change Password",
-            subtitle: "Change your password",
-            color: const Color.fromARGB(255, 69, 156, 72),
+        if (types == 'email')
+          OptionWidget(
+            item: OptionItem(
+              icon: Icons.key,
+              title: "Change Password",
+              subtitle: "Change your password",
+              color: const Color.fromARGB(255, 69, 156, 72),
+            ),
+            onPressed: () {
+              ref.read(profileControllerProvider.notifier).openChangePass();
+            },
           ),
-          onPressed: () {
-            ref.read(profileControllerProvider.notifier).openChangePass();
-          },
-        ),
         OptionWidget(
           item: OptionItem(
             icon: Icons.exit_to_app,
