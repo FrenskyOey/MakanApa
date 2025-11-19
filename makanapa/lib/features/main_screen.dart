@@ -21,7 +21,7 @@ class MainScreen extends HookWidget {
       body: Column(
         children: [
           Expanded(child: navigationShell),
-          Divider(color: AppColor.disabledColor()),
+          Divider(height: 1, color: AppColor.disabledColor()),
         ],
       ),
       bottomNavigationBar: NavigationBarTheme(

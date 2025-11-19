@@ -12,7 +12,7 @@ import 'package:makanapa/features/not_found_screen.dart';
 import 'package:makanapa/features/onboarding/presentation/intro/screen/intro_screen.dart';
 import 'package:makanapa/features/onboarding/presentation/login/screens/login_screen.dart';
 import 'package:makanapa/features/onboarding/presentation/signup/screens/signup_screen.dart';
-import 'package:makanapa/features/profile/presentation/screens/profileScreen/profile_screen.dart';
+import 'package:makanapa/features/profile/presentation/profileSetting/screens/profile_screen.dart';
 import 'package:makanapa/features/receipt/presentation/screens/receipt_screen.dart';
 import 'package:makanapa/features/shared/provider/token/token_provider.dart';
 import 'package:makanapa/features/shared/provider/token/token_state.dart';

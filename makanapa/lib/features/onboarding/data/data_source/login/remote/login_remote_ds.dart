@@ -111,10 +111,11 @@ class LoginRemoteDataSourceImpl implements LoginRemoteDataSource {
   }
 
   @override
-  Future<String> refreshToken(String refreshToken) async {
+  Future<(String, String)> refreshToken(String refreshToken) async {
     try {
       final response = await supabase.auth.setSession(refreshToken);
       final newAccessToken = response.session?.accessToken;
+      final newRefreshToken = response.session?.refreshToken ?? "";
 
       if (newAccessToken == null) {
         throw const AuthException(
@@ -122,7 +123,7 @@ class LoginRemoteDataSourceImpl implements LoginRemoteDataSource {
         );
       }
 
-      return newAccessToken;
+      return (newAccessToken, newRefreshToken);
     } on AuthException {
       rethrow;
     }

@@ -28,6 +28,7 @@ class AppTheme {
       outlinedButtonTheme: outlineButton,
       textButtonTheme: textButton,
       cardTheme: CardThemeData(
+        color: const Color(0xFFF2F2F2),
         elevation: 1.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
@@ -55,8 +56,8 @@ class AppTheme {
         tertiary: AppColor.tertiary,
         surface: AppColor.surface(isDarkMode: true),
         error: AppColor.error,
-        onPrimary: Colors.white,
-        onSurface: Colors.white,
+        onPrimary: const Color.fromARGB(255, 241, 241, 241),
+        onSurface: const Color.fromARGB(255, 241, 241, 241),
       ),
       appBarTheme: appBarDark,
       textTheme: AppText.darkTextTheme,

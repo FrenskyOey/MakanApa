@@ -1,14 +1,14 @@
-/*
 import 'package:freezed_annotation/freezed_annotation.dart';
-part 'template_event_state.freezed.dart';
+import 'package:makanapa/features/onboarding/domain/models/user.dart';
+part 'profile_event_state.freezed.dart';
 
 @freezed
-class TemplateEventState with _$TemplateEventState {
+class ProfileEventState with _$ProfileEventState {
   // handling toast Event
-  const factory TemplateEventState.toastError(String messgae) = _ToastError;
-  const factory TemplateEventState.toastSuccess(String messgae) = _ToastSuccess;
-
-  // handling open detail page
-  const factory TemplateEventState.openUser(Soldier selectedSoldier) = _OpenUser;
+  const factory ProfileEventState.initial() = _Initial;
+  const factory ProfileEventState.openEditProfile(UserData data) =
+      _OpenEditProfile;
+  const factory ProfileEventState.openChangePassword() = _OpenChangePassword;
+  const factory ProfileEventState.openAboutUs() = _OpenAboutUs;
+  const factory ProfileEventState.logout() = _LogOut;
 }
-*/

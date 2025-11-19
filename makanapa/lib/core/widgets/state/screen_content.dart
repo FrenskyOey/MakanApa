@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makanapa/core/extension/index.dart';
 import 'package:makanapa/core/states/data_state.dart';
-import 'package:makanapa/core/themes/app_color.dart';
 import 'package:makanapa/core/themes/dimens_constant.dart';
 import 'package:makanapa/core/widgets/state/error_state_widget.dart';
 import 'package:makanapa/core/widgets/state/loading_state_widget.dart';
