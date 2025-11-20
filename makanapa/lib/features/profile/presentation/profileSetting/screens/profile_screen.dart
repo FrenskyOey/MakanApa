@@ -7,6 +7,7 @@ import 'package:makanapa/core/configs/routes/route_names.dart';
 import 'package:makanapa/core/extension/index.dart';
 import 'package:makanapa/core/helpers/snackbar_helper.dart';
 import 'package:makanapa/core/themes/dimens_constant.dart';
+import 'package:makanapa/features/onboarding/domain/models/user.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/components/option_list_widget.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/components/profile_widget.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/controllers/profile_controller.dart';
@@ -17,6 +18,18 @@ class ProfileScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    void openEditProfilePage(UserData user) async {
+      final UserData? result = await context.pushNamed(
+        RouteNames.profileEdit,
+        extra: user,
+      );
+      await Future.delayed(Duration(seconds: 1));
+      if (!context.mounted || result == null) {
+        return;
+      }
+      SnackBarHelper.showSuccess(context, "Profile berhasil diupdate");
+    }
+
     ref.listen(profileControllerProvider.select((value) => value.eventState), (
       prev,
       next,
@@ -30,8 +43,7 @@ class ProfileScreen extends HookConsumerWidget {
           context.pushNamed(RouteNames.changePassword);
         },
         openEditProfile: (userData) {
-          // TO DO
-          SnackBarHelper.showError(context, "Not ready yet");
+          openEditProfilePage(userData);
         },
         orElse: () {},
       );

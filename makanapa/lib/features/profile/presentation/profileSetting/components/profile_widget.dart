@@ -34,6 +34,7 @@ class ProfileWidget extends HookConsumerWidget {
                 size: AvatarSize.large,
               ),
             ),
+
             Dimens.md.space,
             Center(
               child: Text(

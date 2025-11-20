@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:makanapa/core/extension/index.dart';
 import 'package:makanapa/core/themes/dimens_constant.dart';
 import 'package:makanapa/core/widgets/gradient_text.dart';
-import 'package:makanapa/features/shared/provider/token/token_provider.dart';
 
 class HomeScreen extends HookConsumerWidget {
   const HomeScreen({super.key});
@@ -51,15 +50,6 @@ class HomeScreen extends HookConsumerWidget {
             Dimens.xxl.space,
             GradientText("COMING SOON"),
             Dimens.xxl.space,
-            SizedBox(
-              width: 230,
-              child: ElevatedButton(
-                onPressed: () {
-                  ref.read(tokenProvider.notifier).signOut();
-                },
-                child: Text("Log Out"),
-              ),
-            ),
           ],
         ),
       ),

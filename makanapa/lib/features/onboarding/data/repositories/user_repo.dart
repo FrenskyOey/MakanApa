@@ -28,7 +28,7 @@ class UserRepositoryImp implements UserRepository {
   }
 
   @override
-  Future<Either<String, UserData?>> getCurrentUser() async {
+  Future<Either<String, UserData>> getCurrentUser() async {
     try {
       final user = await localDataSource.getCurrentUser();
       if (user != null) {

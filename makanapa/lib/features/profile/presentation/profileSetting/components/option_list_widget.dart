@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:makanapa/features/profile/presentation/profileSetting/components/option_widget.dart';
+import 'package:makanapa/core/widgets/OptionItem.dart';
+import 'package:makanapa/core/widgets/option_widget.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/controllers/profile_controller.dart';
-import 'package:makanapa/features/profile/presentation/profileSetting/model/OptionItem.dart';
 
 class OptionListWidget extends HookConsumerWidget {
   const OptionListWidget({super.key});

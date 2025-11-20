@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'dart:io';
 import 'package:makanapa/core/handlers/error/error_handler.dart';
 import 'package:makanapa/features/onboarding/data/data_source/user/user_data_source.dart';
 import 'package:makanapa/features/onboarding/domain/models/user.dart';
@@ -75,11 +74,10 @@ class ProfileRepo implements ProfileRepository {
         return Left("User Id Not Found");
       }
 
-      final imageFile = File(imagePath);
       // upload image to server
       final newAvatarUrl = await remoteDataSource.updateUserAvatar(
         userId,
-        imageFile,
+        imagePath,
       );
 
       // update profile data to server

@@ -9,4 +9,5 @@ class RouteNames {
   static const String basket = '/basket';
   static const String profile = '/profile';
   static const String changePassword = '/change-password';
+  static const String profileEdit = '/profile-edit';
 }
