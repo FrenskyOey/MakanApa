@@ -31,13 +31,13 @@ class ProfileRemoteDs implements ProfileRemoteDataSource {
   }
 
   @override
-  Future<String> updateUserAvatar(String userId, File image) {
-    final fileExtension = image.path.split('.').last;
+  Future<String> updateUserAvatar(String userId, String imagePath) {
+    final fileExtension = imagePath.split('.').last;
     final fileName = '${DateTime.now().millisecondsSinceEpoch}.$fileExtension';
     final filePath = '$userId/$fileName';
     return supabase.storage
         .from('avatars')
-        .upload(filePath, image)
+        .upload(filePath, File(imagePath))
         .then((_) => supabase.storage.from('avatars').getPublicUrl(filePath));
   }
 
@@ -47,7 +47,6 @@ class ProfileRemoteDs implements ProfileRemoteDataSource {
         .from('user_profile')
         .update({
           'user_name': request.name,
-          'email': request.email,
           'phone_number': request.phone,
           'avatar': request.avatar,
         })

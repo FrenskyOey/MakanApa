@@ -175,7 +175,7 @@ final class UserLocalDataSourceProvider
 }
 
 String _$userLocalDataSourceHash() =>
-    r'0396d0bea87cfd2d5d39897c90d7cbef783efb2c';
+    r'b27cdf891838b13e4da1f7f4792dc28f193f97b6';
 
 @ProviderFor(loginRepository)
 const loginRepositoryProvider = LoginRepositoryProvider._();

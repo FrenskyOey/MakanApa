@@ -9,10 +9,12 @@ import 'package:makanapa/features/basket/presentation/screens/basket_screen.dart
 import 'package:makanapa/features/home/presentation/screens/home_screen.dart';
 import 'package:makanapa/features/main_screen.dart';
 import 'package:makanapa/features/not_found_screen.dart';
+import 'package:makanapa/features/onboarding/domain/models/user.dart';
 import 'package:makanapa/features/onboarding/presentation/intro/screen/intro_screen.dart';
 import 'package:makanapa/features/onboarding/presentation/login/screens/login_screen.dart';
 import 'package:makanapa/features/onboarding/presentation/signup/screens/signup_screen.dart';
 import 'package:makanapa/features/profile/presentation/changePassword/screens/change_password_screen.dart';
+import 'package:makanapa/features/profile/presentation/profileEdit/screens/profile_edit_screen.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/screens/profile_screen.dart';
 import 'package:makanapa/features/receipt/presentation/screens/receipt_screen.dart';
 import 'package:makanapa/features/shared/provider/token/token_provider.dart';
@@ -112,6 +114,14 @@ final routeProvider = Provider((ref) {
         path: "/change-password",
         builder: (context, state) {
           return const ChangePasswordScreen();
+        },
+      ),
+      GoRoute(
+        name: RouteNames.profileEdit,
+        path: '/profile-edit',
+        builder: (BuildContext context, GoRouterState state) {
+          final userData = state.extra as UserData;
+          return ProfileEditScreen(userData: userData);
         },
       ),
     ],

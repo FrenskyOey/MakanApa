@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:makanapa/core/extension/index.dart';
 import 'package:makanapa/core/themes/dimens_constant.dart';
-import 'package:makanapa/features/profile/presentation/profileSetting/model/OptionItem.dart';
+import 'package:makanapa/core/widgets/OptionItem.dart';
 
 class OptionWidget extends StatelessWidget {
   final OptionItem item;
