@@ -1,4 +1,5 @@
 import 'package:makanapa/features/onboarding/domain/models/signup_request.dart';
+import 'package:makanapa/features/onboarding/domain/repositories/login_repository.dart';
 import 'package:makanapa/features/onboarding/domain/usecases/validator_usecase.dart';
 import 'package:makanapa/features/onboarding/presentation/signup/controllers/state/signup_event_state.dart';
 import 'package:makanapa/features/onboarding/presentation/signup/controllers/state/signup_ui_state.dart';
@@ -12,9 +13,11 @@ part 'signup_controller.g.dart';
 class SignUpController extends _$SignUpController {
   //final DataState<Template> _template = DataState.Initial();
   final _useCase = ValidatorUsecase();
+  late LoginRepository _repo;
 
   @override
   SignupUiState build() {
+    _repo = ref.read(loginRepositoryProvider);
     return SignupUiState();
   }
 
@@ -83,8 +86,7 @@ class SignUpController extends _$SignUpController {
 
     state = state.copyWith(eventState: SignUpEventState.showLoading());
     await Future.delayed(Duration(seconds: 2));
-    final repo = await ref.read(loginRepositoryProvider.future);
-    final response = await repo.signUpWithEmailAndPassword(request);
+    final response = await _repo.signUpWithEmailAndPassword(request);
 
     state = response.fold(
       (l) {

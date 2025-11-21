@@ -15,20 +15,18 @@ const profileRemoteDataSourceProvider = ProfileRemoteDataSourceProvider._();
 final class ProfileRemoteDataSourceProvider
     extends
         $FunctionalProvider<
-          AsyncValue<ProfileRemoteDataSource>,
           ProfileRemoteDataSource,
-          FutureOr<ProfileRemoteDataSource>
+          ProfileRemoteDataSource,
+          ProfileRemoteDataSource
         >
-    with
-        $FutureModifier<ProfileRemoteDataSource>,
-        $FutureProvider<ProfileRemoteDataSource> {
+    with $Provider<ProfileRemoteDataSource> {
   const ProfileRemoteDataSourceProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
         name: r'profileRemoteDataSourceProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -38,18 +36,26 @@ final class ProfileRemoteDataSourceProvider
 
   @$internal
   @override
-  $FutureProviderElement<ProfileRemoteDataSource> $createElement(
+  $ProviderElement<ProfileRemoteDataSource> $createElement(
     $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  ) => $ProviderElement(pointer);
 
   @override
-  FutureOr<ProfileRemoteDataSource> create(Ref ref) {
+  ProfileRemoteDataSource create(Ref ref) {
     return profileRemoteDataSource(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ProfileRemoteDataSource value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ProfileRemoteDataSource>(value),
+    );
   }
 }
 
 String _$profileRemoteDataSourceHash() =>
-    r'007e7e49beb4b4de7718fddf100bccf3e5043a53';
+    r'd0746b35aa579e231b99ee18c585f4c398fbbe76';
 
 @ProviderFor(profileLocalDataSource)
 const profileLocalDataSourceProvider = ProfileLocalDataSourceProvider._();
@@ -57,20 +63,18 @@ const profileLocalDataSourceProvider = ProfileLocalDataSourceProvider._();
 final class ProfileLocalDataSourceProvider
     extends
         $FunctionalProvider<
-          AsyncValue<ProfileLocalDataSource>,
           ProfileLocalDataSource,
-          FutureOr<ProfileLocalDataSource>
+          ProfileLocalDataSource,
+          ProfileLocalDataSource
         >
-    with
-        $FutureModifier<ProfileLocalDataSource>,
-        $FutureProvider<ProfileLocalDataSource> {
+    with $Provider<ProfileLocalDataSource> {
   const ProfileLocalDataSourceProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
         name: r'profileLocalDataSourceProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -80,18 +84,26 @@ final class ProfileLocalDataSourceProvider
 
   @$internal
   @override
-  $FutureProviderElement<ProfileLocalDataSource> $createElement(
+  $ProviderElement<ProfileLocalDataSource> $createElement(
     $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  ) => $ProviderElement(pointer);
 
   @override
-  FutureOr<ProfileLocalDataSource> create(Ref ref) {
+  ProfileLocalDataSource create(Ref ref) {
     return profileLocalDataSource(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ProfileLocalDataSource value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ProfileLocalDataSource>(value),
+    );
   }
 }
 
 String _$profileLocalDataSourceHash() =>
-    r'c8173eb8933540c47775b6bd08e3dfb3c83653fc';
+    r'cec4ae6331fa009440fe4fa6b5b850e80613b01f';
 
 @ProviderFor(faqRemoteDataSource)
 const faqRemoteDataSourceProvider = FaqRemoteDataSourceProvider._();
@@ -99,20 +111,18 @@ const faqRemoteDataSourceProvider = FaqRemoteDataSourceProvider._();
 final class FaqRemoteDataSourceProvider
     extends
         $FunctionalProvider<
-          AsyncValue<FaqRemoteDataSource>,
           FaqRemoteDataSource,
-          FutureOr<FaqRemoteDataSource>
+          FaqRemoteDataSource,
+          FaqRemoteDataSource
         >
-    with
-        $FutureModifier<FaqRemoteDataSource>,
-        $FutureProvider<FaqRemoteDataSource> {
+    with $Provider<FaqRemoteDataSource> {
   const FaqRemoteDataSourceProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
         name: r'faqRemoteDataSourceProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -122,18 +132,26 @@ final class FaqRemoteDataSourceProvider
 
   @$internal
   @override
-  $FutureProviderElement<FaqRemoteDataSource> $createElement(
+  $ProviderElement<FaqRemoteDataSource> $createElement(
     $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  ) => $ProviderElement(pointer);
 
   @override
-  FutureOr<FaqRemoteDataSource> create(Ref ref) {
+  FaqRemoteDataSource create(Ref ref) {
     return faqRemoteDataSource(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(FaqRemoteDataSource value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<FaqRemoteDataSource>(value),
+    );
   }
 }
 
 String _$faqRemoteDataSourceHash() =>
-    r'c491e3db10082cd5869c67dca4b9945dcbeb8e77';
+    r'b0d559711071aaa59ffd0286df5f182dd7e26aa9';
 
 @ProviderFor(faqLocalDataSource)
 const faqLocalDataSourceProvider = FaqLocalDataSourceProvider._();
@@ -141,20 +159,18 @@ const faqLocalDataSourceProvider = FaqLocalDataSourceProvider._();
 final class FaqLocalDataSourceProvider
     extends
         $FunctionalProvider<
-          AsyncValue<FaqLocalDataSource>,
           FaqLocalDataSource,
-          FutureOr<FaqLocalDataSource>
+          FaqLocalDataSource,
+          FaqLocalDataSource
         >
-    with
-        $FutureModifier<FaqLocalDataSource>,
-        $FutureProvider<FaqLocalDataSource> {
+    with $Provider<FaqLocalDataSource> {
   const FaqLocalDataSourceProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
         name: r'faqLocalDataSourceProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -164,18 +180,26 @@ final class FaqLocalDataSourceProvider
 
   @$internal
   @override
-  $FutureProviderElement<FaqLocalDataSource> $createElement(
+  $ProviderElement<FaqLocalDataSource> $createElement(
     $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  ) => $ProviderElement(pointer);
 
   @override
-  FutureOr<FaqLocalDataSource> create(Ref ref) {
+  FaqLocalDataSource create(Ref ref) {
     return faqLocalDataSource(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(FaqLocalDataSource value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<FaqLocalDataSource>(value),
+    );
   }
 }
 
 String _$faqLocalDataSourceHash() =>
-    r'e9cb8335e3b3721cfe7fb7bd49bcd6046b4757b9';
+    r'f7d772fa3ea901843bf9cd65ef2a3aa2ea0d410a';
 
 @ProviderFor(profileRepository)
 const profileRepositoryProvider = ProfileRepositoryProvider._();
@@ -183,20 +207,18 @@ const profileRepositoryProvider = ProfileRepositoryProvider._();
 final class ProfileRepositoryProvider
     extends
         $FunctionalProvider<
-          AsyncValue<ProfileRepository>,
           ProfileRepository,
-          FutureOr<ProfileRepository>
+          ProfileRepository,
+          ProfileRepository
         >
-    with
-        $FutureModifier<ProfileRepository>,
-        $FutureProvider<ProfileRepository> {
+    with $Provider<ProfileRepository> {
   const ProfileRepositoryProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
         name: r'profileRepositoryProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -206,36 +228,39 @@ final class ProfileRepositoryProvider
 
   @$internal
   @override
-  $FutureProviderElement<ProfileRepository> $createElement(
+  $ProviderElement<ProfileRepository> $createElement(
     $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  ) => $ProviderElement(pointer);
 
   @override
-  FutureOr<ProfileRepository> create(Ref ref) {
+  ProfileRepository create(Ref ref) {
     return profileRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ProfileRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ProfileRepository>(value),
+    );
   }
 }
 
-String _$profileRepositoryHash() => r'480aa25c2a71579009a8faafe882a87d311d8b5e';
+String _$profileRepositoryHash() => r'c992e75946a776f0a8ce0ac30db6dbf82ad83284';
 
 @ProviderFor(faqRepository)
 const faqRepositoryProvider = FaqRepositoryProvider._();
 
 final class FaqRepositoryProvider
-    extends
-        $FunctionalProvider<
-          AsyncValue<FaqRepository>,
-          FaqRepository,
-          FutureOr<FaqRepository>
-        >
-    with $FutureModifier<FaqRepository>, $FutureProvider<FaqRepository> {
+    extends $FunctionalProvider<FaqRepository, FaqRepository, FaqRepository>
+    with $Provider<FaqRepository> {
   const FaqRepositoryProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
         name: r'faqRepositoryProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -245,14 +270,21 @@ final class FaqRepositoryProvider
 
   @$internal
   @override
-  $FutureProviderElement<FaqRepository> $createElement(
-    $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  $ProviderElement<FaqRepository> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  FutureOr<FaqRepository> create(Ref ref) {
+  FaqRepository create(Ref ref) {
     return faqRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(FaqRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<FaqRepository>(value),
+    );
   }
 }
 
-String _$faqRepositoryHash() => r'ce9b6235984d18225d664685c9b49e8c9858563b';
+String _$faqRepositoryHash() => r'994d0b568ac402d2814a6636d4529187269f6da5';

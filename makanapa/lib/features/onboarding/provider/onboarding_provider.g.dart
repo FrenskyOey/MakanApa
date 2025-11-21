@@ -15,13 +15,11 @@ const loginRemoteDataSourceProvider = LoginRemoteDataSourceProvider._();
 final class LoginRemoteDataSourceProvider
     extends
         $FunctionalProvider<
-          AsyncValue<LoginRemoteDataSource>,
           LoginRemoteDataSource,
-          FutureOr<LoginRemoteDataSource>
+          LoginRemoteDataSource,
+          LoginRemoteDataSource
         >
-    with
-        $FutureModifier<LoginRemoteDataSource>,
-        $FutureProvider<LoginRemoteDataSource> {
+    with $Provider<LoginRemoteDataSource> {
   const LoginRemoteDataSourceProvider._()
     : super(
         from: null,
@@ -38,18 +36,26 @@ final class LoginRemoteDataSourceProvider
 
   @$internal
   @override
-  $FutureProviderElement<LoginRemoteDataSource> $createElement(
+  $ProviderElement<LoginRemoteDataSource> $createElement(
     $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  ) => $ProviderElement(pointer);
 
   @override
-  FutureOr<LoginRemoteDataSource> create(Ref ref) {
+  LoginRemoteDataSource create(Ref ref) {
     return loginRemoteDataSource(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(LoginRemoteDataSource value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<LoginRemoteDataSource>(value),
+    );
   }
 }
 
 String _$loginRemoteDataSourceHash() =>
-    r'99efcc0ba495e0a6a9cfed7f7b8b5042c9d53975';
+    r'66878801ee487aa8126822c4cf38d1ab6d943460';
 
 @ProviderFor(loginLocalDataSource)
 const loginLocalDataSourceProvider = LoginLocalDataSourceProvider._();
@@ -57,13 +63,11 @@ const loginLocalDataSourceProvider = LoginLocalDataSourceProvider._();
 final class LoginLocalDataSourceProvider
     extends
         $FunctionalProvider<
-          AsyncValue<LoginLocalDataSource>,
           LoginLocalDataSource,
-          FutureOr<LoginLocalDataSource>
+          LoginLocalDataSource,
+          LoginLocalDataSource
         >
-    with
-        $FutureModifier<LoginLocalDataSource>,
-        $FutureProvider<LoginLocalDataSource> {
+    with $Provider<LoginLocalDataSource> {
   const LoginLocalDataSourceProvider._()
     : super(
         from: null,
@@ -80,18 +84,26 @@ final class LoginLocalDataSourceProvider
 
   @$internal
   @override
-  $FutureProviderElement<LoginLocalDataSource> $createElement(
+  $ProviderElement<LoginLocalDataSource> $createElement(
     $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  ) => $ProviderElement(pointer);
 
   @override
-  FutureOr<LoginLocalDataSource> create(Ref ref) {
+  LoginLocalDataSource create(Ref ref) {
     return loginLocalDataSource(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(LoginLocalDataSource value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<LoginLocalDataSource>(value),
+    );
   }
 }
 
 String _$loginLocalDataSourceHash() =>
-    r'f6759c388edc031c8655d603f596c2cff0a89277';
+    r'36dc97f99f4b2575b7171849935aa607e13626c2';
 
 @ProviderFor(userRemoteDataSource)
 const userRemoteDataSourceProvider = UserRemoteDataSourceProvider._();
@@ -99,13 +111,11 @@ const userRemoteDataSourceProvider = UserRemoteDataSourceProvider._();
 final class UserRemoteDataSourceProvider
     extends
         $FunctionalProvider<
-          AsyncValue<UserRemoteDataSource>,
           UserRemoteDataSource,
-          FutureOr<UserRemoteDataSource>
+          UserRemoteDataSource,
+          UserRemoteDataSource
         >
-    with
-        $FutureModifier<UserRemoteDataSource>,
-        $FutureProvider<UserRemoteDataSource> {
+    with $Provider<UserRemoteDataSource> {
   const UserRemoteDataSourceProvider._()
     : super(
         from: null,
@@ -122,18 +132,26 @@ final class UserRemoteDataSourceProvider
 
   @$internal
   @override
-  $FutureProviderElement<UserRemoteDataSource> $createElement(
+  $ProviderElement<UserRemoteDataSource> $createElement(
     $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  ) => $ProviderElement(pointer);
 
   @override
-  FutureOr<UserRemoteDataSource> create(Ref ref) {
+  UserRemoteDataSource create(Ref ref) {
     return userRemoteDataSource(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(UserRemoteDataSource value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<UserRemoteDataSource>(value),
+    );
   }
 }
 
 String _$userRemoteDataSourceHash() =>
-    r'f7c4bc2345e56ef0e8c12e06b88ed9201ea93b86';
+    r'16fc71934ee479c9b898480d03cc2e0aeb7b5be6';
 
 @ProviderFor(userLocalDataSource)
 const userLocalDataSourceProvider = UserLocalDataSourceProvider._();
@@ -141,13 +159,11 @@ const userLocalDataSourceProvider = UserLocalDataSourceProvider._();
 final class UserLocalDataSourceProvider
     extends
         $FunctionalProvider<
-          AsyncValue<UserLocalDataSource>,
           UserLocalDataSource,
-          FutureOr<UserLocalDataSource>
+          UserLocalDataSource,
+          UserLocalDataSource
         >
-    with
-        $FutureModifier<UserLocalDataSource>,
-        $FutureProvider<UserLocalDataSource> {
+    with $Provider<UserLocalDataSource> {
   const UserLocalDataSourceProvider._()
     : super(
         from: null,
@@ -164,30 +180,34 @@ final class UserLocalDataSourceProvider
 
   @$internal
   @override
-  $FutureProviderElement<UserLocalDataSource> $createElement(
+  $ProviderElement<UserLocalDataSource> $createElement(
     $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  ) => $ProviderElement(pointer);
 
   @override
-  FutureOr<UserLocalDataSource> create(Ref ref) {
+  UserLocalDataSource create(Ref ref) {
     return userLocalDataSource(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(UserLocalDataSource value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<UserLocalDataSource>(value),
+    );
   }
 }
 
 String _$userLocalDataSourceHash() =>
-    r'b27cdf891838b13e4da1f7f4792dc28f193f97b6';
+    r'7927bac8546acc7af915030c4e7250b8c6311408';
 
 @ProviderFor(loginRepository)
 const loginRepositoryProvider = LoginRepositoryProvider._();
 
 final class LoginRepositoryProvider
     extends
-        $FunctionalProvider<
-          AsyncValue<LoginRepository>,
-          LoginRepository,
-          FutureOr<LoginRepository>
-        >
-    with $FutureModifier<LoginRepository>, $FutureProvider<LoginRepository> {
+        $FunctionalProvider<LoginRepository, LoginRepository, LoginRepository>
+    with $Provider<LoginRepository> {
   const LoginRepositoryProvider._()
     : super(
         from: null,
@@ -204,29 +224,31 @@ final class LoginRepositoryProvider
 
   @$internal
   @override
-  $FutureProviderElement<LoginRepository> $createElement(
-    $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  $ProviderElement<LoginRepository> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  FutureOr<LoginRepository> create(Ref ref) {
+  LoginRepository create(Ref ref) {
     return loginRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(LoginRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<LoginRepository>(value),
+    );
   }
 }
 
-String _$loginRepositoryHash() => r'58a27e6da5a0a72982e7e84575d949c295cd5da0';
+String _$loginRepositoryHash() => r'732bd79776388b7ee5b0a7f2bf809cb436e28c79';
 
 @ProviderFor(userRepo)
 const userRepoProvider = UserRepoProvider._();
 
 final class UserRepoProvider
-    extends
-        $FunctionalProvider<
-          AsyncValue<UserRepository>,
-          UserRepository,
-          FutureOr<UserRepository>
-        >
-    with $FutureModifier<UserRepository>, $FutureProvider<UserRepository> {
+    extends $FunctionalProvider<UserRepository, UserRepository, UserRepository>
+    with $Provider<UserRepository> {
   const UserRepoProvider._()
     : super(
         from: null,
@@ -243,14 +265,21 @@ final class UserRepoProvider
 
   @$internal
   @override
-  $FutureProviderElement<UserRepository> $createElement(
-    $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  $ProviderElement<UserRepository> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  FutureOr<UserRepository> create(Ref ref) {
+  UserRepository create(Ref ref) {
     return userRepo(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(UserRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<UserRepository>(value),
+    );
   }
 }
 
-String _$userRepoHash() => r'5d4e00e202f0b122f7658a6afb13e337a94e8e9b';
+String _$userRepoHash() => r'15bfab1dd759cb290fac3120a6d063a5ec51927b';

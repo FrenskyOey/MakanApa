@@ -1,6 +1,8 @@
 import 'package:makanapa/features/onboarding/domain/models/user.dart';
+import 'package:makanapa/features/onboarding/domain/repositories/user_repository.dart';
 import 'package:makanapa/features/onboarding/domain/usecases/validator_usecase.dart';
 import 'package:makanapa/features/onboarding/provider/onboarding_provider.dart';
+import 'package:makanapa/features/profile/domain/repositories/profile_repository.dart';
 import 'package:makanapa/features/profile/presentation/profileEdit/controllers/state/profile_edit_event_state.dart';
 import 'package:makanapa/features/profile/presentation/profileEdit/controllers/state/profile_edit_ui_state.dart';
 import 'package:makanapa/features/profile/provider/profile_provider.dart';
@@ -11,9 +13,13 @@ part 'profile_edit_controller.g.dart';
 @riverpod
 class ProfileEditController extends _$ProfileEditController {
   final _useCase = ValidatorUsecase();
+  late ProfileRepository _repo;
+  late UserRepository _userRepo;
 
   @override
   ProfileEditUIState build() {
+    _repo = ref.read(profileRepositoryProvider);
+    _userRepo = ref.read(userRepoProvider);
     return ProfileEditUIState();
   }
 
@@ -47,8 +53,7 @@ class ProfileEditController extends _$ProfileEditController {
   }
 
   Future<void> _updateProfile(UserData user) async {
-    final repo = await ref.read(profileRepositoryProvider.future);
-    final response = await repo.updateUserProfile(user);
+    final response = await _repo.updateUserProfile(user);
 
     state = response.fold(
       (l) {
@@ -79,8 +84,7 @@ class ProfileEditController extends _$ProfileEditController {
     state = state.copyWith(showProgress: true);
     await Future.delayed(const Duration(seconds: 2));
 
-    final repo = await ref.read(profileRepositoryProvider.future);
-    final response = await repo.updateUserAvatar(filePath);
+    final response = await _repo.updateUserAvatar(filePath);
 
     state = response.fold(
       (l) {
@@ -98,8 +102,7 @@ class ProfileEditController extends _$ProfileEditController {
   Future<void> changeProfile() async {
     state = state.copyWith(showProgress: true);
     await Future.delayed(const Duration(seconds: 2));
-    final userRepo = await ref.read(userRepoProvider.future);
-    final currentProfile = await userRepo.getCurrentUser();
+    final currentProfile = await _userRepo.getCurrentUser();
 
     currentProfile.fold(
       (l) {

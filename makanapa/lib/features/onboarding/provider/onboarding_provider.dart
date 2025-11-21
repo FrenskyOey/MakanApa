@@ -10,42 +10,43 @@ import 'package:makanapa/features/onboarding/data/repositories/login_repo.dart';
 import 'package:makanapa/features/onboarding/data/repositories/user_repo.dart';
 import 'package:makanapa/features/onboarding/domain/repositories/login_repository.dart';
 import 'package:makanapa/features/onboarding/domain/repositories/user_repository.dart';
-import 'package:makanapa/features/shared/provider/global_provider.dart';
+import 'package:makanapa/features/shared/provider/master_provider.dart';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'onboarding_provider.g.dart';
 
 @riverpod
-Future<LoginRemoteDataSource> loginRemoteDataSource(Ref ref) async {
-  final supabaseClient = ref.watch(supabaseClientProvider);
+LoginRemoteDataSource loginRemoteDataSource(Ref ref) {
+  final supabaseClient = ref.read(supabaseClientsProvider);
   return LoginRemoteDataSourceImpl(supabase: supabaseClient);
 }
 
 @riverpod
-Future<LoginLocalDataSource> loginLocalDataSource(Ref ref) async {
-  final sharedPref = await ref.watch(sharedPreferencesProvider.future);
+LoginLocalDataSource loginLocalDataSource(Ref ref) {
+  final sharedPref = ref.read(sharedPreferenceClientsProvider);
   return LoginLocalDataSourceImpl(prefs: sharedPref);
 }
 
 @riverpod
-Future<UserRemoteDataSource> userRemoteDataSource(Ref ref) async {
-  final supabaseClient = ref.watch(supabaseClientProvider);
+UserRemoteDataSource userRemoteDataSource(Ref ref) {
+  final supabaseClient = ref.read(supabaseClientsProvider);
   return UserRemoteDataSourceImpl(supabase: supabaseClient);
 }
 
 @riverpod
-Future<UserLocalDataSource> userLocalDataSource(Ref ref) async {
-  final isar = await ref.watch(isarProvider.future);
-  final prefs = await ref.watch(sharedPreferencesProvider.future);
+UserLocalDataSource userLocalDataSource(Ref ref) {
+  final isar = ref.read(isarClientsProvider);
+  final prefs = ref.read(sharedPreferenceClientsProvider);
   return UserLocalDataSourceImpl(isar: isar, prefs: prefs);
 }
 
 @Riverpod(keepAlive: true)
-Future<LoginRepository> loginRepository(Ref ref) async {
-  final remoteRepo = await ref.watch(loginRemoteDataSourceProvider.future);
-  final localRepo = await ref.watch(loginLocalDataSourceProvider.future);
-  final userRemoteRepo = await ref.watch(userRemoteDataSourceProvider.future);
-  final userLocalRepo = await ref.watch(userLocalDataSourceProvider.future);
+LoginRepository loginRepository(Ref ref) {
+  final remoteRepo = ref.read(loginRemoteDataSourceProvider);
+  final localRepo = ref.read(loginLocalDataSourceProvider);
+  final userRemoteRepo = ref.read(userRemoteDataSourceProvider);
+  final userLocalRepo = ref.read(userLocalDataSourceProvider);
   return LoginRepositoryImp(
     remoteDataSource: remoteRepo,
     localDataSource: localRepo,
@@ -55,10 +56,10 @@ Future<LoginRepository> loginRepository(Ref ref) async {
 }
 
 @Riverpod(keepAlive: true)
-Future<UserRepository> userRepo(Ref ref) async {
-  final remoteRepo = await ref.watch(userRemoteDataSourceProvider.future);
-  final localRepo = await ref.watch(userLocalDataSourceProvider.future);
-  final authLocalRepo = await ref.watch(loginLocalDataSourceProvider.future);
+UserRepository userRepo(Ref ref) {
+  final remoteRepo = ref.read(userRemoteDataSourceProvider);
+  final localRepo = ref.read(userLocalDataSourceProvider);
+  final authLocalRepo = ref.read(loginLocalDataSourceProvider);
   return UserRepositoryImp(
     remoteDataSource: remoteRepo,
     localDataSource: localRepo,

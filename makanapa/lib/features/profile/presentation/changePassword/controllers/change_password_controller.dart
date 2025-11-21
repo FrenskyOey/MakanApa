@@ -1,4 +1,5 @@
 import 'package:makanapa/features/onboarding/domain/usecases/validator_usecase.dart';
+import 'package:makanapa/features/profile/domain/repositories/profile_repository.dart';
 import 'package:makanapa/features/profile/presentation/changePassword/controllers/state/change_password_event_state.dart';
 import 'package:makanapa/features/profile/presentation/changePassword/controllers/state/change_password_ui_state.dart';
 import 'package:makanapa/features/profile/provider/profile_provider.dart';
@@ -11,9 +12,11 @@ part 'change_password_controller.g.dart';
 class ChangePasswordController extends _$ChangePasswordController {
   //final DataState<Template> _template = DataState.Initial();
   final _useCase = ValidatorUsecase();
+  late ProfileRepository _repo;
 
   @override
   ChangePasswordUIState build() {
+    _repo = ref.read(profileRepositoryProvider);
     return ChangePasswordUIState();
   }
 
@@ -81,8 +84,7 @@ class ChangePasswordController extends _$ChangePasswordController {
   Future<void> changePassword() async {
     state = state.copyWith(showProcessLoading: true);
     await Future.delayed(const Duration(seconds: 2));
-    final repo = await ref.read(profileRepositoryProvider.future);
-    final response = await repo.changePassword(
+    final response = await _repo.changePassword(
       state.oldPassword,
       state.newPassword,
     );

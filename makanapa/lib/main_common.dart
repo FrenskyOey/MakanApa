@@ -3,29 +3,45 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:isar_community/isar.dart';
 import 'package:makanapa/core/configs/flavors_config.dart';
 import 'package:makanapa/core/configs/routes/router.dart';
 import 'package:makanapa/core/constants/key_constant.dart';
 import 'package:makanapa/core/themes/app_theme.dart';
+import 'package:makanapa/features/shared/models/device_config.dart';
+import 'package:makanapa/features/shared/provider/master_provider.dart';
 import 'package:makanapa/firebase_options.dart';
+import 'package:makanapa/isar_depedencies.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final flavorConfigProvider = Provider<FlavorConfig>((ref) {
   throw UnimplementedError();
 });
 
-void mainCommon(FlavorConfig config) async {
+Future<void> mainCommon(FlavorConfig config) async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: config.env);
   await _initializeFirebase();
   await _initializeSupabase(config.supabaseUrl);
+  final SharedPreferences preference = await SharedPreferences.getInstance();
+  final SupabaseClient supabase = Supabase.instance.client;
+  final Isar isar = await initializeIsar();
+  final DeviceConfig deviceConfigs = await deviceConfig();
+
 
   // how to load api key env
   // String apiKey = dotenv.get(KeyConstant.apiKey);
 
   runApp(
     ProviderScope(
-      overrides: [flavorConfigProvider.overrideWith((ref) => config)],
+      overrides: [
+        flavorConfigProvider.overrideWith((ref) => config),
+        sharedPreferenceClientsProvider.overrideWith((ref) => preference),
+        supabaseClientsProvider.overrideWith((ref) => supabase),
+        isarClientsProvider.overrideWith((ref) => isar),
+        devicConfigClientProvider.overrideWith((ref) => deviceConfigs),
+      ],
       child: const MyApp(),
     ),
   );

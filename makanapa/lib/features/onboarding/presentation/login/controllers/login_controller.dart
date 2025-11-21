@@ -1,4 +1,5 @@
 import 'package:makanapa/features/onboarding/domain/models/google_sign_in_request.dart';
+import 'package:makanapa/features/onboarding/domain/repositories/login_repository.dart';
 import 'package:makanapa/features/onboarding/domain/usecases/validator_usecase.dart';
 import 'package:makanapa/features/onboarding/presentation/login/controllers/state/login_event_state.dart';
 import 'package:makanapa/features/onboarding/presentation/login/controllers/state/login_ui_state.dart';
@@ -11,9 +12,11 @@ part 'login_controller.g.dart';
 @riverpod
 class LoginController extends _$LoginController {
   final _useCase = ValidatorUsecase();
+  late LoginRepository _repo;
 
   @override
   LoginUIState build() {
+    _repo = ref.read(loginRepositoryProvider);
     return LoginUIState();
   }
 
@@ -40,8 +43,7 @@ class LoginController extends _$LoginController {
   Future<void> loginWithEmail(String email, String password) async {
     state = state.copyWith(eventState: LoginEventState.showLoading());
     await Future.delayed(const Duration(seconds: 2));
-    final repo = await ref.read(loginRepositoryProvider.future);
-    final response = await repo.signInWithEmailAndPassword(email, password);
+    final response = await _repo.signInWithEmailAndPassword(email, password);
 
     state = response.fold(
       (l) {
@@ -57,10 +59,7 @@ class LoginController extends _$LoginController {
   Future<void> loginWithGoogle(GoogleSignInRequest request) async {
     state = state.copyWith(eventState: LoginEventState.showLoading());
     await Future.delayed(const Duration(seconds: 2));
-
-    final repo = await ref.read(loginRepositoryProvider.future);
-    final response = await repo.signInWithGoogle(request);
-
+    final response = await _repo.signInWithGoogle(request);
     state = response.fold(
       (l) {
         return state.copyWith(eventState: LoginEventState.toastError(l));

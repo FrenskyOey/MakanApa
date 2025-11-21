@@ -14,51 +14,51 @@ import 'package:makanapa/features/profile/data/repositories/faq_repo.dart';
 import 'package:makanapa/features/profile/data/repositories/profile_repo.dart';
 import 'package:makanapa/features/profile/domain/repositories/faq_repository.dart';
 import 'package:makanapa/features/profile/domain/repositories/profile_repository.dart';
-import 'package:makanapa/features/shared/provider/global_provider.dart';
+import 'package:makanapa/features/shared/provider/master_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'profile_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-Future<ProfileRemoteDataSource> profileRemoteDataSource(Ref ref) async {
-  final SupabaseClient supabase = ref.watch(supabaseClientProvider);
+ProfileRemoteDataSource profileRemoteDataSource(Ref ref) {
+  final SupabaseClient supabase = ref.read(supabaseClientsProvider);
   return ProfileRemoteDs(supabase: supabase);
 }
 
 @Riverpod(keepAlive: true)
-Future<ProfileLocalDataSource> profileLocalDataSource(Ref ref) async {
-  final Isar isar = await ref.watch(isarProvider.future);
-  final sharedPref = await ref.watch(sharedPreferencesProvider.future);
+ProfileLocalDataSource profileLocalDataSource(Ref ref) {
+  final Isar isar = ref.read(isarClientsProvider);
+  final sharedPref = ref.read(sharedPreferenceClientsProvider);
   return ProfileLocalDs(isar: isar, prefs: sharedPref);
 }
 
 @Riverpod(keepAlive: true)
-Future<FaqRemoteDataSource> faqRemoteDataSource(Ref ref) async {
-  final Dio client = await ref.watch(dioProvider.future);
+FaqRemoteDataSource faqRemoteDataSource(Ref ref) {
+  final Dio client = ref.read(dioClientsProvider);
   return FaqRemoteDs(client: client);
 }
 
 @Riverpod(keepAlive: true)
-Future<FaqLocalDataSource> faqLocalDataSource(Ref ref) async {
-  final Isar isar = await ref.watch(isarProvider.future);
+FaqLocalDataSource faqLocalDataSource(Ref ref) {
+  final Isar isar = ref.read(isarClientsProvider);
   return FaqLocalDs(isar: isar);
 }
 
 @Riverpod(keepAlive: true)
-Future<ProfileRepository> profileRepository(Ref ref) async {
-  final ProfileRemoteDataSource remoteDataSource = await ref.watch(
-    profileRemoteDataSourceProvider.future,
+ProfileRepository profileRepository(Ref ref) {
+  final ProfileRemoteDataSource remoteDataSource = ref.read(
+    profileRemoteDataSourceProvider,
   );
-  final ProfileLocalDataSource localDataSource = await ref.watch(
-    profileLocalDataSourceProvider.future,
+  final ProfileLocalDataSource localDataSource = ref.read(
+    profileLocalDataSourceProvider,
   );
 
-  final UserLocalDataSource userLocalDataSource = await ref.watch(
-    userLocalDataSourceProvider.future,
+  final UserLocalDataSource userLocalDataSource = ref.read(
+    userLocalDataSourceProvider,
   );
-  final UserRemoteDataSource userRemoteDataSource = await ref.watch(
-    userRemoteDataSourceProvider.future,
+  final UserRemoteDataSource userRemoteDataSource = ref.read(
+    userRemoteDataSourceProvider,
   );
 
   return ProfileRepo(
@@ -70,12 +70,12 @@ Future<ProfileRepository> profileRepository(Ref ref) async {
 }
 
 @Riverpod(keepAlive: true)
-Future<FaqRepository> faqRepository(Ref ref) async {
-  final FaqRemoteDataSource remoteDataSource = await ref.watch(
-    faqRemoteDataSourceProvider.future,
+FaqRepository faqRepository(Ref ref) {
+  final FaqRemoteDataSource remoteDataSource = ref.read(
+    faqRemoteDataSourceProvider,
   );
-  final FaqLocalDataSource localDataSource = await ref.watch(
-    faqLocalDataSourceProvider.future,
+  final FaqLocalDataSource localDataSource = ref.read(
+    faqLocalDataSourceProvider,
   );
   return FaqRepo(
     remoteDataSource: remoteDataSource,

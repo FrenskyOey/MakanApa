@@ -16,7 +16,7 @@ class TokenNotifier extends _$TokenNotifier {
 
   /// Reload access token from local DB/storage and update state.
   Future<TokenState> reloadToken() async {
-    final loginRepo = await ref.read(loginRepositoryProvider.future);
+    final loginRepo = ref.read(loginRepositoryProvider);
     final token = await loginRepo.getAccessToken();
     if (token == null) {
       state = const TokenState.logoutState();
@@ -29,7 +29,7 @@ class TokenNotifier extends _$TokenNotifier {
   /// Refresh token via remote endpoint. On success update LoginState with new token.
   /// On error, attempt logout and set LogoutState.
   Future<String?> refreshToken() async {
-    final loginRepo = await ref.read(loginRepositoryProvider.future);
+    final loginRepo = ref.read(loginRepositoryProvider);
     final result = await loginRepo.performTokenRefresh();
     await result.fold(
       (error) async {
@@ -47,7 +47,7 @@ class TokenNotifier extends _$TokenNotifier {
 
   /// Sign out: call logout on repository and set LogoutState.
   Future<void> signOut() async {
-    final loginRepo = await ref.read(loginRepositoryProvider.future);
+    final loginRepo = ref.read(loginRepositoryProvider);
     await loginRepo.logout();
     state = const TokenState.logoutState();
   }
