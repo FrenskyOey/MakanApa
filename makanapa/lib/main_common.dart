@@ -11,7 +11,7 @@ import 'package:makanapa/core/themes/app_theme.dart';
 import 'package:makanapa/features/shared/models/device_config.dart';
 import 'package:makanapa/features/shared/provider/master_provider.dart';
 import 'package:makanapa/firebase_options.dart';
-import 'package:makanapa/isar_depedencies.dart';
+import 'package:makanapa/app_depedencies.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -28,7 +28,6 @@ Future<void> mainCommon(FlavorConfig config) async {
   final SupabaseClient supabase = Supabase.instance.client;
   final Isar isar = await initializeIsar();
   final DeviceConfig deviceConfigs = await deviceConfig();
-
 
   // how to load api key env
   // String apiKey = dotenv.get(KeyConstant.apiKey);
