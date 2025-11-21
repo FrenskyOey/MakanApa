@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:makanapa/core/handlers/log/log_helper.dart';
 import 'package:makanapa/features/profile/domain/repositories/faq_repository.dart';
 import 'package:makanapa/features/profile/presentation/faq/controllers/state/faq_event_state.dart';
 import 'package:makanapa/features/profile/presentation/faq/controllers/state/faq_ui_state.dart';
@@ -18,7 +17,6 @@ class FaqController extends _$FaqController {
   FaqUiState build() {
     _repo = ref.read(faqRepositoryProvider);
     ref.onDispose(() {
-      LogHelper.error("FaqController Controller is disposed");
       _userSubscription?.cancel();
     });
     return FaqUiState();

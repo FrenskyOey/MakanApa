@@ -4,7 +4,6 @@ import 'package:makanapa/features/onboarding/domain/usecases/validator_usecase.d
 import 'package:makanapa/features/onboarding/presentation/login/controllers/state/login_event_state.dart';
 import 'package:makanapa/features/onboarding/presentation/login/controllers/state/login_ui_state.dart';
 import 'package:makanapa/features/onboarding/provider/onboarding_provider.dart';
-import 'package:makanapa/features/shared/provider/token/token_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'login_controller.g.dart';
@@ -50,7 +49,6 @@ class LoginController extends _$LoginController {
         return state.copyWith(eventState: LoginEventState.toastError(l));
       },
       (r) {
-        ref.read(tokenProvider.notifier).reloadToken();
         return state.copyWith(eventState: LoginEventState.toHomePage());
       },
     );
@@ -65,7 +63,6 @@ class LoginController extends _$LoginController {
         return state.copyWith(eventState: LoginEventState.toastError(l));
       },
       (r) {
-        ref.read(tokenProvider.notifier).reloadToken();
         return state.copyWith(eventState: LoginEventState.toHomePage());
       },
     );

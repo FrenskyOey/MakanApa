@@ -9,21 +9,10 @@ abstract class LoginRemoteDataSource {
   );
   Future<AuthDataResponse> signInWithGoogle(String idToken, String accessToken);
   Future<AuthDataResponse> signUpWithEmailAndPassword(SignupRequest request);
-  Future<void> signOut();
-  Future<(String newToken, String newRefreshToken)> refreshToken(
-    String refreshToken,
-  );
 }
 
 abstract class LoginLocalDataSource {
-  Future<void> saveTokens({
-    required String accessToken,
-    required String refreshToken,
-  });
-  Future<String?> getAccessToken();
-  Future<String?> getRefreshToken();
   Future<void> setUserLoginType(String type);
   Future<String?> getUserId();
   Future<void> setUserId(String userId);
-  Future<void> clearTokens();
 }

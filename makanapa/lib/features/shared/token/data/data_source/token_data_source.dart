@@ -7,4 +7,5 @@ abstract class TokenLocalDataSource {
   String? getAccessToken();
   String? getRefreshToken();
   Future<void> clearTokens();
+  Stream<String?> onTokenChanged();
 }

@@ -4,7 +4,6 @@ import 'package:makanapa/features/onboarding/domain/usecases/validator_usecase.d
 import 'package:makanapa/features/onboarding/presentation/signup/controllers/state/signup_event_state.dart';
 import 'package:makanapa/features/onboarding/presentation/signup/controllers/state/signup_ui_state.dart';
 import 'package:makanapa/features/onboarding/provider/onboarding_provider.dart';
-import 'package:makanapa/features/shared/provider/token/token_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'signup_controller.g.dart';
@@ -93,7 +92,6 @@ class SignUpController extends _$SignUpController {
         return state.copyWith(eventState: SignUpEventState.toastError(l));
       },
       (r) {
-        ref.read(tokenProvider.notifier).reloadToken();
         return state.copyWith(eventState: SignUpEventState.toHomePage());
       },
     );

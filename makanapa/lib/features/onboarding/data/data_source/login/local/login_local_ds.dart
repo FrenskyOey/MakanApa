@@ -8,25 +8,6 @@ class LoginLocalDataSourceImpl implements LoginLocalDataSource {
   LoginLocalDataSourceImpl({required this.prefs});
 
   @override
-  Future<void> saveTokens({
-    required String accessToken,
-    required String refreshToken,
-  }) async {
-    await prefs.setString(PrefConstant.authToken, accessToken);
-    await prefs.setString(PrefConstant.refreshToken, refreshToken);
-  }
-
-  @override
-  Future<String?> getAccessToken() async {
-    return prefs.getString(PrefConstant.authToken);
-  }
-
-  @override
-  Future<String?> getRefreshToken() async {
-    return prefs.getString(PrefConstant.refreshToken);
-  }
-
-  @override
   Future<String?> getUserId() async {
     return prefs.getString(PrefConstant.currentUserId);
   }
@@ -39,14 +20,5 @@ class LoginLocalDataSourceImpl implements LoginLocalDataSource {
   @override
   Future<void> setUserLoginType(String type) async {
     await prefs.setString(PrefConstant.userLoginType, type);
-  }
-
-  @override
-  Future<void> clearTokens() async {
-    await Future.wait([
-      prefs.remove(PrefConstant.authToken),
-      prefs.remove(PrefConstant.refreshToken),
-      prefs.remove(PrefConstant.currentUserId),
-    ]);
   }
 }

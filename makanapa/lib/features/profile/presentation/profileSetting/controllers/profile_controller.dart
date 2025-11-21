@@ -5,7 +5,7 @@ import 'package:makanapa/features/profile/domain/repositories/profile_repository
 import 'package:makanapa/features/profile/presentation/profileSetting/controllers/state/profile_event_state.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/controllers/state/profile_ui_state.dart';
 import 'package:makanapa/features/profile/provider/profile_provider.dart';
-import 'package:makanapa/features/shared/provider/token/token_provider.dart';
+import 'package:makanapa/features/shared/token/provider/token_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'profile_controller.g.dart';

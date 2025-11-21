@@ -5,15 +5,15 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:makanapa/core/configs/routes/route_names.dart';
 import 'package:makanapa/core/extension/index.dart';
-import 'package:makanapa/features/shared/provider/token/token_provider.dart';
-import 'package:makanapa/features/shared/provider/token/token_state.dart';
+import 'package:makanapa/features/shared/token/provider/token_provider.dart';
+import 'package:makanapa/features/shared/token/provider/token_state.dart';
 
 class SplashScreen extends HookConsumerWidget {
   const SplashScreen({super.key});
 
-  Future<void> reloadUserState(BuildContext context, WidgetRef ref) async {
+  void reloadUserState(BuildContext context, WidgetRef ref) {
     final tokenNotifier = ref.read(tokenProvider.notifier);
-    final state = await tokenNotifier.reloadToken();
+    final state = tokenNotifier.reloadToken();
 
     state.maybeWhen(
       loginState: (token) {

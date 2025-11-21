@@ -26,4 +26,11 @@ class TokenLocaDataSourceImpl implements TokenLocalDataSource {
       prefs.remove(PrefConstant.currentUserId),
     ]);
   }
+
+  @override
+  Stream<String?> onTokenChanged() {
+    return supabase.auth.onAuthStateChange.map((authState) {
+      return authState.session?.accessToken;
+    });
+  }
 }

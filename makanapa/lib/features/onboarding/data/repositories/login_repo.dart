@@ -22,11 +22,7 @@ class LoginRepositoryImp implements LoginRepository {
     required this.userLocalDataSource,
   });
 
-  Future<void> _saveTokens(AuthDataResponse authResponse) async {
-    await localDataSource.saveTokens(
-      accessToken: authResponse.token,
-      refreshToken: authResponse.refreshToken,
-    );
+  Future<void> _saveUserId(AuthDataResponse authResponse) async {
     await localDataSource.setUserId(authResponse.userId);
   }
 
@@ -66,7 +62,7 @@ class LoginRepositoryImp implements LoginRepository {
         password,
       );
       await Future.wait([
-        _saveTokens(authResponse),
+        _saveUserId(authResponse),
         localDataSource.setUserLoginType("email"),
       ]);
 
@@ -91,7 +87,7 @@ class LoginRepositoryImp implements LoginRepository {
       );
 
       await Future.wait([
-        _saveTokens(authResponse),
+        _saveUserId(authResponse),
         localDataSource.setUserLoginType("email"),
       ]);
 
@@ -118,13 +114,10 @@ class LoginRepositoryImp implements LoginRepository {
         request.idToken,
         request.accessToken,
       );
-      // Persist tokens and user id locally
       await Future.wait([
-        _saveTokens(authResponse),
+        _saveUserId(authResponse),
         localDataSource.setUserLoginType("google"),
       ]);
-      // Fetch user profile from remote. If not found
-      // create the user remotely then continue.
       await _fetchAndSaveUserProfile(
         authResponse,
         userName: request.userName,
@@ -136,48 +129,5 @@ class LoginRepositoryImp implements LoginRepository {
       final message = handleError(e, stackTrace);
       return Left(message);
     }
-  }
-
-  @override
-  Future<Either<String, String>> performTokenRefresh() async {
-    final refreshToken = await localDataSource.getRefreshToken();
-    if (refreshToken == null) {
-      return Left("No refresh token found");
-    }
-    try {
-      final newAuthResponse = await remoteDataSource.refreshToken(refreshToken);
-      await localDataSource.saveTokens(
-        accessToken: newAuthResponse.$1,
-        refreshToken: newAuthResponse.$2,
-      );
-      return Right(newAuthResponse.$1);
-    } catch (e, stackTrace) {
-      final message = handleError(e, stackTrace);
-      return Left(message);
-    }
-  }
-
-  @override
-  Future<String?> getRefreshToken() async {
-    final refreshToken = await localDataSource.getRefreshToken();
-    return refreshToken;
-  }
-
-  @override
-  Future<String?> getAccessToken() async {
-    final accessToken = await localDataSource.getAccessToken();
-    return accessToken;
-  }
-
-  @override
-  Future<Either<String, void>> logout() async {
-    try {
-      await remoteDataSource.signOut();
-    } catch (_) {
-      // nothing to do if sign out fails
-    }
-    await localDataSource.clearTokens();
-    await userLocalDataSource.clearUser();
-    return Right(null);
   }
 }

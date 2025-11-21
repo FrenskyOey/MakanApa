@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:dio/dio.dart';
 import 'package:makanapa/core/configs/flavors_config.dart';
 import 'package:makanapa/features/shared/models/device_config.dart';
@@ -15,9 +14,9 @@ part 'master_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 Dio dioClients(Ref ref) {
-   final flavorConfig = ref.read(flavorConfigProvider);
+  final flavorConfig = ref.read(flavorConfigProvider);
 
-  final chuckerInterceptor = ChuckerDioInterceptor();
+  //final chuckerInterceptor = ChuckerDioInterceptor();
   final logInterceptor = LogInterceptor(
     requestBody: true,
     responseBody: true,
@@ -51,8 +50,7 @@ Dio dioClients(Ref ref) {
     ),
   );
 
-  dio.interceptors.add(chuckerInterceptor);
-  dio.interceptors.add(logInterceptor);
+  //dio.interceptors.add(chuckerInterceptor);
 
   final config = ref.read(devicConfigClientProvider);
   final authInterceptor = AuthInterceptor(
@@ -61,6 +59,7 @@ Dio dioClients(Ref ref) {
     dio: dio,
   );
   dio.interceptors.add(authInterceptor);
+  dio.interceptors.add(logInterceptor);
   return dio;
 }
 

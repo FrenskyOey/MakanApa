@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:makanapa/core/handlers/log/log_helper.dart';
 import 'package:makanapa/features/shared/models/device_config.dart';
-import 'package:makanapa/features/shared/provider/token/token_provider.dart';
-import 'package:makanapa/features/shared/provider/token/token_state.dart';
+import 'package:makanapa/features/shared/token/provider/token_provider.dart';
+import 'package:makanapa/features/shared/token/provider/token_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 /// A Dio Interceptor that adds Auth token and Device/App info to request headers.
@@ -58,17 +59,20 @@ class AuthInterceptor extends Interceptor {
     // If a refresh is not already in progress, start one.
     if (!_isRefreshing) {
       _isRefreshing = true;
-
+      LogHelper.debug("REFRESH BEGIN!");
       try {
         final newToken = await ref.read(tokenProvider.notifier).refreshToken();
 
         if (newToken != null) {
+          LogHelper.debug("REFRESH SUCCESS!");
           await _retryQueuedRequests(newToken);
         } else {
+          LogHelper.debug("REFRESH EXPIRED! LOGOUT !");
           // logout event should be hapening and should route to intro page
           _rejectQueuedRequests(err);
         }
       } catch (e) {
+        LogHelper.debug("REFRESH EXPIRED! LOGOUT !");
         _rejectQueuedRequests(
           DioException(requestOptions: err.requestOptions, error: e),
         );
@@ -78,7 +82,6 @@ class AuthInterceptor extends Interceptor {
         _failedRequests.clear();
       }
     }
-    super.onError(err, handler);
   }
 
   /// Retries all the requests that were queued while the token was being refreshed.

@@ -5,4 +5,5 @@ abstract class TokenRepository {
   String? getAccessToken();
   Future<Either<String, void>> logout();
   Future<Either<String, String>> performTokenRefresh();
+  Stream<String?> onTokenChanged();
 }

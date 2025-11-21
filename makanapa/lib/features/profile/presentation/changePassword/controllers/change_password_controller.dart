@@ -3,7 +3,7 @@ import 'package:makanapa/features/profile/domain/repositories/profile_repository
 import 'package:makanapa/features/profile/presentation/changePassword/controllers/state/change_password_event_state.dart';
 import 'package:makanapa/features/profile/presentation/changePassword/controllers/state/change_password_ui_state.dart';
 import 'package:makanapa/features/profile/provider/profile_provider.dart';
-import 'package:makanapa/features/shared/provider/token/token_provider.dart';
+import 'package:makanapa/features/shared/token/provider/token_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'change_password_controller.g.dart';

@@ -49,4 +49,9 @@ class TokenRepositoryImp implements TokenRepository {
     await userLocalDataSource.clearUser();
     return Right(null);
   }
+
+  @override
+  Stream<String?> onTokenChanged() {
+    return localDataSource.onTokenChanged();
+  }
 }

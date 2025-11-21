@@ -18,8 +18,8 @@ import 'package:makanapa/features/profile/presentation/faq/screens/faq_screen.da
 import 'package:makanapa/features/profile/presentation/profileEdit/screens/profile_edit_screen.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/screens/profile_screen.dart';
 import 'package:makanapa/features/receipt/presentation/screens/receipt_screen.dart';
-import 'package:makanapa/features/shared/provider/token/token_provider.dart';
-import 'package:makanapa/features/shared/provider/token/token_state.dart';
+import 'package:makanapa/features/shared/token/provider/token_provider.dart';
+import 'package:makanapa/features/shared/token/provider/token_state.dart';
 import 'package:makanapa/features/splash_screen.dart';
 
 part 'redirection.dart';
