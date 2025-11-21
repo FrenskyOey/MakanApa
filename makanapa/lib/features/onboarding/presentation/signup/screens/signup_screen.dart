@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -18,36 +19,29 @@ class SignupScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final eventState = ref.watch(
-      signUpControllerProvider.select((s) => s.eventState),
+    final isLoading = ref.watch(
+      signUpControllerProvider.select((s) => s.isSignUpLoading),
     );
 
-    ref.listen(signUpControllerProvider.select((value) => value.eventState), (
-      prev,
-      next,
-    ) {
-      next.maybeWhen(
-        toastError: (messgae) {
-          SnackBarHelper.showError(context, messgae);
-        },
-        toHomePage: () {
-          context.goNamed(RouteNames.home);
-        },
-        backPress: () {
-          context.pop();
-        },
-        orElse: () {},
-      );
+    useEffect(() {
+      final sub = ref.read(signUpControllerProvider.notifier).events.listen((
+        event,
+      ) {
+        event.maybeWhen(
+          toastError: (message) {
+            SnackBarHelper.showError(context, message);
+          },
+          toHomePage: () {
+            context.goNamed(RouteNames.home);
+          },
+          orElse: () {
+            // nothing to do
+          },
+        );
+      });
 
-      final shouldReset = next.maybeWhen(
-        showLoading: () => false, // Don't reset when loading starts
-        orElse: () => true, // Reset for all other events
-      );
-
-      if (shouldReset) {
-        ref.read(signUpControllerProvider.notifier).resetEventState();
-      }
-    });
+      return sub.cancel; // Dispose subscription
+    }, const []);
 
     Widget mainBody() {
       return Column(
@@ -80,10 +74,7 @@ class SignupScreen extends HookConsumerWidget {
     return Scaffold(
       body: ScreenContent<String>(
         state: Success(""),
-        overlayLoading: eventState.maybeWhen(
-          showLoading: () => true,
-          orElse: () => false,
-        ),
+        overlayLoading: isLoading,
         successWidget: (data) {
           return SafeArea(child: mainBody());
         },

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:makanapa/features/onboarding/domain/models/google_sign_in_request.dart';
 import 'package:makanapa/features/onboarding/domain/repositories/login_repository.dart';
 import 'package:makanapa/features/onboarding/domain/usecases/validator_usecase.dart';
@@ -13,9 +15,17 @@ class LoginController extends _$LoginController {
   final _useCase = ValidatorUsecase();
   late LoginRepository _repo;
 
+  final _eventController = StreamController<LoginEventState>.broadcast();
+  Stream<LoginEventState> get events => _eventController.stream;
+
   @override
   LoginUIState build() {
     _repo = ref.read(loginRepositoryProvider);
+
+    ref.onDispose(() {
+      _eventController.close();
+    });
+
     return LoginUIState();
   }
 
@@ -32,39 +42,37 @@ class LoginController extends _$LoginController {
   }
 
   void openSignUp() {
-    state = state.copyWith(eventState: LoginEventState.toSignUpPage());
-  }
-
-  void resetEventState() {
-    state = state.copyWith(eventState: LoginEventState.initial());
+    _eventController.add(LoginEventState.toSignUpPage());
   }
 
   Future<void> loginWithEmail(String email, String password) async {
-    state = state.copyWith(eventState: LoginEventState.showLoading());
+    state = state.copyWith(isLoginLoading: true);
     await Future.delayed(const Duration(seconds: 2));
     final response = await _repo.signInWithEmailAndPassword(email, password);
 
-    state = response.fold(
+    response.fold(
       (l) {
-        return state.copyWith(eventState: LoginEventState.toastError(l));
+        _eventController.add(LoginEventState.toastError(l));
       },
       (r) {
-        return state.copyWith(eventState: LoginEventState.toHomePage());
+        _eventController.add(LoginEventState.toHomePage());
       },
     );
+    state = state.copyWith(isLoginLoading: false);
   }
 
   Future<void> loginWithGoogle(GoogleSignInRequest request) async {
-    state = state.copyWith(eventState: LoginEventState.showLoading());
+    state = state.copyWith(isLoginLoading: true);
     await Future.delayed(const Duration(seconds: 2));
     final response = await _repo.signInWithGoogle(request);
-    state = response.fold(
+    response.fold(
       (l) {
-        return state.copyWith(eventState: LoginEventState.toastError(l));
+        _eventController.add(LoginEventState.toastError(l));
       },
       (r) {
-        return state.copyWith(eventState: LoginEventState.toHomePage());
+        _eventController.add(LoginEventState.toHomePage());
       },
     );
+    state = state.copyWith(isLoginLoading: false);
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:makanapa/features/onboarding/domain/models/user.dart';
 import 'package:makanapa/features/onboarding/domain/repositories/user_repository.dart';
 import 'package:makanapa/features/onboarding/domain/usecases/validator_usecase.dart';
@@ -16,11 +18,23 @@ class ProfileEditController extends _$ProfileEditController {
   late ProfileRepository _repo;
   late UserRepository _userRepo;
 
+  final _eventController = StreamController<ProfileEditEventState>.broadcast();
+  Stream<ProfileEditEventState> get events => _eventController.stream;
+
   @override
   ProfileEditUIState build() {
     _repo = ref.read(profileRepositoryProvider);
     _userRepo = ref.read(userRepoProvider);
+
+    ref.onDispose(() {
+      _eventController.close();
+    });
+
     return ProfileEditUIState();
+  }
+
+  void openGallery() {
+    _eventController.add(ProfileEditEventState.openGallery());
   }
 
   String isUserNameValid(String input) {
@@ -35,14 +49,6 @@ class ProfileEditController extends _$ProfileEditController {
     return errors;
   }
 
-  void resetEventState() {
-    state = state.copyWith(eventState: ProfileEditEventState.initial());
-  }
-
-  void openGallery() {
-    state = state.copyWith(eventState: ProfileEditEventState.openGallery());
-  }
-
   void loadUserData(UserData user) {
     // do something here
     state = state.copyWith(
@@ -55,28 +61,22 @@ class ProfileEditController extends _$ProfileEditController {
   Future<void> _updateProfile(UserData user) async {
     final response = await _repo.updateUserProfile(user);
 
-    state = response.fold(
+    response.fold(
       (l) {
-        return state.copyWith(
-          showProgress: false,
-          eventState: ProfileEditEventState.toastError(l),
-        );
+        _eventController.add(ProfileEditEventState.toastError(l));
       },
       (r) {
-        return state.copyWith(
-          showProgress: false,
-          eventState: ProfileEditEventState.successUpdate(user),
-        );
+        _eventController.add(ProfileEditEventState.successUpdate(user));
       },
     );
+
+    state.copyWith(showProgress: false);
   }
 
   Future<void> uploadPicture(String? filePath) async {
     if (filePath == null) {
-      state = state.copyWith(
-        eventState: ProfileEditEventState.toastError(
-          "Tidak ada gambar yang dipilih",
-        ),
+      _eventController.add(
+        ProfileEditEventState.toastError("Tidak ada gambar yang dipilih"),
       );
       return;
     }
@@ -88,10 +88,8 @@ class ProfileEditController extends _$ProfileEditController {
 
     state = response.fold(
       (l) {
-        return state.copyWith(
-          showProgress: false,
-          eventState: ProfileEditEventState.toastError(l),
-        );
+        _eventController.add(ProfileEditEventState.toastError(l));
+        return state.copyWith(showProgress: false);
       },
       (r) {
         return state.copyWith(showProgress: false, avatarFiles: r);
@@ -106,10 +104,8 @@ class ProfileEditController extends _$ProfileEditController {
 
     currentProfile.fold(
       (l) {
-        state = state.copyWith(
-          showProgress: false,
-          eventState: ProfileEditEventState.toastError(l),
-        );
+        _eventController.add(ProfileEditEventState.toastError(l));
+        state = state.copyWith(showProgress: false);
       },
       (r) {
         final request = r.copyWith(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:makanapa/core/configs/routes/route_names.dart';
@@ -18,37 +19,30 @@ class LoginScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final eventState = ref.watch(
-      loginControllerProvider.select((s) => s.eventState),
+    final isLoading = ref.watch(
+      loginControllerProvider.select((s) => s.isLoginLoading),
     );
 
-    ref.listen(loginControllerProvider.select((value) => value.eventState), (
-      prev,
-      next,
-    ) {
-      // Handle side-effects like navigation or showing a snackbar
-      // The listen callback is perfect for actions that should only happen once per state change.
-      next.whenOrNull(
-        toastError: (message) {
-          SnackBarHelper.showError(context, message);
-        },
-        toHomePage: () {
-          context.goNamed(RouteNames.home);
-        },
-        toSignUpPage: () {
-          context.pushNamed(RouteNames.signUp);
-        },
-      );
+    useEffect(() {
+      final sub = ref.read(loginControllerProvider.notifier).events.listen((
+        event,
+      ) {
+        event.maybeWhen(
+          toastError: (message) {
+            SnackBarHelper.showError(context, message);
+          },
+          toHomePage: () {
+            context.goNamed(RouteNames.home);
+          },
+          toSignUpPage: () {
+            context.pushNamed(RouteNames.signUp);
+          },
+          orElse: () {},
+        );
+      });
 
-      final shouldReset = next.maybeWhen(
-        showLoading: () => false, // Don't reset when loading starts
-        orElse: () => true, // Reset for all other events
-      );
-
-      if (shouldReset) {
-        ref.read(loginControllerProvider.notifier).resetEventState();
-      }
-    });
+      return sub.cancel; // Dispose subscription
+    }, const []);
 
     Widget mainBody() {
       return SingleChildScrollView(
@@ -94,10 +88,7 @@ class LoginScreen extends HookConsumerWidget {
     return Scaffold(
       body: ScreenContent<String>(
         state: Success(""),
-        overlayLoading: eventState.maybeWhen(
-          showLoading: () => true,
-          orElse: () => false,
-        ),
+        overlayLoading: isLoading,
         successWidget: (data) {
           return SafeArea(child: mainBody());
         },

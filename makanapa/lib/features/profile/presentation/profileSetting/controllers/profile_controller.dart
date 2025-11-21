@@ -15,6 +15,9 @@ class ProfileController extends _$ProfileController {
   StreamSubscription? _userSubscription;
   late ProfileRepository _repo;
 
+  final _eventController = StreamController<ProfileEventState>.broadcast();
+  Stream<ProfileEventState> get events => _eventController.stream;
+
   @override
   ProfileUIState build() {
     _repo = ref.read(profileRepositoryProvider);
@@ -23,6 +26,7 @@ class ProfileController extends _$ProfileController {
 
     // Register a callback to cancel the stream subscription when the provider is disposed.
     ref.onDispose(() {
+      _eventController.close();
       _userSubscription?.cancel();
     });
 
@@ -44,16 +48,12 @@ class ProfileController extends _$ProfileController {
     state = state.copyWith(userType: userType);
   }
 
-  void resetState() {
-    state = state.copyWith(eventState: ProfileEventState.initial());
-  }
-
   void openAboutUs() {
-    state = state.copyWith(eventState: ProfileEventState.openAboutUs());
+    _eventController.add(ProfileEventState.openAboutUs());
   }
 
   void openChangePass() {
-    state = state.copyWith(eventState: ProfileEventState.openChangePassword());
+    _eventController.add(ProfileEventState.openChangePassword());
   }
 
   void openEditProfile() async {
@@ -61,9 +61,7 @@ class ProfileController extends _$ProfileController {
       return;
     }
 
-    state = state.copyWith(
-      eventState: ProfileEventState.openEditProfile(state.userData!),
-    );
+    _eventController.add(ProfileEventState.openEditProfile(state.userData!));
   }
 
   void logout() {

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:makanapa/features/onboarding/domain/usecases/validator_usecase.dart';
 import 'package:makanapa/features/profile/domain/repositories/profile_repository.dart';
 import 'package:makanapa/features/profile/presentation/changePassword/controllers/state/change_password_event_state.dart';
@@ -14,9 +16,17 @@ class ChangePasswordController extends _$ChangePasswordController {
   final _useCase = ValidatorUsecase();
   late ProfileRepository _repo;
 
+  final _eventController =
+      StreamController<ChangePasswordEventState>.broadcast();
+  Stream<ChangePasswordEventState> get events => _eventController.stream;
+
   @override
   ChangePasswordUIState build() {
     _repo = ref.read(profileRepositoryProvider);
+    ref.onDispose(() {
+      _eventController.close();
+    });
+
     return ChangePasswordUIState();
   }
 
@@ -73,10 +83,6 @@ class ChangePasswordController extends _$ChangePasswordController {
     return error;
   }
 
-  void resetEventState() {
-    state = state.copyWith(eventState: ChangePasswordEventState.initial());
-  }
-
   Future<void> logout() async {
     ref.read(tokenProvider.notifier).signOut();
   }
@@ -88,19 +94,14 @@ class ChangePasswordController extends _$ChangePasswordController {
       state.oldPassword,
       state.newPassword,
     );
-    state = response.fold(
+    response.fold(
       (l) {
-        return state.copyWith(
-          showProcessLoading: false,
-          eventState: ChangePasswordEventState.toastError(l),
-        );
+        _eventController.add(ChangePasswordEventState.toastError(l));
       },
       (r) {
-        return state.copyWith(
-          showProcessLoading: false,
-          eventState: ChangePasswordEventState.showLogoutDialog(),
-        );
+        _eventController.add(ChangePasswordEventState.showLogoutDialog());
       },
     );
+    state = state.copyWith(showProcessLoading: false);
   }
 }

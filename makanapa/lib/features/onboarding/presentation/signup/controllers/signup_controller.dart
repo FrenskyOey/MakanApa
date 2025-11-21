@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:makanapa/features/onboarding/domain/models/signup_request.dart';
 import 'package:makanapa/features/onboarding/domain/repositories/login_repository.dart';
 import 'package:makanapa/features/onboarding/domain/usecases/validator_usecase.dart';
@@ -14,9 +16,15 @@ class SignUpController extends _$SignUpController {
   final _useCase = ValidatorUsecase();
   late LoginRepository _repo;
 
+  final _eventController = StreamController<SignUpEventState>.broadcast();
+  Stream<SignUpEventState> get events => _eventController.stream;
+
   @override
   SignupUiState build() {
     _repo = ref.read(loginRepositoryProvider);
+    ref.onDispose(() {
+      _eventController.close();
+    });
     return SignupUiState();
   }
 
@@ -71,10 +79,6 @@ class SignUpController extends _$SignUpController {
     return error;
   }
 
-  void resetEventState() {
-    state = state.copyWith(eventState: SignUpEventState.initial());
-  }
-
   Future<void> signUpWithEmail() async {
     final SignupRequest request = SignupRequest(
       email: state.email,
@@ -83,17 +87,20 @@ class SignUpController extends _$SignUpController {
       phone: state.phoneNumber,
     );
 
-    state = state.copyWith(eventState: SignUpEventState.showLoading());
+    state = state.copyWith(isSignUpLoading: true);
+    _eventController.add(SignUpEventState.showLoading());
     await Future.delayed(Duration(seconds: 2));
     final response = await _repo.signUpWithEmailAndPassword(request);
 
-    state = response.fold(
+    response.fold(
       (l) {
-        return state.copyWith(eventState: SignUpEventState.toastError(l));
+        _eventController.add(SignUpEventState.toastError(l));
       },
       (r) {
-        return state.copyWith(eventState: SignUpEventState.toHomePage());
+        _eventController.add(SignUpEventState.toHomePage());
       },
     );
+
+    state = state.copyWith(isSignUpLoading: false);
   }
 }

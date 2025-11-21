@@ -13,11 +13,15 @@ class FaqController extends _$FaqController {
   StreamSubscription? _userSubscription;
   late FaqRepository _repo;
 
+  final _eventController = StreamController<FaqEventState>.broadcast();
+  Stream<FaqEventState> get events => _eventController.stream;
+
   @override
   FaqUiState build() {
     _repo = ref.read(faqRepositoryProvider);
     ref.onDispose(() {
       _userSubscription?.cancel();
+      _eventController.close();
     });
     return FaqUiState();
   }
@@ -32,10 +36,6 @@ class FaqController extends _$FaqController {
     });
   }
 
-  void resetState() {
-    state = state.copyWith(eventState: FaqEventState.initial());
-  }
-
   Future<void> reloadFaqData() async {
     state = state.copyWith(isLoading: true);
     final results = await _repo.reloadFaqData();
@@ -43,7 +43,8 @@ class FaqController extends _$FaqController {
       return;
     }
     results.fold(
-      (l) => {state = state.copyWith(eventState: FaqEventState.toastError(l))},
+      (l) => {_eventController.add(FaqEventState.toastError(l))},
+
       (r) => {
         // skip nothing to do
       },

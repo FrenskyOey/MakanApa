@@ -1,5 +1,3 @@
-import 'package:makanapa/features/profile/presentation/changePassword/controllers/state/change_password_event_state.dart';
-
 class ChangePasswordUIState {
   final bool showProcessLoading;
   final String oldPassword;
@@ -8,7 +6,6 @@ class ChangePasswordUIState {
   final String errorPassword;
   final String errorNewPassword;
   final String errorConfirmPassword;
-  final ChangePasswordEventState eventState;
 
   ChangePasswordUIState({
     this.oldPassword = '',
@@ -18,7 +15,6 @@ class ChangePasswordUIState {
     this.errorNewPassword = '',
     this.errorConfirmPassword = '',
     this.showProcessLoading = false,
-    this.eventState = const ChangePasswordEventState.initial(),
   });
 
   bool get isSubmitAllowed {
@@ -43,7 +39,6 @@ class ChangePasswordUIState {
     String? errorNewPassword,
     String? errorConfirmPassword,
     bool? showProcessLoading,
-    ChangePasswordEventState? eventState,
   }) {
     return ChangePasswordUIState(
       oldPassword: oldPassword ?? this.oldPassword,
@@ -53,7 +48,6 @@ class ChangePasswordUIState {
       errorNewPassword: errorNewPassword ?? this.errorNewPassword,
       errorConfirmPassword: errorConfirmPassword ?? this.errorConfirmPassword,
       showProcessLoading: showProcessLoading ?? this.showProcessLoading,
-      eventState: eventState ?? this.eventState,
     );
   }
 }

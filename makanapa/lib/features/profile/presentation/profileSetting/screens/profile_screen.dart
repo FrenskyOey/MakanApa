@@ -31,25 +31,6 @@ class ProfileScreen extends HookConsumerWidget {
       SnackBarHelper.showSuccess(context, "Profile berhasil diupdate");
     }
 
-    ref.listen(profileControllerProvider.select((value) => value.eventState), (
-      prev,
-      next,
-    ) {
-      next.maybeWhen(
-        openAboutUs: () {
-          context.pushNamed(RouteNames.faq);
-        },
-        openChangePassword: () {
-          context.pushNamed(RouteNames.changePassword);
-        },
-        openEditProfile: (userData) {
-          openEditProfilePage(userData);
-        },
-        orElse: () {},
-      );
-      ref.read(profileControllerProvider.notifier).resetState();
-    });
-
     void reloadData() async {
       if (!context.mounted) {
         return;
@@ -64,6 +45,27 @@ class ProfileScreen extends HookConsumerWidget {
       });
       return null;
     });
+
+    useEffect(() {
+      final sub = ref.read(profileControllerProvider.notifier).events.listen((
+        event,
+      ) {
+        event.maybeWhen(
+          openAboutUs: () {
+            context.pushNamed(RouteNames.faq);
+          },
+          openChangePassword: () {
+            context.pushNamed(RouteNames.changePassword);
+          },
+          openEditProfile: (userData) {
+            openEditProfilePage(userData);
+          },
+          orElse: () {},
+        );
+      });
+
+      return sub.cancel; // Dispose subscription
+    }, const []);
 
     return Scaffold(
       appBar: AppBar(

@@ -13,20 +13,6 @@ class FaqScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(faqControllerProvider.select((value) => value.eventState), (
-      prev,
-      next,
-    ) {
-      next.maybeWhen(
-        showLoading: () {},
-        toastError: (message) {
-          SnackBarHelper.showError(context, message);
-          ref.read(faqControllerProvider.notifier).resetState();
-        },
-        orElse: () {},
-      );
-    });
-
     void initStates() async {
       if (!context.mounted) {
         return;
@@ -48,6 +34,22 @@ class FaqScreen extends HookConsumerWidget {
       });
       return null;
     }, []);
+
+    useEffect(() {
+      final sub = ref.read(faqControllerProvider.notifier).events.listen((
+        event,
+      ) {
+        event.maybeWhen(
+          showLoading: () {},
+          toastError: (message) {
+            SnackBarHelper.showError(context, message);
+          },
+          orElse: () {},
+        );
+      });
+
+      return sub.cancel; // Dispose subscription
+    }, const []);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Faq')),
