@@ -14,6 +14,7 @@ import 'package:makanapa/features/onboarding/presentation/intro/screen/intro_scr
 import 'package:makanapa/features/onboarding/presentation/login/screens/login_screen.dart';
 import 'package:makanapa/features/onboarding/presentation/signup/screens/signup_screen.dart';
 import 'package:makanapa/features/profile/presentation/changePassword/screens/change_password_screen.dart';
+import 'package:makanapa/features/profile/presentation/faq/screens/faq_screen.dart';
 import 'package:makanapa/features/profile/presentation/profileEdit/screens/profile_edit_screen.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/screens/profile_screen.dart';
 import 'package:makanapa/features/receipt/presentation/screens/receipt_screen.dart';
@@ -122,6 +123,13 @@ final routeProvider = Provider((ref) {
         builder: (BuildContext context, GoRouterState state) {
           final userData = state.extra as UserData;
           return ProfileEditScreen(userData: userData);
+        },
+      ),
+      GoRoute(
+        name: RouteNames.faq,
+        path: '/faq',
+        builder: (BuildContext context, GoRouterState state) {
+          return FaqScreen();
         },
       ),
     ],

@@ -20,32 +20,32 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'profile_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<ProfileRemoteDataSource> profileRemoteDataSource(Ref ref) async {
   final SupabaseClient supabase = ref.watch(supabaseClientProvider);
   return ProfileRemoteDs(supabase: supabase);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<ProfileLocalDataSource> profileLocalDataSource(Ref ref) async {
   final Isar isar = await ref.watch(isarProvider.future);
   final sharedPref = await ref.watch(sharedPreferencesProvider.future);
   return ProfileLocalDs(isar: isar, prefs: sharedPref);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<FaqRemoteDataSource> faqRemoteDataSource(Ref ref) async {
   final Dio client = await ref.watch(dioProvider.future);
   return FaqRemoteDs(client: client);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<FaqLocalDataSource> faqLocalDataSource(Ref ref) async {
   final Isar isar = await ref.watch(isarProvider.future);
   return FaqLocalDs(isar: isar);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<ProfileRepository> profileRepository(Ref ref) async {
   final ProfileRemoteDataSource remoteDataSource = await ref.watch(
     profileRemoteDataSourceProvider.future,
@@ -69,7 +69,7 @@ Future<ProfileRepository> profileRepository(Ref ref) async {
   );
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<FaqRepository> faqRepository(Ref ref) async {
   final FaqRemoteDataSource remoteDataSource = await ref.watch(
     faqRemoteDataSourceProvider.future,

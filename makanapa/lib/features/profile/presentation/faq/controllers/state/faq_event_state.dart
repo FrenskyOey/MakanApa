@@ -1,14 +1,10 @@
-/*
 import 'package:freezed_annotation/freezed_annotation.dart';
-part 'template_event_state.freezed.dart';
+part 'faq_event_state.freezed.dart';
 
 @freezed
-class TemplateEventState with _$TemplateEventState {
+class FaqEventState with _$FaqEventState {
   // handling toast Event
-  const factory TemplateEventState.toastError(String messgae) = _ToastError;
-  const factory TemplateEventState.toastSuccess(String messgae) = _ToastSuccess;
-
-  // handling open detail page
-  const factory TemplateEventState.openUser(Soldier selectedSoldier) = _OpenUser;
+  const factory FaqEventState.initial() = _Intial;
+  const factory FaqEventState.toastError(String messgae) = _ToastError;
+  const factory FaqEventState.showLoading() = _ShowLoading;
 }
-*/

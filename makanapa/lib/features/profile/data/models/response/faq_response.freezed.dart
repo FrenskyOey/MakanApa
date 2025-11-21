@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$FaqResponse {
 
-@JsonKey(name: 'id', defaultValue: '') String get id;@JsonKey(name: 'title', defaultValue: '') String get title;@JsonKey(name: 'content', defaultValue: '') String get content;
+@JsonKey(name: 'id', defaultValue: 0) int get id;@JsonKey(name: 'question', defaultValue: '') String get title;@JsonKey(name: 'answer', defaultValue: '') String get content;
 /// Create a copy of FaqResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $FaqResponseCopyWith<$Res>  {
   factory $FaqResponseCopyWith(FaqResponse value, $Res Function(FaqResponse) _then) = _$FaqResponseCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'id', defaultValue: '') String id,@JsonKey(name: 'title', defaultValue: '') String title,@JsonKey(name: 'content', defaultValue: '') String content
+@JsonKey(name: 'id', defaultValue: 0) int id,@JsonKey(name: 'question', defaultValue: '') String title,@JsonKey(name: 'answer', defaultValue: '') String content
 });
 
 
@@ -68,7 +68,7 @@ class _$FaqResponseCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? content = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -155,7 +155,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'id', defaultValue: '')  String id, @JsonKey(name: 'title', defaultValue: '')  String title, @JsonKey(name: 'content', defaultValue: '')  String content)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'id', defaultValue: 0)  int id, @JsonKey(name: 'question', defaultValue: '')  String title, @JsonKey(name: 'answer', defaultValue: '')  String content)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FaqResponse() when $default != null:
 return $default(_that.id,_that.title,_that.content);case _:
@@ -176,7 +176,7 @@ return $default(_that.id,_that.title,_that.content);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'id', defaultValue: '')  String id, @JsonKey(name: 'title', defaultValue: '')  String title, @JsonKey(name: 'content', defaultValue: '')  String content)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'id', defaultValue: 0)  int id, @JsonKey(name: 'question', defaultValue: '')  String title, @JsonKey(name: 'answer', defaultValue: '')  String content)  $default,) {final _that = this;
 switch (_that) {
 case _FaqResponse():
 return $default(_that.id,_that.title,_that.content);case _:
@@ -196,7 +196,7 @@ return $default(_that.id,_that.title,_that.content);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'id', defaultValue: '')  String id, @JsonKey(name: 'title', defaultValue: '')  String title, @JsonKey(name: 'content', defaultValue: '')  String content)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'id', defaultValue: 0)  int id, @JsonKey(name: 'question', defaultValue: '')  String title, @JsonKey(name: 'answer', defaultValue: '')  String content)?  $default,) {final _that = this;
 switch (_that) {
 case _FaqResponse() when $default != null:
 return $default(_that.id,_that.title,_that.content);case _:
@@ -211,12 +211,12 @@ return $default(_that.id,_that.title,_that.content);case _:
 @JsonSerializable()
 
 class _FaqResponse extends FaqResponse {
-  const _FaqResponse({@JsonKey(name: 'id', defaultValue: '') required this.id, @JsonKey(name: 'title', defaultValue: '') required this.title, @JsonKey(name: 'content', defaultValue: '') required this.content}): super._();
+  const _FaqResponse({@JsonKey(name: 'id', defaultValue: 0) required this.id, @JsonKey(name: 'question', defaultValue: '') required this.title, @JsonKey(name: 'answer', defaultValue: '') required this.content}): super._();
   factory _FaqResponse.fromJson(Map<String, dynamic> json) => _$FaqResponseFromJson(json);
 
-@override@JsonKey(name: 'id', defaultValue: '') final  String id;
-@override@JsonKey(name: 'title', defaultValue: '') final  String title;
-@override@JsonKey(name: 'content', defaultValue: '') final  String content;
+@override@JsonKey(name: 'id', defaultValue: 0) final  int id;
+@override@JsonKey(name: 'question', defaultValue: '') final  String title;
+@override@JsonKey(name: 'answer', defaultValue: '') final  String content;
 
 /// Create a copy of FaqResponse
 /// with the given fields replaced by the non-null parameter values.
@@ -251,7 +251,7 @@ abstract mixin class _$FaqResponseCopyWith<$Res> implements $FaqResponseCopyWith
   factory _$FaqResponseCopyWith(_FaqResponse value, $Res Function(_FaqResponse) _then) = __$FaqResponseCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'id', defaultValue: '') String id,@JsonKey(name: 'title', defaultValue: '') String title,@JsonKey(name: 'content', defaultValue: '') String content
+@JsonKey(name: 'id', defaultValue: 0) int id,@JsonKey(name: 'question', defaultValue: '') String title,@JsonKey(name: 'answer', defaultValue: '') String content
 });
 
 
@@ -271,7 +271,7 @@ class __$FaqResponseCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? content = null,}) {
   return _then(_FaqResponse(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String,
   ));

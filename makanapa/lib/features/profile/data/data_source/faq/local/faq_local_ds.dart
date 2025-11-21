@@ -10,13 +10,21 @@ class FaqLocalDs implements FaqLocalDataSource {
 
   @override
   Future<void> cacheFaqs(List<Faq> faqs) {
-    // TODO: implement cacheFaqs
-    throw UnimplementedError();
+    final faqEntities = faqs.map((faq) {
+      return FaqEntity.fromEntity(faq);
+    }).toList();
+
+    return isar.writeTxn(() async {
+      // Use putAllByIndex to perform an upsert based on the 'dataId' index.
+      await isar.faqEntitys.putAllByDataId(faqEntities);
+    });
   }
 
   @override
   Stream<List<FaqEntity>> getFaqsEntity() {
-    // TODO: implement getFaqsEntity
-    throw UnimplementedError();
+    // Build a query that sorts the results by the 'dataId' field in ascending order.
+    final query = isar.faqEntitys.where().sortByDataId();
+    // Watch the query for changes and fire immediately with the current results.
+    return query.watch(fireImmediately: true);
   }
 }

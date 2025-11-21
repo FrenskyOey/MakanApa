@@ -8,6 +8,7 @@ import 'package:makanapa/core/extension/index.dart';
 import 'package:makanapa/core/helpers/snackbar_helper.dart';
 import 'package:makanapa/core/themes/dimens_constant.dart';
 import 'package:makanapa/features/onboarding/domain/models/user.dart';
+import 'package:makanapa/features/profile/presentation/profileSetting/components/app_version_widget.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/components/option_list_widget.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/components/profile_widget.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/controllers/profile_controller.dart';
@@ -36,8 +37,7 @@ class ProfileScreen extends HookConsumerWidget {
     ) {
       next.maybeWhen(
         openAboutUs: () {
-          // TO DO
-          SnackBarHelper.showError(context, "Not ready yet");
+          context.pushNamed(RouteNames.faq);
         },
         openChangePassword: () {
           context.pushNamed(RouteNames.changePassword);
@@ -90,18 +90,8 @@ class ProfileScreen extends HookConsumerWidget {
                 const ProfileWidget(),
                 Dimens.lg.space,
                 const OptionListWidget(),
-                Dimens.xxl.space,
-                Text(
-                  '© 2025 MakanApa. All Rights Reserved.',
-                  style: context.labelMedium,
-                  textAlign: TextAlign.center,
-                ),
-                Dimens.xs.space,
-                Text(
-                  'Version 1.0.0 - Staging',
-                  style: context.labelSmall,
-                  textAlign: TextAlign.center,
-                ),
+                Dimens.md.space,
+                const AppVersionWidget(),
               ],
             ),
           ).paddingAll(Dimens.sm),

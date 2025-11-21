@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'token_provider.dart';
+part of 'faq_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,52 +9,52 @@ part of 'token_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(TokenNotifier)
-const tokenProvider = TokenNotifierProvider._();
+@ProviderFor(FaqController)
+const faqControllerProvider = FaqControllerProvider._();
 
-final class TokenNotifierProvider
-    extends $NotifierProvider<TokenNotifier, TokenState> {
-  const TokenNotifierProvider._()
+final class FaqControllerProvider
+    extends $NotifierProvider<FaqController, FaqUiState> {
+  const FaqControllerProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'tokenProvider',
-        isAutoDispose: false,
+        name: r'faqControllerProvider',
+        isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$tokenNotifierHash();
+  String debugGetCreateSourceHash() => _$faqControllerHash();
 
   @$internal
   @override
-  TokenNotifier create() => TokenNotifier();
+  FaqController create() => FaqController();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(TokenState value) {
+  Override overrideWithValue(FaqUiState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<TokenState>(value),
+      providerOverride: $SyncValueProvider<FaqUiState>(value),
     );
   }
 }
 
-String _$tokenNotifierHash() => r'0b62f9dcae74d450e48535bd786c0453b9864f8a';
+String _$faqControllerHash() => r'0fcdad038e34d786df6ca0d429dd92312ffc49f9';
 
-abstract class _$TokenNotifier extends $Notifier<TokenState> {
-  TokenState build();
+abstract class _$FaqController extends $Notifier<FaqUiState> {
+  FaqUiState build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<TokenState, TokenState>;
+    final ref = this.ref as $Ref<FaqUiState, FaqUiState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<TokenState, TokenState>,
-              TokenState,
+              AnyNotifier<FaqUiState, FaqUiState>,
+              FaqUiState,
               Object?,
               Object?
             >;

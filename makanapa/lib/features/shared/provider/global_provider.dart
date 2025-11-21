@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:makanapa/core/configs/flavors_config.dart';
 import 'package:makanapa/core/handlers/log/log_helper.dart';
 import 'package:makanapa/features/onboarding/data/models/entity/user_entity.dart';
+import 'package:makanapa/features/profile/data/models/entity/faq_isar_model.dart';
 import 'package:makanapa/features/shared/data-sources/local/shared_local_ds.dart';
 import 'package:makanapa/features/shared/models/entity/email.dart';
 import 'package:makanapa/features/shared/network/interceptor/auth_interceptor.dart';
@@ -95,7 +96,7 @@ Future<SharedPreferences> sharedPreferences(Ref ref) async {
 Future<Isar> isar(Ref ref) async {
   final directory = await getApplicationDocumentsDirectory();
   Isar isar = await Isar.open(
-    [EmailSchema, UserEntitySchema],
+    [EmailSchema, UserEntitySchema, FaqEntitySchema],
     inspector: true,
     directory: directory.path,
   );
