@@ -7,14 +7,14 @@ part of 'faq_response.dart';
 // **************************************************************************
 
 _FaqResponse _$FaqResponseFromJson(Map<String, dynamic> json) => _FaqResponse(
-  id: json['id'] as String? ?? '',
-  title: json['title'] as String? ?? '',
-  content: json['content'] as String? ?? '',
+  id: (json['id'] as num?)?.toInt() ?? 0,
+  title: json['question'] as String? ?? '',
+  content: json['answer'] as String? ?? '',
 );
 
 Map<String, dynamic> _$FaqResponseToJson(_FaqResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'title': instance.title,
-      'content': instance.content,
+      'question': instance.title,
+      'answer': instance.content,
     };

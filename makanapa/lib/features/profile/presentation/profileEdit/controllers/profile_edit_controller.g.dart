@@ -42,7 +42,7 @@ final class ProfileEditControllerProvider
 }
 
 String _$profileEditControllerHash() =>
-    r'bf698915500eaa7977366fc7293651c2bb2ed020';
+    r'7d5aeec3f90c00114613919a0ac4fcaaafeab78b';
 
 abstract class _$ProfileEditController extends $Notifier<ProfileEditUIState> {
   ProfileEditUIState build();

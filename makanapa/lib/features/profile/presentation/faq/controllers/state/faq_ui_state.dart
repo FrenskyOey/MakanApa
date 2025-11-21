@@ -1,19 +1,26 @@
-/*
+import 'package:makanapa/features/profile/domain/models/faq.dart';
+import 'package:makanapa/features/profile/presentation/faq/controllers/state/faq_event_state.dart';
 
-class TemplateUIState {
-  final DataState<Template> state;
-  final bool hideLoading;
+class FaqUiState {
+  final List<Faq> faqList;
+  final FaqEventState eventState;
+  final bool isLoading;
 
-  TemplateUIState({this.state = DataState.Initial(), required this.hideLoading = true});
+  FaqUiState({
+    this.faqList = const [],
+    this.eventState = const FaqEventState.initial(),
+    this.isLoading = false,
+  });
 
-  TemplateUIState copyWith({bool? hideLoading,DataState<Template>? state}) {
-    return TemplateUIState(
-      state: state ?? this.state,
-      hideLoading: hideLoading ?? this.hideLoading,
+  FaqUiState copyWith({
+    List<Faq>? faqList,
+    bool? isLoading,
+    FaqEventState? eventState,
+  }) {
+    return FaqUiState(
+      faqList: faqList ?? this.faqList,
+      eventState: eventState ?? this.eventState,
+      isLoading: isLoading ?? this.isLoading,
     );
   }
 }
-
-
-
- */

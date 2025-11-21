@@ -1,56 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:makanapa/core/extension/index.dart';
-import 'package:makanapa/core/themes/dimens_constant.dart';
-import 'package:makanapa/core/widgets/gradient_text.dart';
+import 'package:makanapa/features/profile/presentation/faq/components/faq_item_footer_widget.dart';
+import 'package:makanapa/features/profile/presentation/faq/components/faq_item_list_widget.dart';
+import 'package:makanapa/features/profile/presentation/faq/controllers/faq_controller.dart';
+import 'package:makanapa/features/profile/presentation/faq/controllers/state/faq_event_state.dart';
 
-class ProfileScreen extends HookConsumerWidget {
-  const ProfileScreen({super.key});
+class FaqScreen extends HookConsumerWidget {
+  const FaqScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    /*final state = ref.watch(templateControllerProvider);
-
-    ref.listen(templateEventProvider, (prev, next) {
-      if (next == null) {
-        return;
-      }
+    ref.listen(faqControllerProvider.select((value) => value.eventState), (
+      prev,
+      next,
+    ) {
       next.maybeWhen(
+        showLoading: () {},
+        toastError: (message) {
+          ref.read(faqControllerProvider.notifier).resetState();
+        },
         orElse: () {},
       );
-
-      ref.read(templateEventProvider.notifier).resetState();
     });
 
-    void loadData() async {
+    void initStates() async {
       if (!context.mounted) {
         return;
       }
+      await ref.read(faqControllerProvider.notifier).initStream();
+    }
 
-      await ref.read(templateEventProvider.notifier).loadData();
+    void reloadData() async {
+      if (!context.mounted) {
+        return;
+      }
+      await ref.read(faqControllerProvider.notifier).reloadFaqData();
     }
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        loadData();
+        initStates();
+        reloadData();
       });
-     
-    }, []);*/
+      return null;
+    }, []);
 
     return Scaffold(
-      body: SizedBox.expand(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text("Profile Screen", style: context.textTheme.headlineMedium),
-            Dimens.xxl.space,
-            Icon(Icons.phonelink_erase, size: 80, color: context.secondary),
-            Dimens.xxl.space,
-            GradientText("COMING SOON"),
-            Dimens.xxl.space,
-          ],
+      appBar: AppBar(title: const Text('Faq')),
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [const FaqItemListWidget(), const FaqItemFooterWidget()],
         ),
       ),
     );
