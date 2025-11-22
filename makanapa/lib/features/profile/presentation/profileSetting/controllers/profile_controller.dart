@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:makanapa/core/handlers/log/log_helper.dart';
+import 'package:makanapa/features/profile/domain/repositories/profile_repository.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/controllers/state/profile_event_state.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/controllers/state/profile_ui_state.dart';
 import 'package:makanapa/features/profile/provider/profile_provider.dart';
-import 'package:makanapa/features/shared/provider/token/token_provider.dart';
+import 'package:makanapa/features/shared/token/provider/token_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'profile_controller.g.dart';
@@ -12,14 +13,20 @@ part 'profile_controller.g.dart';
 @riverpod
 class ProfileController extends _$ProfileController {
   StreamSubscription? _userSubscription;
+  late ProfileRepository _repo;
+
+  final _eventController = StreamController<ProfileEventState>.broadcast();
+  Stream<ProfileEventState> get events => _eventController.stream;
 
   @override
   ProfileUIState build() {
+    _repo = ref.read(profileRepositoryProvider);
     _initStream();
     _initType();
 
     // Register a callback to cancel the stream subscription when the provider is disposed.
     ref.onDispose(() {
+      _eventController.close();
       _userSubscription?.cancel();
     });
 
@@ -27,8 +34,7 @@ class ProfileController extends _$ProfileController {
   }
 
   void _initStream() async {
-    final repo = await ref.read(profileRepositoryProvider.future);
-    final userStream = repo.getUserProfileStream();
+    final userStream = _repo.getUserProfileStream();
     _userSubscription = userStream.listen((user) {
       if (user == null) {
         return;
@@ -38,21 +44,16 @@ class ProfileController extends _$ProfileController {
   }
 
   void _initType() async {
-    final repo = await ref.read(profileRepositoryProvider.future);
-    final userType = await repo.getUserType();
+    final userType = await _repo.getUserType();
     state = state.copyWith(userType: userType);
   }
 
-  void resetState() {
-    state = state.copyWith(eventState: ProfileEventState.initial());
-  }
-
   void openAboutUs() {
-    state = state.copyWith(eventState: ProfileEventState.openAboutUs());
+    _eventController.add(ProfileEventState.openAboutUs());
   }
 
   void openChangePass() {
-    state = state.copyWith(eventState: ProfileEventState.openChangePassword());
+    _eventController.add(ProfileEventState.openChangePassword());
   }
 
   void openEditProfile() async {
@@ -60,9 +61,7 @@ class ProfileController extends _$ProfileController {
       return;
     }
 
-    state = state.copyWith(
-      eventState: ProfileEventState.openEditProfile(state.userData!),
-    );
+    _eventController.add(ProfileEventState.openEditProfile(state.userData!));
   }
 
   void logout() {
@@ -72,7 +71,7 @@ class ProfileController extends _$ProfileController {
   Future<void> reloadProfileData() async {
     state = state.copyWith(showLoading: true);
     await Future.delayed(Duration(seconds: 2));
-    final repo = await ref.read(profileRepositoryProvider.future);
+    final repo = ref.read(profileRepositoryProvider);
     final results = await repo.reloadUserProfile();
     results.fold(
       (l) => {LogHelper.debug("Errors : $l")},

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:makanapa/core/extension/index.dart';
@@ -40,22 +41,24 @@ class ChangePasswordScreen extends HookConsumerWidget {
       changePasswordControllerProvider.select((s) => s.showProcessLoading),
     );
 
-    ref.listen(
-      changePasswordControllerProvider.select((value) => value.eventState),
-      (prev, next) {
-        next.maybeWhen(
-          toastError: (messgae) {
-            SnackBarHelper.showError(context, messgae);
-          },
-          showLogoutDialog: () {
-            showLogoutDialog();
-          },
-          orElse: () {},
-        );
+    useEffect(() {
+      final sub = ref
+          .read(changePasswordControllerProvider.notifier)
+          .events
+          .listen((event) {
+            event.maybeWhen(
+              toastError: (messgae) {
+                SnackBarHelper.showError(context, messgae);
+              },
+              showLogoutDialog: () {
+                showLogoutDialog();
+              },
+              orElse: () {},
+            );
+          });
 
-        ref.read(changePasswordControllerProvider.notifier).resetEventState();
-      },
-    );
+      return sub.cancel; // Dispose subscription
+    }, const []);
 
     Widget mainBody() {
       return Column(

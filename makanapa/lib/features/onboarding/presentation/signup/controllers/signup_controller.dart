@@ -1,9 +1,11 @@
+import 'dart:async';
+
 import 'package:makanapa/features/onboarding/domain/models/signup_request.dart';
+import 'package:makanapa/features/onboarding/domain/repositories/login_repository.dart';
 import 'package:makanapa/features/onboarding/domain/usecases/validator_usecase.dart';
 import 'package:makanapa/features/onboarding/presentation/signup/controllers/state/signup_event_state.dart';
 import 'package:makanapa/features/onboarding/presentation/signup/controllers/state/signup_ui_state.dart';
 import 'package:makanapa/features/onboarding/provider/onboarding_provider.dart';
-import 'package:makanapa/features/shared/provider/token/token_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'signup_controller.g.dart';
@@ -12,9 +14,17 @@ part 'signup_controller.g.dart';
 class SignUpController extends _$SignUpController {
   //final DataState<Template> _template = DataState.Initial();
   final _useCase = ValidatorUsecase();
+  late LoginRepository _repo;
+
+  final _eventController = StreamController<SignUpEventState>.broadcast();
+  Stream<SignUpEventState> get events => _eventController.stream;
 
   @override
   SignupUiState build() {
+    _repo = ref.read(loginRepositoryProvider);
+    ref.onDispose(() {
+      _eventController.close();
+    });
     return SignupUiState();
   }
 
@@ -69,10 +79,6 @@ class SignUpController extends _$SignUpController {
     return error;
   }
 
-  void resetEventState() {
-    state = state.copyWith(eventState: SignUpEventState.initial());
-  }
-
   Future<void> signUpWithEmail() async {
     final SignupRequest request = SignupRequest(
       email: state.email,
@@ -81,19 +87,20 @@ class SignUpController extends _$SignUpController {
       phone: state.phoneNumber,
     );
 
-    state = state.copyWith(eventState: SignUpEventState.showLoading());
+    state = state.copyWith(isSignUpLoading: true);
+    _eventController.add(SignUpEventState.showLoading());
     await Future.delayed(Duration(seconds: 2));
-    final repo = await ref.read(loginRepositoryProvider.future);
-    final response = await repo.signUpWithEmailAndPassword(request);
+    final response = await _repo.signUpWithEmailAndPassword(request);
 
-    state = response.fold(
+    response.fold(
       (l) {
-        return state.copyWith(eventState: SignUpEventState.toastError(l));
+        _eventController.add(SignUpEventState.toastError(l));
       },
       (r) {
-        ref.read(tokenProvider.notifier).reloadToken();
-        return state.copyWith(eventState: SignUpEventState.toHomePage());
+        _eventController.add(SignUpEventState.toHomePage());
       },
     );
+
+    state = state.copyWith(isSignUpLoading: false);
   }
 }

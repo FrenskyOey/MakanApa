@@ -1,5 +1,3 @@
-import 'package:makanapa/features/profile/presentation/profileEdit/controllers/state/profile_edit_event_state.dart';
-
 class ProfileEditUIState {
   final String name;
   final String phoneNumber;
@@ -8,7 +6,6 @@ class ProfileEditUIState {
   final String? avatarFiles;
 
   final bool showProgress;
-  final ProfileEditEventState eventState;
 
   ProfileEditUIState({
     this.phoneNumber = '',
@@ -17,7 +14,6 @@ class ProfileEditUIState {
     this.errorPhone = '',
     this.avatarFiles,
     this.showProgress = false,
-    this.eventState = const ProfileEditEventState.initial(),
   });
 
   bool get isSubmitAllowed {
@@ -35,7 +31,6 @@ class ProfileEditUIState {
     String? errorPhone,
     String? avatarFiles,
     bool? showProgress,
-    ProfileEditEventState? eventState,
   }) {
     return ProfileEditUIState(
       phoneNumber: phoneNumber ?? this.phoneNumber,
@@ -44,7 +39,6 @@ class ProfileEditUIState {
       errorPhone: errorPhone ?? this.errorPhone,
       avatarFiles: avatarFiles ?? this.avatarFiles,
       showProgress: showProgress ?? this.showProgress,
-      eventState: eventState ?? this.eventState,
     );
   }
 }

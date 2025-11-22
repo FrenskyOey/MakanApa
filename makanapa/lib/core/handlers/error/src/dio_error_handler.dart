@@ -10,49 +10,49 @@ class DioErrorHandler implements BaseErrorHandler {
       return switch (error.type) {
         // A. Low-Level Network Failures
         DioExceptionType.connectionTimeout =>
-          'Connection attempt timed out. Check your network.',
-        DioExceptionType.sendTimeout => 'Sending request timed out.',
-        DioExceptionType.receiveTimeout => 'Receiving response timed out.',
+          'Waktu koneksi habis. Periksa jaringan Anda.',
+        DioExceptionType.sendTimeout => 'Waktu pengiriman permintaan habis.',
+        DioExceptionType.receiveTimeout => 'Waktu menerima respons habis.',
         DioExceptionType.connectionError =>
           (error.error is SocketException)
-              ? 'No internet connection. Please check your network settings.'
-              : 'Connection failed due to a network error.',
+              ? 'Tidak ada koneksi internet. Silakan periksa pengaturan jaringan Anda.'
+              : 'Koneksi gagal karena kesalahan jaringan.',
 
         // B. HTTP Status Code Errors
         DioExceptionType.badResponse => _handleBadResponse(error),
 
         // C. Cancellation / Security / Unknown
-        DioExceptionType.cancel => 'The network request was cancelled.',
+        DioExceptionType.cancel => 'Permintaan jaringan dibatalkan.',
         DioExceptionType.badCertificate =>
-          'Secure connection failed due to an invalid security certificate.',
+          'Koneksi aman gagal karena sertifikat keamanan tidak valid.',
         DioExceptionType.unknown =>
           (error.error is FormatException)
-              ? 'Data format error: The server response is unreadable.'
-              : 'An unknown error occurred during communication.',
+              ? 'Kesalahan format data: Respons server tidak dapat dibaca.'
+              : 'Terjadi kesalahan yang tidak diketahui saat komunikasi.',
       };
     }
-    return 'An unexpected error occurred. Please try again.';
+    return 'Terjadi kesalahan tak terduga. Silakan coba lagi.';
   }
 
   String _handleBadResponse(DioException error) {
     final statusCode = error.response?.statusCode;
     switch (statusCode) {
       case 400:
-        return 'Bad Request: The data sent was invalid.';
+        return 'Permintaan Buruk: Data yang dikirim tidak valid.';
       case 401:
-        return 'Unauthorized: Please log in again.';
+        return 'Sesi Login Habis, silahkan login lagi.';
       case 403:
-        return 'Forbidden: You do not have permission to access this resource.';
+        return 'Dilarang: Anda tidak memiliki izin untuk mengakses sumber daya ini.';
       case 404:
-        return 'Resource Not Found: The requested item does not exist.';
+        return 'Url Api Tidak ditemukan.';
       case 422:
-        return 'Validation Failed: The request could not be processed.';
+        return 'Validasi Gagal: Permintaan tidak dapat diproses.';
       case 500:
-        return 'Internal Server Error: Our servers are currently experiencing issues.';
+        return 'Kesalahan Server Internal: Server kami sedang mengalami masalah.';
       case 503:
-        return 'Service Unavailable: Please try again in a moment.';
+        return 'Layanan Tidak Tersedia: Silakan coba lagi sebentar.';
       default:
-        return 'Server error with status code: $statusCode.';
+        return 'Kesalahan server dengan kode status: $statusCode.';
     }
   }
 }

@@ -1,18 +1,16 @@
-import 'package:makanapa/features/onboarding/presentation/login/controllers/state/login_event_state.dart';
-
 class LoginUIState {
   final String email;
   final String password;
   final String errorEmail;
   final String errorPassword;
-  final LoginEventState eventState;
+  final bool isLoginLoading;
 
   LoginUIState({
     this.email = '',
     this.password = '',
     this.errorEmail = '',
     this.errorPassword = '',
-    this.eventState = const LoginEventState.initial(),
+    this.isLoginLoading = false,
   });
 
   bool get isLoginAllowed {
@@ -29,14 +27,14 @@ class LoginUIState {
     String? password,
     String? errorEmail,
     String? errorPassword,
-    LoginEventState? eventState,
+    bool? isLoginLoading,
   }) {
     return LoginUIState(
       email: email ?? this.email,
       password: password ?? this.password,
       errorEmail: errorEmail ?? this.errorEmail,
       errorPassword: errorPassword ?? this.errorPassword,
-      eventState: eventState ?? this.eventState,
+      isLoginLoading: isLoginLoading ?? this.isLoginLoading,
     );
   }
 }

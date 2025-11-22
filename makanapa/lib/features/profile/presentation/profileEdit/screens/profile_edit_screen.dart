@@ -60,40 +60,42 @@ class ProfileEditScreen extends HookConsumerWidget {
       }
     }
 
-    ref.listen(
-      profileEditControllerProvider.select((value) => value.eventState),
-      (prev, next) {
-        next.maybeWhen(
-          toastError: (message) {
-            SnackBarHelper.showError(context, message);
-          },
-          openGallery: () {
-            ImagePickerBottomSheet.show(
-              context: context,
-              onCameraPick: () {
-                openCamera();
-              },
-              onGalleryPick: () {
-                openGallery();
-              },
-            );
-          },
-          successUpdate: (user) {
-            context.pop(user);
-          },
-          orElse: () {},
-        );
-
-        ref.read(profileEditControllerProvider.notifier).resetEventState();
-      },
-    );
-
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         ref.read(profileEditControllerProvider.notifier).loadUserData(userData);
       });
       return null;
     }, []);
+
+    useEffect(() {
+      final sub = ref
+          .read(profileEditControllerProvider.notifier)
+          .events
+          .listen((event) {
+            event.maybeWhen(
+              toastError: (message) {
+                SnackBarHelper.showError(context, message);
+              },
+              openGallery: () {
+                ImagePickerBottomSheet.show(
+                  context: context,
+                  onCameraPick: () {
+                    openCamera();
+                  },
+                  onGalleryPick: () {
+                    openGallery();
+                  },
+                );
+              },
+              successUpdate: (user) {
+                context.pop(user);
+              },
+              orElse: () {},
+            );
+          });
+
+      return sub.cancel; // Dispose subscription
+    }, const []);
 
     Widget mainBody() {
       return Column(

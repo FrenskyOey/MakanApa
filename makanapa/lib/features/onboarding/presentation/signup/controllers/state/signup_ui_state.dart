@@ -1,5 +1,3 @@
-import 'package:makanapa/features/onboarding/presentation/signup/controllers/state/signup_event_state.dart';
-
 class SignupUiState {
   final String name;
   final String email;
@@ -11,7 +9,7 @@ class SignupUiState {
   final String errorPhone;
   final String errorPassword;
   final String errorConfirmPassword;
-  final SignUpEventState eventState;
+  final bool isSignUpLoading;
 
   SignupUiState({
     this.email = '',
@@ -24,7 +22,7 @@ class SignupUiState {
     this.errorName = '',
     this.errorPhone = '',
     this.errorConfirmPassword = '',
-    this.eventState = const SignUpEventState.initial(),
+    this.isSignUpLoading = false,
   });
 
   bool get isSignUpAllowed {
@@ -57,7 +55,7 @@ class SignupUiState {
     String? errorName,
     String? errorConfirmPassword,
     String? errorPhone,
-    SignUpEventState? eventState,
+    bool? isSignUpLoading,
   }) {
     return SignupUiState(
       email: email ?? this.email,
@@ -70,7 +68,7 @@ class SignupUiState {
       errorEmail: errorEmail ?? this.errorEmail,
       errorPassword: errorPassword ?? this.errorPassword,
       errorConfirmPassword: errorConfirmPassword ?? this.errorConfirmPassword,
-      eventState: eventState ?? this.eventState,
+      isSignUpLoading: isSignUpLoading ?? this.isSignUpLoading,
     );
   }
 }

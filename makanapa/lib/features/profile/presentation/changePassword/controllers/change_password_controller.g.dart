@@ -42,7 +42,7 @@ final class ChangePasswordControllerProvider
 }
 
 String _$changePasswordControllerHash() =>
-    r'8a7d3fcfba6fada96f053fea89acfa52da9b4beb';
+    r'c9910d1610ec24df2f3a59b00fbd3b3afe0e565d';
 
 abstract class _$ChangePasswordController
     extends $Notifier<ChangePasswordUIState> {

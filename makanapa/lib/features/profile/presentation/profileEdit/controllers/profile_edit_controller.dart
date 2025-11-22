@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:makanapa/features/onboarding/domain/models/user.dart';
+import 'package:makanapa/features/onboarding/domain/repositories/user_repository.dart';
 import 'package:makanapa/features/onboarding/domain/usecases/validator_usecase.dart';
 import 'package:makanapa/features/onboarding/provider/onboarding_provider.dart';
+import 'package:makanapa/features/profile/domain/repositories/profile_repository.dart';
 import 'package:makanapa/features/profile/presentation/profileEdit/controllers/state/profile_edit_event_state.dart';
 import 'package:makanapa/features/profile/presentation/profileEdit/controllers/state/profile_edit_ui_state.dart';
 import 'package:makanapa/features/profile/provider/profile_provider.dart';
@@ -11,10 +15,26 @@ part 'profile_edit_controller.g.dart';
 @riverpod
 class ProfileEditController extends _$ProfileEditController {
   final _useCase = ValidatorUsecase();
+  late ProfileRepository _repo;
+  late UserRepository _userRepo;
+
+  final _eventController = StreamController<ProfileEditEventState>.broadcast();
+  Stream<ProfileEditEventState> get events => _eventController.stream;
 
   @override
   ProfileEditUIState build() {
+    _repo = ref.read(profileRepositoryProvider);
+    _userRepo = ref.read(userRepoProvider);
+
+    ref.onDispose(() {
+      _eventController.close();
+    });
+
     return ProfileEditUIState();
+  }
+
+  void openGallery() {
+    _eventController.add(ProfileEditEventState.openGallery());
   }
 
   String isUserNameValid(String input) {
@@ -29,14 +49,6 @@ class ProfileEditController extends _$ProfileEditController {
     return errors;
   }
 
-  void resetEventState() {
-    state = state.copyWith(eventState: ProfileEditEventState.initial());
-  }
-
-  void openGallery() {
-    state = state.copyWith(eventState: ProfileEditEventState.openGallery());
-  }
-
   void loadUserData(UserData user) {
     // do something here
     state = state.copyWith(
@@ -47,31 +59,24 @@ class ProfileEditController extends _$ProfileEditController {
   }
 
   Future<void> _updateProfile(UserData user) async {
-    final repo = await ref.read(profileRepositoryProvider.future);
-    final response = await repo.updateUserProfile(user);
+    final response = await _repo.updateUserProfile(user);
 
-    state = response.fold(
+    response.fold(
       (l) {
-        return state.copyWith(
-          showProgress: false,
-          eventState: ProfileEditEventState.toastError(l),
-        );
+        _eventController.add(ProfileEditEventState.toastError(l));
       },
       (r) {
-        return state.copyWith(
-          showProgress: false,
-          eventState: ProfileEditEventState.successUpdate(user),
-        );
+        _eventController.add(ProfileEditEventState.successUpdate(user));
       },
     );
+
+    state.copyWith(showProgress: false);
   }
 
   Future<void> uploadPicture(String? filePath) async {
     if (filePath == null) {
-      state = state.copyWith(
-        eventState: ProfileEditEventState.toastError(
-          "Tidak ada gambar yang dipilih",
-        ),
+      _eventController.add(
+        ProfileEditEventState.toastError("Tidak ada gambar yang dipilih"),
       );
       return;
     }
@@ -79,15 +84,12 @@ class ProfileEditController extends _$ProfileEditController {
     state = state.copyWith(showProgress: true);
     await Future.delayed(const Duration(seconds: 2));
 
-    final repo = await ref.read(profileRepositoryProvider.future);
-    final response = await repo.updateUserAvatar(filePath);
+    final response = await _repo.updateUserAvatar(filePath);
 
     state = response.fold(
       (l) {
-        return state.copyWith(
-          showProgress: false,
-          eventState: ProfileEditEventState.toastError(l),
-        );
+        _eventController.add(ProfileEditEventState.toastError(l));
+        return state.copyWith(showProgress: false);
       },
       (r) {
         return state.copyWith(showProgress: false, avatarFiles: r);
@@ -98,15 +100,12 @@ class ProfileEditController extends _$ProfileEditController {
   Future<void> changeProfile() async {
     state = state.copyWith(showProgress: true);
     await Future.delayed(const Duration(seconds: 2));
-    final userRepo = await ref.read(userRepoProvider.future);
-    final currentProfile = await userRepo.getCurrentUser();
+    final currentProfile = await _userRepo.getCurrentUser();
 
     currentProfile.fold(
       (l) {
-        state = state.copyWith(
-          showProgress: false,
-          eventState: ProfileEditEventState.toastError(l),
-        );
+        _eventController.add(ProfileEditEventState.toastError(l));
+        state = state.copyWith(showProgress: false);
       },
       (r) {
         final request = r.copyWith(

@@ -1,36 +1,27 @@
-import 'package:chucker_flutter/chucker_flutter.dart';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:makanapa/core/configs/flavors_config.dart';
-import 'package:makanapa/core/handlers/log/log_helper.dart';
-import 'package:makanapa/features/onboarding/data/models/entity/user_entity.dart';
-import 'package:makanapa/features/profile/data/models/entity/faq_isar_model.dart';
-import 'package:makanapa/features/shared/data-sources/local/shared_local_ds.dart';
-import 'package:makanapa/features/shared/models/entity/email.dart';
+import 'package:makanapa/features/shared/models/device_config.dart';
 import 'package:makanapa/features/shared/network/interceptor/auth_interceptor.dart';
-
 import 'package:makanapa/main_common.dart';
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:isar_community/isar.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-part 'global_provider.g.dart';
+part 'master_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-Future<Dio> dio(Ref ref) async {
+Dio dioClients(Ref ref) {
   final flavorConfig = ref.read(flavorConfigProvider);
 
-  final chuckerInterceptor = ChuckerDioInterceptor();
+  //final chuckerInterceptor = ChuckerDioInterceptor();
   final logInterceptor = LogInterceptor(
     requestBody: true,
     responseBody: true,
-    // Use the custom logger instance
     logPrint: (obj) {
-      // Log all interceptor output at the 'info' level
-      LogHelper.info(obj.toString());
+      log(obj.toString());
     },
   );
 
@@ -45,8 +36,6 @@ Future<Dio> dio(Ref ref) async {
   final dio = Dio(
     BaseOptions(
       baseUrl: flavorConfig.baseUrl,
-      // *** ESSENTIAL CONFIGURATIONS ***
-      // 1. Timeouts: Crucial for a good user experience on slow networks.
       connectTimeout: kConnectTimeout,
       receiveTimeout: kReceiveTimeout,
       sendTimeout: kConnectTimeout,
@@ -61,44 +50,35 @@ Future<Dio> dio(Ref ref) async {
     ),
   );
 
-  dio.interceptors.add(chuckerInterceptor);
-  dio.interceptors.add(logInterceptor);
+  //dio.interceptors.add(chuckerInterceptor);
 
-  final ShareLocalDataSource dataSource = await ref.watch(
-    shareLocalDataSourceProvider.future,
-  );
-  final config = await dataSource.deviceConfig();
-
+  final config = ref.read(devicConfigClientProvider);
   final authInterceptor = AuthInterceptor(
     deviceConfig: config,
     ref: ref,
     dio: dio,
   );
-
   dio.interceptors.add(authInterceptor);
-
+  dio.interceptors.add(logInterceptor);
   return dio;
 }
 
 @Riverpod(keepAlive: true)
-SupabaseClient supabaseClient(Ref ref) {
-  final supabase = Supabase.instance.client;
-  return supabase;
+SupabaseClient supabaseClients(Ref ref) {
+  throw UnimplementedError();
 }
 
 @Riverpod(keepAlive: true)
-Future<SharedPreferences> sharedPreferences(Ref ref) async {
-  final shared = await SharedPreferences.getInstance();
-  return shared;
+SharedPreferences sharedPreferenceClients(Ref ref) {
+  throw UnimplementedError();
 }
 
 @Riverpod(keepAlive: true)
-Future<Isar> isar(Ref ref) async {
-  final directory = await getApplicationDocumentsDirectory();
-  Isar isar = await Isar.open(
-    [EmailSchema, UserEntitySchema, FaqEntitySchema],
-    inspector: true,
-    directory: directory.path,
-  );
-  return isar;
+DeviceConfig devicConfigClient(Ref ref) {
+  throw UnimplementedError();
+}
+
+@Riverpod(keepAlive: true)
+Isar isarClients(Ref ref) {
+  throw UnimplementedError();
 }

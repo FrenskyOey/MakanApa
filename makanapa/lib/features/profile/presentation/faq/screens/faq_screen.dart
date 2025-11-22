@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:makanapa/core/helpers/snackbar_helper.dart';
 import 'package:makanapa/features/profile/presentation/faq/components/faq_item_footer_widget.dart';
 import 'package:makanapa/features/profile/presentation/faq/components/faq_item_list_widget.dart';
 import 'package:makanapa/features/profile/presentation/faq/controllers/faq_controller.dart';
@@ -12,19 +13,6 @@ class FaqScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(faqControllerProvider.select((value) => value.eventState), (
-      prev,
-      next,
-    ) {
-      next.maybeWhen(
-        showLoading: () {},
-        toastError: (message) {
-          ref.read(faqControllerProvider.notifier).resetState();
-        },
-        orElse: () {},
-      );
-    });
-
     void initStates() async {
       if (!context.mounted) {
         return;
@@ -46,6 +34,22 @@ class FaqScreen extends HookConsumerWidget {
       });
       return null;
     }, []);
+
+    useEffect(() {
+      final sub = ref.read(faqControllerProvider.notifier).events.listen((
+        event,
+      ) {
+        event.maybeWhen(
+          showLoading: () {},
+          toastError: (message) {
+            SnackBarHelper.showError(context, message);
+          },
+          orElse: () {},
+        );
+      });
+
+      return sub.cancel; // Dispose subscription
+    }, const []);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Faq')),
