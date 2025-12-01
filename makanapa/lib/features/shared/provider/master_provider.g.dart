@@ -47,7 +47,7 @@ final class DioClientsProvider extends $FunctionalProvider<Dio, Dio, Dio>
   }
 }
 
-String _$dioClientsHash() => r'953ec6ccae8b5d0cad534e8fd52f43f6fee1475f';
+String _$dioClientsHash() => r'41b64f25519ad52df01bdf58a15746341eb55af0';
 
 @ProviderFor(supabaseClients)
 const supabaseClientsProvider = SupabaseClientsProvider._();

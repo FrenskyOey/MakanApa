@@ -41,7 +41,7 @@ final class FaqControllerProvider
   }
 }
 
-String _$faqControllerHash() => r'9509cfcf4148e3ee8882c8f29d1f0226211355a6';
+String _$faqControllerHash() => r'60132d249f64ca9d09c0ff1733f66fa039fd959f';
 
 abstract class _$FaqController extends $Notifier<FaqUiState> {
   FaqUiState build();
