@@ -5,12 +5,21 @@ import 'package:makanapa/features/recipe/domain/models/recipe_page.dart';
 
 abstract class RecipeRepository {
   Future<Either<String, RecipePage>> getReceiptPage({
-    int cursor = 0,
+    required int pageIndex,
     String? filter,
   });
-  Future<Either<String, RecipeDetail>> getRecipeDetail({required int recipeId});
+  Stream<List<RecipeItem>> getReceiptStream({
+    required int pageIndex,
+    String? filter,
+  });
+
+  Future<Either<String, void>> getRecipeDetail({required int recipeId});
+  Stream<RecipeDetail?> getRecipeDetailStream({required int recipeId});
+
+  Stream<List<RecipeItem>> getSearchStream();
   Future<Either<String, List<RecipeItem>>> searchRecipes({
     required String query,
   });
+
   Future<Either<String, Unit>> bookmarkRecipe({required int recipeId});
 }

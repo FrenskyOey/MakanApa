@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:makanapa/features/recipe/domain/models/ingredient_enum.dart';
 import 'package:makanapa/features/recipe/domain/models/ingredients.dart';
 
 part 'ingredients_response.freezed.dart';
@@ -17,7 +18,13 @@ abstract class IngredientsResponse with _$IngredientsResponse {
   }) = _IngredientsResponse;
 
   Ingredients toDomain() {
-    return Ingredients();
+    return Ingredients(
+      id: id,
+      name: name,
+      type: IngredientEnum.values.byName(types),
+      unit: unitType,
+      qty: quantity,
+    );
   }
 
   factory IngredientsResponse.fromJson(Map<String, dynamic> json) =>

@@ -1,46 +1,150 @@
-/*
 import 'package:isar_community/isar.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:makanapa/features/recipe/data/data_source/recipe_data_source.dart';
+import 'package:makanapa/features/recipe/data/models/entity/recipe_detail_isar_model.dart';
+import 'package:makanapa/features/recipe/data/models/entity/recipe_index_isar_model.dart';
+import 'package:makanapa/features/recipe/data/models/entity/recipe_isar_model.dart';
+import 'package:makanapa/features/recipe/domain/models/recipe_detail.dart';
+import 'package:makanapa/features/recipe/domain/models/recipe_item.dart';
+import 'package:makanapa/features/recipe/domain/models/recipe_page.dart';
 
-part 'template_local_ds.g.dart';
-
-class TemplateLocalDataSourceImpl implements TemplateLocalDataSource {
+class RecipeLocalDs implements RecipeLocalDataSource {
   final Isar isar;
-  TemplateLocalDataSourceImpl({required this.isar});
+
+  RecipeLocalDs({required this.isar});
+
   @override
-   Future<TemplateEntity> getTemplate(); async {
-    try {
-      final isOpen = isar.isOpen;
-      if (!isOpen) {
-        return [];
-      }
-      final result = await isar.writeTxn(() async {
-        return await isar.templateIsarModel.where().findAll();
-      });
-      return messages.get(0);
-    } catch (e) {
-      rethrow;
-    }
+  Stream<List<RecipeIndexEntity>> getCachedRecipes(
+    String? filterHash,
+    int pageIndex,
+  ) {
+    final pages = pageIndex + 1;
+
+    return isar.recipeIndexEntitys
+        .filter()
+        .filterKeyEqualTo(filterHash ?? "")
+        .pageIndexLessThan(pages)
+        .sortByPageIndex()
+        .watch(fireImmediately: true);
   }
 
   @override
-  Future<void> saveTemplate(Template template) async {
-    try {
-      final isOpen = isar.isOpen;
-      if (!isOpen) {
-        return;
+  Future<void> cacheRecipeList(
+    String? filterHash,
+    int pageIndex,
+    RecipePage page,
+  ) async {
+    final filterKeys = filterHash ?? "";
+
+    // update recipe table
+    final recipeData = page.data;
+    await _saveReceiptData(recipeData);
+
+    // update index table
+    await isar.writeTxn(() async {
+      final insertData = RecipeIndexEntity.fromPage(
+        filterKeys,
+        page,
+        pageIndex,
+      );
+
+      final existingData = await isar.recipeIndexEntitys
+          .filter()
+          .filterKeyEqualTo(filterKeys)
+          .pageIndexEqualTo(insertData.pageIndex)
+          .findFirst();
+
+      if (existingData != null) {
+        insertData.id = existingData.id;
       }
 
-      await isar.writeTxn(() async {
-        await isar.templateIsarModel
-            .put(TemplateIsarModel.fromEntity(template));
+      await isar.recipeIndexEntitys.put(insertData);
+    });
+  }
+
+  Future<void> _saveReceiptData(List<RecipeItem> data) async {
+    await isar.writeTxn(() async {
+      final recipeEntity = data.map((recipe) {
+        return RecipeEntity.fromEntity(recipe);
+      }).toList();
+
+      return isar.writeTxn(() async {
+        await isar.recipeEntitys.putAllByDataId(recipeEntity);
       });
-    } catch (e) {
-      rethrow;
+    });
+  }
+
+  @override
+  Stream<RecipeDetailEntity?> getCachedRecipeDetail(int recipeId) {
+    return isar.recipeDetailEntitys
+        .filter()
+        .recipeIdEqualTo(recipeId)
+        .watch(fireImmediately: true)
+        .map((data) => data.isNotEmpty ? data.first : null);
+  }
+
+  @override
+  Future<void> cacheRecipeDetail(int recipeId, RecipeDetail detail) async {
+    await isar.writeTxn(() async {
+      final insertData = RecipeDetailEntity.fromEntity(recipeId, detail);
+
+      final existingData = await isar.recipeDetailEntitys
+          .filter()
+          .recipeIdEqualTo(insertData.recipeId)
+          .findFirst();
+
+      if (existingData != null) {
+        insertData.id = existingData.id;
+      }
+
+      await isar.recipeDetailEntitys.put(insertData);
+    });
+  }
+
+  @override
+  Future<List<RecipeEntity>> getCachedSearchResults(String query) async {
+    if (query.isEmpty) {
+      return await isar.recipeEntitys
+          .where()
+          .sortByDataId()
+          .limit(10)
+          .findAll();
     }
+
+    final searchData = await isar.recipeEntitys
+        .filter()
+        .nameContains(query)
+        .or()
+        .enNameContains(query)
+        .sortByName()
+        .limit(10)
+        .findAll();
+    return searchData;
+  }
+
+  @override
+  Future<List<RecipeEntity>> getReceiptByReceiptId(List<int> recipeIds) async {
+    final recipeEntities = await isar.recipeEntitys.getAllByDataId(recipeIds);
+    return recipeEntities.whereType<RecipeEntity>().toList();
+  }
+
+  @override
+  Future<int?> getNextCursor(String? filterHash, int targetPage) async {
+    if (targetPage == 1) {
+      return null;
+    }
+
+    final prevPage = targetPage - 1;
+    final indexData = await isar.recipeIndexEntitys
+        .filter()
+        .filterKeyEqualTo(filterHash ?? "")
+        .pageIndexEqualTo(prevPage)
+        .findFirst();
+
+    return indexData?.nextCursor;
+  }
+
+  @override
+  Future<void> cacheRecipeItemList(List<RecipeItem> data) async {
+    await _saveReceiptData(data);
   }
 }
-
-
-
- */
