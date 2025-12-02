@@ -8,7 +8,7 @@ import 'package:makanapa/features/recipe/domain/models/recipe_page.dart';
 
 abstract class RecipeRemoteDataSource {
   Future<RecipeListResponse> getRecipeData(String filterHash, int cursorId);
-  Future<RecipeDetailResponse> fetchRecipeDetail(int cursorId);
+  Future<RecipeDetailResponse> fetchRecipeDetail(int resepIds);
   Future<List<RecipeResponse>> searchRecipes(String query);
   Future<String> bookMarkRecipe(int recipeId, bool state);
 }

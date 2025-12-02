@@ -1,25 +1,72 @@
-/*
-
 import 'package:dio/dio.dart';
+import 'package:makanapa/features/recipe/data/data_source/recipe_data_source.dart';
+import 'package:makanapa/features/recipe/data/models/response/recipe_detail_response.dart';
+import 'package:makanapa/features/recipe/data/models/response/recipe_list_response.dart';
+import 'package:makanapa/features/recipe/data/models/response/recipe_response.dart';
 
-class TemplateRemoteDataSourceImpl implements TemplateRemoteDataSource {
-  final Dio dio;
+class RecipeRemoteDs implements RecipeRemoteDataSource {
+  final Dio client;
 
-  TemplateRemoteDataSourceImpl({required this.dio});
+  RecipeRemoteDs({required this.client});
+
   @override
-  Future<TemplateResponse> getTemplate() async {
-     try {
-      final response = await dio.get('/api/xxxxxx');
-      final rawData = response.data;
-      // 3. Map each item in the list to a SoldierResponse object
-      final TemplateResponse templates = rawData
-          .cast<Map<String, dynamic>>() // Castitem to Map<String, dynamic>
-          .map(TemplateResponse.fromJson);  // Use the generated fromJson factory
-      return templates;
-     }catch (e) {
+  Future<RecipeListResponse> getRecipeData(
+    String filterHash,
+    int cursorId,
+  ) async {
+    try {
+      final response = await client.post(
+        '/v1/resep_list',
+        data: {'cursor_id': cursorId, 'classType': filterHash},
+      );
+      final Map<String, dynamic> rawData = response.data;
+      final dynamic data = rawData['data'];
+      final RecipeListResponse results = data.map(RecipeListResponse.fromJson);
+      return results;
+    } catch (e) {
       rethrow;
     }
   }
-}
 
- */
+  @override
+  Future<RecipeDetailResponse> fetchRecipeDetail(int resepId) async {
+    try {
+      final response = await client.post(
+        '/v1/fetch-resep-detail',
+        data: {'resep_id': resepId},
+      );
+      final Map<String, dynamic> rawData = response.data;
+      final dynamic data = rawData['data'];
+      final RecipeDetailResponse results = data.map(
+        RecipeDetailResponse.fromJson,
+      );
+      return results;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<RecipeResponse>> searchRecipes(String query) async {
+    try {
+      final response = await client.post(
+        '/v1/search-resep',
+        data: {'resep_query': query},
+      );
+      final Map<String, dynamic> rawData = response.data;
+      final List<dynamic> rawList = rawData['data'];
+      final List<RecipeResponse> searchData = rawList
+          .cast<Map<String, dynamic>>()
+          .map(RecipeResponse.fromJson)
+          .toList();
+      return searchData;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<String> bookMarkRecipe(int recipeId, bool state) {
+    throw UnimplementedError();
+  }
+}
