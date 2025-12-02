@@ -2,6 +2,9 @@ import 'dart:io';
 import 'package:isar_community/isar.dart';
 import 'package:makanapa/features/onboarding/data/models/entity/user_entity.dart';
 import 'package:makanapa/features/profile/data/models/entity/faq_isar_model.dart';
+import 'package:makanapa/features/recipe/data/models/entity/recipe_detail_isar_model.dart';
+import 'package:makanapa/features/recipe/data/models/entity/recipe_index_isar_model.dart';
+import 'package:makanapa/features/recipe/data/models/entity/recipe_isar_model.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:makanapa/features/shared/models/device_config.dart';
@@ -12,7 +15,13 @@ import 'package:device_info_plus/device_info_plus.dart';
 Future<Isar> initializeIsar() async {
   final directory = await getApplicationDocumentsDirectory();
   Isar isar = await Isar.open(
-    [UserEntitySchema, FaqEntitySchema],
+    [
+      UserEntitySchema,
+      FaqEntitySchema,
+      RecipeEntitySchema,
+      RecipeDetailEntitySchema,
+      RecipeIndexEntitySchema,
+    ],
     inspector: true,
     directory: directory.path,
   );
