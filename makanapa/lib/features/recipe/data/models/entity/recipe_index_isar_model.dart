@@ -10,7 +10,7 @@ class RecipeIndexEntity {
 
   @Index(unique: true, replace: true)
   late String filterKey;
-  late int? cursorId;
+  late int pageIndex;
   late int? nextCursor;
   late int? dataCounter;
   late List<int> recipeIds;
@@ -21,11 +21,11 @@ class RecipeIndexEntity {
   factory RecipeIndexEntity.fromPage(
     String filterKey,
     RecipePage page,
-    int? cursor,
+    int pageIndex,
   ) {
     return RecipeIndexEntity()
       ..filterKey = filterKey
-      ..cursorId = cursor
+      ..pageIndex = pageIndex
       ..nextCursor = page.nextCursor
       ..recipeIds = page.data.map((item) => item.id).toList()
       ..dataCounter = page.dataCounter

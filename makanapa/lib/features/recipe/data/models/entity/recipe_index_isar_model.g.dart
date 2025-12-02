@@ -17,20 +17,24 @@ const RecipeIndexEntitySchema = CollectionSchema(
   name: r'RecipeIndexEntity',
   id: -2250549704573701178,
   properties: {
-    r'cursorId': PropertySchema(id: 0, name: r'cursorId', type: IsarType.long),
     r'dataCounter': PropertySchema(
-      id: 1,
+      id: 0,
       name: r'dataCounter',
       type: IsarType.long,
     ),
     r'filterKey': PropertySchema(
-      id: 2,
+      id: 1,
       name: r'filterKey',
       type: IsarType.string,
     ),
     r'nextCursor': PropertySchema(
-      id: 3,
+      id: 2,
       name: r'nextCursor',
+      type: IsarType.long,
+    ),
+    r'pageIndex': PropertySchema(
+      id: 3,
+      name: r'pageIndex',
       type: IsarType.long,
     ),
     r'recipeIds': PropertySchema(
@@ -91,10 +95,10 @@ void _recipeIndexEntitySerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.cursorId);
-  writer.writeLong(offsets[1], object.dataCounter);
-  writer.writeString(offsets[2], object.filterKey);
-  writer.writeLong(offsets[3], object.nextCursor);
+  writer.writeLong(offsets[0], object.dataCounter);
+  writer.writeString(offsets[1], object.filterKey);
+  writer.writeLong(offsets[2], object.nextCursor);
+  writer.writeLong(offsets[3], object.pageIndex);
   writer.writeLongList(offsets[4], object.recipeIds);
   writer.writeDateTime(offsets[5], object.timestamp);
 }
@@ -106,11 +110,11 @@ RecipeIndexEntity _recipeIndexEntityDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = RecipeIndexEntity();
-  object.cursorId = reader.readLongOrNull(offsets[0]);
-  object.dataCounter = reader.readLongOrNull(offsets[1]);
-  object.filterKey = reader.readString(offsets[2]);
+  object.dataCounter = reader.readLongOrNull(offsets[0]);
+  object.filterKey = reader.readString(offsets[1]);
   object.id = id;
-  object.nextCursor = reader.readLongOrNull(offsets[3]);
+  object.nextCursor = reader.readLongOrNull(offsets[2]);
+  object.pageIndex = reader.readLong(offsets[3]);
   object.recipeIds = reader.readLongList(offsets[4]) ?? [];
   object.timestamp = reader.readDateTime(offsets[5]);
   return object;
@@ -126,11 +130,11 @@ P _recipeIndexEntityDeserializeProp<P>(
     case 0:
       return (reader.readLongOrNull(offset)) as P;
     case 1:
-      return (reader.readLongOrNull(offset)) as P;
-    case 2:
       return (reader.readString(offset)) as P;
-    case 3:
+    case 2:
       return (reader.readLongOrNull(offset)) as P;
+    case 3:
+      return (reader.readLong(offset)) as P;
     case 4:
       return (reader.readLongList(offset) ?? []) as P;
     case 5:
@@ -350,79 +354,6 @@ extension RecipeIndexEntityQueryWhere
 
 extension RecipeIndexEntityQueryFilter
     on QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QFilterCondition> {
-  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterFilterCondition>
-  cursorIdIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        const FilterCondition.isNull(property: r'cursorId'),
-      );
-    });
-  }
-
-  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterFilterCondition>
-  cursorIdIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        const FilterCondition.isNotNull(property: r'cursorId'),
-      );
-    });
-  }
-
-  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterFilterCondition>
-  cursorIdEqualTo(int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.equalTo(property: r'cursorId', value: value),
-      );
-    });
-  }
-
-  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterFilterCondition>
-  cursorIdGreaterThan(int? value, {bool include = false}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.greaterThan(
-          include: include,
-          property: r'cursorId',
-          value: value,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterFilterCondition>
-  cursorIdLessThan(int? value, {bool include = false}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.lessThan(
-          include: include,
-          property: r'cursorId',
-          value: value,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterFilterCondition>
-  cursorIdBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.between(
-          property: r'cursorId',
-          lower: lower,
-          includeLower: includeLower,
-          upper: upper,
-          includeUpper: includeUpper,
-        ),
-      );
-    });
-  }
-
   QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterFilterCondition>
   dataCounterIsNull() {
     return QueryBuilder.apply(this, (query) {
@@ -766,6 +697,61 @@ extension RecipeIndexEntityQueryFilter
   }
 
   QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterFilterCondition>
+  pageIndexEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'pageIndex', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterFilterCondition>
+  pageIndexGreaterThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'pageIndex',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterFilterCondition>
+  pageIndexLessThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'pageIndex',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterFilterCondition>
+  pageIndexBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'pageIndex',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterFilterCondition>
   recipeIdsElementEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
@@ -938,20 +924,6 @@ extension RecipeIndexEntityQueryLinks
 extension RecipeIndexEntityQuerySortBy
     on QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QSortBy> {
   QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterSortBy>
-  sortByCursorId() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'cursorId', Sort.asc);
-    });
-  }
-
-  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterSortBy>
-  sortByCursorIdDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'cursorId', Sort.desc);
-    });
-  }
-
-  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterSortBy>
   sortByDataCounter() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'dataCounter', Sort.asc);
@@ -994,6 +966,20 @@ extension RecipeIndexEntityQuerySortBy
   }
 
   QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterSortBy>
+  sortByPageIndex() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pageIndex', Sort.asc);
+    });
+  }
+
+  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterSortBy>
+  sortByPageIndexDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pageIndex', Sort.desc);
+    });
+  }
+
+  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterSortBy>
   sortByTimestamp() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timestamp', Sort.asc);
@@ -1010,20 +996,6 @@ extension RecipeIndexEntityQuerySortBy
 
 extension RecipeIndexEntityQuerySortThenBy
     on QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QSortThenBy> {
-  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterSortBy>
-  thenByCursorId() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'cursorId', Sort.asc);
-    });
-  }
-
-  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterSortBy>
-  thenByCursorIdDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'cursorId', Sort.desc);
-    });
-  }
-
   QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterSortBy>
   thenByDataCounter() {
     return QueryBuilder.apply(this, (query) {
@@ -1080,6 +1052,20 @@ extension RecipeIndexEntityQuerySortThenBy
   }
 
   QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterSortBy>
+  thenByPageIndex() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pageIndex', Sort.asc);
+    });
+  }
+
+  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterSortBy>
+  thenByPageIndexDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'pageIndex', Sort.desc);
+    });
+  }
+
+  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterSortBy>
   thenByTimestamp() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'timestamp', Sort.asc);
@@ -1096,13 +1082,6 @@ extension RecipeIndexEntityQuerySortThenBy
 
 extension RecipeIndexEntityQueryWhereDistinct
     on QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QDistinct> {
-  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QDistinct>
-  distinctByCursorId() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'cursorId');
-    });
-  }
-
   QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QDistinct>
   distinctByDataCounter() {
     return QueryBuilder.apply(this, (query) {
@@ -1121,6 +1100,13 @@ extension RecipeIndexEntityQueryWhereDistinct
   distinctByNextCursor() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'nextCursor');
+    });
+  }
+
+  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QDistinct>
+  distinctByPageIndex() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'pageIndex');
     });
   }
 
@@ -1147,12 +1133,6 @@ extension RecipeIndexEntityQueryProperty
     });
   }
 
-  QueryBuilder<RecipeIndexEntity, int?, QQueryOperations> cursorIdProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'cursorId');
-    });
-  }
-
   QueryBuilder<RecipeIndexEntity, int?, QQueryOperations>
   dataCounterProperty() {
     return QueryBuilder.apply(this, (query) {
@@ -1170,6 +1150,12 @@ extension RecipeIndexEntityQueryProperty
   QueryBuilder<RecipeIndexEntity, int?, QQueryOperations> nextCursorProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'nextCursor');
+    });
+  }
+
+  QueryBuilder<RecipeIndexEntity, int, QQueryOperations> pageIndexProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'pageIndex');
     });
   }
 

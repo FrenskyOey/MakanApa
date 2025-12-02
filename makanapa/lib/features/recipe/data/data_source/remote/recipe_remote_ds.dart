@@ -11,8 +11,8 @@ class RecipeRemoteDs implements RecipeRemoteDataSource {
 
   @override
   Future<RecipeListResponse> getRecipeData(
-    String filterHash,
-    int cursorId,
+    String? filterHash,
+    int? cursorId,
   ) async {
     try {
       final response = await client.post(
@@ -47,7 +47,7 @@ class RecipeRemoteDs implements RecipeRemoteDataSource {
   }
 
   @override
-  Future<List<RecipeResponse>> searchRecipes(String query) async {
+  Future<List<RecipeResponse>> searchRecipes(String? query) async {
     try {
       final response = await client.post(
         '/v1/search-resep',
@@ -67,6 +67,7 @@ class RecipeRemoteDs implements RecipeRemoteDataSource {
 
   @override
   Future<String> bookMarkRecipe(int recipeId, bool state) {
+    // TODO: implement bookMarkRecipe
     throw UnimplementedError();
   }
 }
