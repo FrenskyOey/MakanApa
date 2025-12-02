@@ -17,7 +17,7 @@ import 'package:makanapa/features/profile/presentation/changePassword/screens/ch
 import 'package:makanapa/features/profile/presentation/faq/screens/faq_screen.dart';
 import 'package:makanapa/features/profile/presentation/profileEdit/screens/profile_edit_screen.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/screens/profile_screen.dart';
-import 'package:makanapa/features/receipt/presentation/screens/receipt_screen.dart';
+import 'package:makanapa/features/recipe/presentation/list/screens/recipe_screen.dart';
 import 'package:makanapa/features/shared/token/provider/token_provider.dart';
 import 'package:makanapa/features/shared/token/provider/token_state.dart';
 import 'package:makanapa/features/splash_screen.dart';
@@ -86,7 +86,7 @@ final routeProvider = Provider((ref) {
               GoRoute(
                 name: RouteNames.receipt,
                 path: "/receipt",
-                builder: (context, state) => const ReceiptScreen(),
+                builder: (context, state) => const RecipeScreen(),
               ),
             ],
           ),
