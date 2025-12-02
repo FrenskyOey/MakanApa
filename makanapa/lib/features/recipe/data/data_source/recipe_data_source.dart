@@ -14,9 +14,9 @@ abstract class RecipeRemoteDataSource {
 }
 
 abstract class RecipeLocalDataSource {
-  Future<RecipePage> getCachedRecipes(String filterHash, int cursorId);
+  Stream<List<RecipePage>> getCachedRecipes(String filterHash, int cursorId);
   Future<void> cacheRecipeList(String filterHash, int cursor, RecipePage page);
-  Future<RecipeDetailEntity> getCachedRecipeDetail(int recipeId);
+  Stream<RecipeDetailEntity> getCachedRecipeDetail(int recipeId);
   Future<void> cacheRecipeDetail(int recipeId, RecipeDetail detail);
   Future<List<RecipeEntity>> getCachedSearchResults(String query);
 }
