@@ -26,8 +26,14 @@ class RecipeRepoImpl implements RecipeRepository {
     String? filter,
   }) async {
     try {
-      final nextCursor = await localDataSource.getNextCursor(filter, pageIndex);
-      final data = await remoteDataSource.getRecipeData(filter, nextCursor);
+      final indexData = await localDataSource.getRecipeIndexEntity(
+        filter,
+        pageIndex - 1,
+      );
+      final data = await remoteDataSource.getRecipeData(
+        filter,
+        indexData?.nextCursor,
+      );
       final domainData = data.toDomain();
       await localDataSource.cacheRecipeList(filter, pageIndex, domainData);
       return Right(domainData);
@@ -35,6 +41,30 @@ class RecipeRepoImpl implements RecipeRepository {
       final message = handleError(e, stackTrace);
       return Left(message);
     }
+  }
+
+  @override
+  Future<RecipePage?> getLocalReceiptPage({
+    required int pageIndex,
+    String? filter,
+  }) async {
+    final indexData = await localDataSource.getRecipeIndexEntity(
+      filter,
+      pageIndex,
+    );
+
+    if (indexData == null) return null;
+
+    final receiptId = indexData.recipeIds;
+    final data = await localDataSource.getReceiptByReceiptId(receiptId);
+    final domainData = data.map((e) => e.toDomain()).toList();
+
+    return RecipePage(
+      data: domainData,
+      nextCursor: indexData.nextCursor ?? 0,
+      limit: 25,
+      dataCounter: indexData.dataCounter ?? 0,
+    );
   }
 
   @override

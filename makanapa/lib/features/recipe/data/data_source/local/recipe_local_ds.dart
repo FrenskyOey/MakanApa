@@ -17,12 +17,12 @@ class RecipeLocalDs implements RecipeLocalDataSource {
     String? filterHash,
     int pageIndex,
   ) {
-    final pages = pageIndex + 1;
+    final pages = pageIndex;
 
     return isar.recipeIndexEntitys
         .filter()
         .filterKeyEqualTo(filterHash ?? "")
-        .pageIndexLessThan(pages)
+        .pageIndexLessThan(pages, include: true)
         .sortByPageIndex()
         .watch(fireImmediately: true);
   }
@@ -128,19 +128,17 @@ class RecipeLocalDs implements RecipeLocalDataSource {
   }
 
   @override
-  Future<int?> getNextCursor(String? filterHash, int targetPage) async {
-    if (targetPage == 1) {
-      return null;
-    }
-
-    final prevPage = targetPage - 1;
+  Future<RecipeIndexEntity?> getRecipeIndexEntity(
+    String? filterHash,
+    int targetPage,
+  ) async {
+    final prevPage = targetPage;
     final indexData = await isar.recipeIndexEntitys
         .filter()
         .filterKeyEqualTo(filterHash ?? "")
         .pageIndexEqualTo(prevPage)
         .findFirst();
-
-    return indexData?.nextCursor;
+    return indexData;
   }
 
   @override
