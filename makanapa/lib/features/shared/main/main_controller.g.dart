@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'recipe_controller.dart';
+part of 'main_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,52 +9,52 @@ part of 'recipe_controller.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(RecipeController)
-const recipeControllerProvider = RecipeControllerProvider._();
+@ProviderFor(MainController)
+const mainControllerProvider = MainControllerProvider._();
 
-final class RecipeControllerProvider
-    extends $NotifierProvider<RecipeController, RecipeUiState> {
-  const RecipeControllerProvider._()
+final class MainControllerProvider
+    extends $NotifierProvider<MainController, MainUiState> {
+  const MainControllerProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'recipeControllerProvider',
+        name: r'mainControllerProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$recipeControllerHash();
+  String debugGetCreateSourceHash() => _$mainControllerHash();
 
   @$internal
   @override
-  RecipeController create() => RecipeController();
+  MainController create() => MainController();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(RecipeUiState value) {
+  Override overrideWithValue(MainUiState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<RecipeUiState>(value),
+      providerOverride: $SyncValueProvider<MainUiState>(value),
     );
   }
 }
 
-String _$recipeControllerHash() => r'e2bdc81ea4eab20e9032ce369373bee99e5e281f';
+String _$mainControllerHash() => r'8ea10f1b559a5f8fca9f443aa9373e4de592b26e';
 
-abstract class _$RecipeController extends $Notifier<RecipeUiState> {
-  RecipeUiState build();
+abstract class _$MainController extends $Notifier<MainUiState> {
+  MainUiState build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<RecipeUiState, RecipeUiState>;
+    final ref = this.ref as $Ref<MainUiState, MainUiState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<RecipeUiState, RecipeUiState>,
-              RecipeUiState,
+              AnyNotifier<MainUiState, MainUiState>,
+              MainUiState,
               Object?,
               Object?
             >;

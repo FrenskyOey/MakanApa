@@ -50,26 +50,24 @@ class RecipeLocalDs implements RecipeLocalDataSource {
       final existingData = await isar.recipeIndexEntitys
           .filter()
           .filterKeyEqualTo(filterKeys)
+          .and()
           .pageIndexEqualTo(insertData.pageIndex)
           .findFirst();
 
       if (existingData != null) {
         insertData.id = existingData.id;
       }
-
       await isar.recipeIndexEntitys.put(insertData);
     });
   }
 
   Future<void> _saveReceiptData(List<RecipeItem> data) async {
-    await isar.writeTxn(() async {
-      final recipeEntity = data.map((recipe) {
-        return RecipeEntity.fromEntity(recipe);
-      }).toList();
+    final recipeEntity = data.map((recipe) {
+      return RecipeEntity.fromEntity(recipe);
+    }).toList();
 
-      return isar.writeTxn(() async {
-        await isar.recipeEntitys.putAllByDataId(recipeEntity);
-      });
+    isar.writeTxn(() async {
+      await isar.recipeEntitys.putAllByDataId(recipeEntity);
     });
   }
 

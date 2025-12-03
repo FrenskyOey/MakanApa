@@ -79,8 +79,12 @@ class RecipeController extends _$RecipeController {
     _eventController.add(RecipeListEventState.openReceiptDetail(item.id));
   }
 
+  void openSearchRecipe() {
+    _eventController.add(RecipeListEventState.openSearchRecipe());
+  }
+
   Future<void> reloadRecipeData({bool fromPullRefresh = false}) async {
-    if (_isFetching || !_hasMoreData) {
+    if (_isFetching) {
       return;
     }
     _isFetching = true;
@@ -96,7 +100,7 @@ class RecipeController extends _$RecipeController {
     }
 
     // intentionally delayed to avoid blink loading effect
-    await Future.delayed(Duration(milliseconds: 1500));
+    await Future.delayed(Duration(milliseconds: 1000));
     if (!ref.mounted) {
       return;
     }

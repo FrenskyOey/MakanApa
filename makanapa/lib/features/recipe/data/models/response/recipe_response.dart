@@ -25,8 +25,8 @@ abstract class RecipeResponse with _$RecipeResponse {
       name: name,
       enName: enName,
       picture: picture,
-      dishType: DishEnum.values.byName(resepType),
-      classType: ClassEnum.values.byName(classType),
+      dishType: DishEnum.fromDescription(resepType),
+      classType: ClassEnum.fromDescription(classType),
     );
   }
 

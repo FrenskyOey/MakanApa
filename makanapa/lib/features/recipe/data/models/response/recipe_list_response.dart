@@ -20,7 +20,7 @@ abstract class RecipeListResponse with _$RecipeListResponse {
 
   RecipePage toDomain() {
     return RecipePage(
-      data: List.empty(),
+      data: items.map((e) => e.toDomain()).toList(),
       nextCursor: nextCursors,
       limit: limits,
       dataCounter: dataCounters,

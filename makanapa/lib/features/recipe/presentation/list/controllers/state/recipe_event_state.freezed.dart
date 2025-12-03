@@ -55,13 +55,14 @@ extension RecipeListEventStatePatterns on RecipeListEventState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ToastError value)?  toastError,TResult Function( _ToastSuccess value)?  toastSuccess,TResult Function( _OpenReceiptDetail value)?  openReceiptDetail,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ToastError value)?  toastError,TResult Function( _ToastSuccess value)?  toastSuccess,TResult Function( _OpenReceiptDetail value)?  openReceiptDetail,TResult Function( _OpenSearchRecipe value)?  openSearchRecipe,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that);case _ToastSuccess() when toastSuccess != null:
 return toastSuccess(_that);case _OpenReceiptDetail() when openReceiptDetail != null:
-return openReceiptDetail(_that);case _:
+return openReceiptDetail(_that);case _OpenSearchRecipe() when openSearchRecipe != null:
+return openSearchRecipe(_that);case _:
   return orElse();
 
 }
@@ -79,13 +80,14 @@ return openReceiptDetail(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ToastError value)  toastError,required TResult Function( _ToastSuccess value)  toastSuccess,required TResult Function( _OpenReceiptDetail value)  openReceiptDetail,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ToastError value)  toastError,required TResult Function( _ToastSuccess value)  toastSuccess,required TResult Function( _OpenReceiptDetail value)  openReceiptDetail,required TResult Function( _OpenSearchRecipe value)  openSearchRecipe,}){
 final _that = this;
 switch (_that) {
 case _ToastError():
 return toastError(_that);case _ToastSuccess():
 return toastSuccess(_that);case _OpenReceiptDetail():
-return openReceiptDetail(_that);case _:
+return openReceiptDetail(_that);case _OpenSearchRecipe():
+return openSearchRecipe(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -102,13 +104,14 @@ return openReceiptDetail(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ToastError value)?  toastError,TResult? Function( _ToastSuccess value)?  toastSuccess,TResult? Function( _OpenReceiptDetail value)?  openReceiptDetail,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ToastError value)?  toastError,TResult? Function( _ToastSuccess value)?  toastSuccess,TResult? Function( _OpenReceiptDetail value)?  openReceiptDetail,TResult? Function( _OpenSearchRecipe value)?  openSearchRecipe,}){
 final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that);case _ToastSuccess() when toastSuccess != null:
 return toastSuccess(_that);case _OpenReceiptDetail() when openReceiptDetail != null:
-return openReceiptDetail(_that);case _:
+return openReceiptDetail(_that);case _OpenSearchRecipe() when openSearchRecipe != null:
+return openSearchRecipe(_that);case _:
   return null;
 
 }
@@ -125,12 +128,13 @@ return openReceiptDetail(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String messgae)?  toastError,TResult Function( String messgae)?  toastSuccess,TResult Function( int receiptId)?  openReceiptDetail,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String messgae)?  toastError,TResult Function( String messgae)?  toastSuccess,TResult Function( int receiptId)?  openReceiptDetail,TResult Function()?  openSearchRecipe,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that.messgae);case _ToastSuccess() when toastSuccess != null:
 return toastSuccess(_that.messgae);case _OpenReceiptDetail() when openReceiptDetail != null:
-return openReceiptDetail(_that.receiptId);case _:
+return openReceiptDetail(_that.receiptId);case _OpenSearchRecipe() when openSearchRecipe != null:
+return openSearchRecipe();case _:
   return orElse();
 
 }
@@ -148,12 +152,13 @@ return openReceiptDetail(_that.receiptId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String messgae)  toastError,required TResult Function( String messgae)  toastSuccess,required TResult Function( int receiptId)  openReceiptDetail,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String messgae)  toastError,required TResult Function( String messgae)  toastSuccess,required TResult Function( int receiptId)  openReceiptDetail,required TResult Function()  openSearchRecipe,}) {final _that = this;
 switch (_that) {
 case _ToastError():
 return toastError(_that.messgae);case _ToastSuccess():
 return toastSuccess(_that.messgae);case _OpenReceiptDetail():
-return openReceiptDetail(_that.receiptId);case _:
+return openReceiptDetail(_that.receiptId);case _OpenSearchRecipe():
+return openSearchRecipe();case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -170,12 +175,13 @@ return openReceiptDetail(_that.receiptId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String messgae)?  toastError,TResult? Function( String messgae)?  toastSuccess,TResult? Function( int receiptId)?  openReceiptDetail,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String messgae)?  toastError,TResult? Function( String messgae)?  toastSuccess,TResult? Function( int receiptId)?  openReceiptDetail,TResult? Function()?  openSearchRecipe,}) {final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that.messgae);case _ToastSuccess() when toastSuccess != null:
 return toastSuccess(_that.messgae);case _OpenReceiptDetail() when openReceiptDetail != null:
-return openReceiptDetail(_that.receiptId);case _:
+return openReceiptDetail(_that.receiptId);case _OpenSearchRecipe() when openSearchRecipe != null:
+return openSearchRecipe();case _:
   return null;
 
 }
@@ -380,5 +386,37 @@ as int,
 
 
 }
+
+/// @nodoc
+
+
+class _OpenSearchRecipe implements RecipeListEventState {
+  const _OpenSearchRecipe();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OpenSearchRecipe);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'RecipeListEventState.openSearchRecipe()';
+}
+
+
+}
+
+
+
 
 // dart format on

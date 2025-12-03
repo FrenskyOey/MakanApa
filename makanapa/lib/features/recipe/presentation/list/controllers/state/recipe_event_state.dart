@@ -11,4 +11,6 @@ class RecipeListEventState with _$RecipeListEventState {
   // handling open detail page
   const factory RecipeListEventState.openReceiptDetail(int receiptId) =
       _OpenReceiptDetail;
+
+  const factory RecipeListEventState.openSearchRecipe() = _OpenSearchRecipe;
 }

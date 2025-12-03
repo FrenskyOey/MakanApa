@@ -21,7 +21,7 @@ class RecipeRemoteDs implements RecipeRemoteDataSource {
       );
       final Map<String, dynamic> rawData = response.data;
       final dynamic data = rawData['data'];
-      final RecipeListResponse results = data.map(RecipeListResponse.fromJson);
+      final RecipeListResponse results = RecipeListResponse.fromJson(data);
       return results;
     } catch (e) {
       rethrow;
@@ -37,9 +37,7 @@ class RecipeRemoteDs implements RecipeRemoteDataSource {
       );
       final Map<String, dynamic> rawData = response.data;
       final dynamic data = rawData['data'];
-      final RecipeDetailResponse results = data.map(
-        RecipeDetailResponse.fromJson,
-      );
+      final RecipeDetailResponse results = RecipeDetailResponse.fromJson(data);
       return results;
     } catch (e) {
       rethrow;
