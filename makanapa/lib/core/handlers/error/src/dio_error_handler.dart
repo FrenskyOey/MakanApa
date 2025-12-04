@@ -38,19 +38,19 @@ class DioErrorHandler implements BaseErrorHandler {
     final statusCode = error.response?.statusCode;
     switch (statusCode) {
       case 400:
-        return 'Permintaan Buruk: Data yang dikirim tidak valid.';
+        return 'Data yang dikirim tidak valid.';
       case 401:
         return 'Sesi Login Habis, silahkan login lagi.';
       case 403:
-        return 'Dilarang: Anda tidak memiliki izin untuk mengakses sumber daya ini.';
+        return 'Anda tidak memiliki izin untuk mengakses sumber daya ini.';
       case 404:
         return 'Url Api Tidak ditemukan.';
       case 422:
-        return 'Validasi Gagal: Permintaan tidak dapat diproses.';
+        return 'Permintaan tidak dapat diproses.';
       case 500:
-        return 'Kesalahan Server Internal: Server kami sedang mengalami masalah.';
+        return 'Server kami sedang mengalami masalah.';
       case 503:
-        return 'Layanan Tidak Tersedia: Silakan coba lagi sebentar.';
+        return 'Silakan coba lagi sebentar.';
       default:
         return 'Kesalahan server dengan kode status: $statusCode.';
     }

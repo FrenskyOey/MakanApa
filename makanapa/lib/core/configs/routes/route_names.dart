@@ -11,8 +11,9 @@ class RouteNames {
   // home screen routes
   static const String home = '/home';
 
-  // receipt routes
+  // recipe routes
   static const String receipt = '/receipt';
+  static const String recipeDetail = '/recipe-detail';
 
   // basket Routes
   static const String basket = '/basket';

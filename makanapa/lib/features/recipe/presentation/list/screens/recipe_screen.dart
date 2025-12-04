@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:makanapa/core/configs/routes/route_names.dart';
 import 'package:makanapa/core/extension/index.dart';
 import 'package:makanapa/core/helpers/snackbar_helper.dart';
 import 'package:makanapa/core/themes/dimens_constant.dart';
@@ -72,8 +74,8 @@ class RecipeScreen extends HookConsumerWidget {
           toastSuccess: (message) {
             SnackBarHelper.showSuccess(context, message);
           },
-          openReceiptDetail: (receiptId) {
-            SnackBarHelper.showWarning(context, "Belum Ready");
+          openReceiptDetail: (item) {
+            context.pushNamed(RouteNames.recipeDetail, extra: item);
           },
           openSearchRecipe: () {
             SnackBarHelper.showWarning(context, "Belum Ready");

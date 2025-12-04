@@ -21,7 +21,7 @@ abstract class IngredientsResponse with _$IngredientsResponse {
     return Ingredients(
       id: id,
       name: name,
-      type: IngredientEnum.values.byName(types),
+      type: IngredientEnum.fromDescription(types),
       unit: unitType,
       qty: quantity,
     );

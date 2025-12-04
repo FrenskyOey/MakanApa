@@ -17,6 +17,8 @@ import 'package:makanapa/features/profile/presentation/changePassword/screens/ch
 import 'package:makanapa/features/profile/presentation/faq/screens/faq_screen.dart';
 import 'package:makanapa/features/profile/presentation/profileEdit/screens/profile_edit_screen.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/screens/profile_screen.dart';
+import 'package:makanapa/features/recipe/domain/models/recipe_item.dart';
+import 'package:makanapa/features/recipe/presentation/detail/screens/recipe_detail_screen.dart';
 import 'package:makanapa/features/recipe/presentation/list/screens/recipe_screen.dart';
 import 'package:makanapa/features/shared/token/provider/token_provider.dart';
 import 'package:makanapa/features/shared/token/provider/token_state.dart';
@@ -130,6 +132,14 @@ final routeProvider = Provider((ref) {
         path: '/faq',
         builder: (BuildContext context, GoRouterState state) {
           return FaqScreen();
+        },
+      ),
+      GoRoute(
+        name: RouteNames.recipeDetail,
+        path: '/recipe-detail',
+        builder: (BuildContext context, GoRouterState state) {
+          final item = state.extra as RecipeItem;
+          return RecipeDetailScreen(recipeItem: item);
         },
       ),
     ],

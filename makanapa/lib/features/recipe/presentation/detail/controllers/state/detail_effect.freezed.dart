@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'recipe_event_state.dart';
+part of 'detail_effect.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,7 +12,7 @@ part of 'recipe_event_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$RecipeListEventState {
+mixin _$DetailEffect {
 
 
 
@@ -20,7 +20,7 @@ mixin _$RecipeListEventState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeListEventState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DetailEffect);
 }
 
 
@@ -29,20 +29,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RecipeListEventState()';
+  return 'DetailEffect()';
 }
 
 
 }
 
 /// @nodoc
-class $RecipeListEventStateCopyWith<$Res>  {
-$RecipeListEventStateCopyWith(RecipeListEventState _, $Res Function(RecipeListEventState) __);
+class $DetailEffectCopyWith<$Res>  {
+$DetailEffectCopyWith(DetailEffect _, $Res Function(DetailEffect) __);
 }
 
 
-/// Adds pattern-matching-related methods to [RecipeListEventState].
-extension RecipeListEventStatePatterns on RecipeListEventState {
+/// Adds pattern-matching-related methods to [DetailEffect].
+extension DetailEffectPatterns on DetailEffect {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -55,14 +55,13 @@ extension RecipeListEventStatePatterns on RecipeListEventState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ToastError value)?  toastError,TResult Function( _ToastSuccess value)?  toastSuccess,TResult Function( _OpenReceiptDetail value)?  openReceiptDetail,TResult Function( _OpenSearchRecipe value)?  openSearchRecipe,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ToastError value)?  toastError,TResult Function( _ToastSuccess value)?  toastSuccess,TResult Function( _OpenUrlLink value)?  openUrlLink,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that);case _OpenReceiptDetail() when openReceiptDetail != null:
-return openReceiptDetail(_that);case _OpenSearchRecipe() when openSearchRecipe != null:
-return openSearchRecipe(_that);case _:
+return toastSuccess(_that);case _OpenUrlLink() when openUrlLink != null:
+return openUrlLink(_that);case _:
   return orElse();
 
 }
@@ -80,14 +79,13 @@ return openSearchRecipe(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ToastError value)  toastError,required TResult Function( _ToastSuccess value)  toastSuccess,required TResult Function( _OpenReceiptDetail value)  openReceiptDetail,required TResult Function( _OpenSearchRecipe value)  openSearchRecipe,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ToastError value)  toastError,required TResult Function( _ToastSuccess value)  toastSuccess,required TResult Function( _OpenUrlLink value)  openUrlLink,}){
 final _that = this;
 switch (_that) {
 case _ToastError():
 return toastError(_that);case _ToastSuccess():
-return toastSuccess(_that);case _OpenReceiptDetail():
-return openReceiptDetail(_that);case _OpenSearchRecipe():
-return openSearchRecipe(_that);case _:
+return toastSuccess(_that);case _OpenUrlLink():
+return openUrlLink(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -104,14 +102,13 @@ return openSearchRecipe(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ToastError value)?  toastError,TResult? Function( _ToastSuccess value)?  toastSuccess,TResult? Function( _OpenReceiptDetail value)?  openReceiptDetail,TResult? Function( _OpenSearchRecipe value)?  openSearchRecipe,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ToastError value)?  toastError,TResult? Function( _ToastSuccess value)?  toastSuccess,TResult? Function( _OpenUrlLink value)?  openUrlLink,}){
 final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that);case _OpenReceiptDetail() when openReceiptDetail != null:
-return openReceiptDetail(_that);case _OpenSearchRecipe() when openSearchRecipe != null:
-return openSearchRecipe(_that);case _:
+return toastSuccess(_that);case _OpenUrlLink() when openUrlLink != null:
+return openUrlLink(_that);case _:
   return null;
 
 }
@@ -128,13 +125,12 @@ return openSearchRecipe(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String messgae)?  toastError,TResult Function( String messgae)?  toastSuccess,TResult Function( RecipeItem item)?  openReceiptDetail,TResult Function()?  openSearchRecipe,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String messgae)?  toastError,TResult Function( String messgae)?  toastSuccess,TResult Function( String url)?  openUrlLink,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that.messgae);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that.messgae);case _OpenReceiptDetail() when openReceiptDetail != null:
-return openReceiptDetail(_that.item);case _OpenSearchRecipe() when openSearchRecipe != null:
-return openSearchRecipe();case _:
+return toastSuccess(_that.messgae);case _OpenUrlLink() when openUrlLink != null:
+return openUrlLink(_that.url);case _:
   return orElse();
 
 }
@@ -152,13 +148,12 @@ return openSearchRecipe();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String messgae)  toastError,required TResult Function( String messgae)  toastSuccess,required TResult Function( RecipeItem item)  openReceiptDetail,required TResult Function()  openSearchRecipe,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String messgae)  toastError,required TResult Function( String messgae)  toastSuccess,required TResult Function( String url)  openUrlLink,}) {final _that = this;
 switch (_that) {
 case _ToastError():
 return toastError(_that.messgae);case _ToastSuccess():
-return toastSuccess(_that.messgae);case _OpenReceiptDetail():
-return openReceiptDetail(_that.item);case _OpenSearchRecipe():
-return openSearchRecipe();case _:
+return toastSuccess(_that.messgae);case _OpenUrlLink():
+return openUrlLink(_that.url);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -175,13 +170,12 @@ return openSearchRecipe();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String messgae)?  toastError,TResult? Function( String messgae)?  toastSuccess,TResult? Function( RecipeItem item)?  openReceiptDetail,TResult? Function()?  openSearchRecipe,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String messgae)?  toastError,TResult? Function( String messgae)?  toastSuccess,TResult? Function( String url)?  openUrlLink,}) {final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that.messgae);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that.messgae);case _OpenReceiptDetail() when openReceiptDetail != null:
-return openReceiptDetail(_that.item);case _OpenSearchRecipe() when openSearchRecipe != null:
-return openSearchRecipe();case _:
+return toastSuccess(_that.messgae);case _OpenUrlLink() when openUrlLink != null:
+return openUrlLink(_that.url);case _:
   return null;
 
 }
@@ -192,13 +186,13 @@ return openSearchRecipe();case _:
 /// @nodoc
 
 
-class _ToastError implements RecipeListEventState {
+class _ToastError implements DetailEffect {
   const _ToastError(this.messgae);
   
 
  final  String messgae;
 
-/// Create a copy of RecipeListEventState
+/// Create a copy of DetailEffect
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -217,14 +211,14 @@ int get hashCode => Object.hash(runtimeType,messgae);
 
 @override
 String toString() {
-  return 'RecipeListEventState.toastError(messgae: $messgae)';
+  return 'DetailEffect.toastError(messgae: $messgae)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ToastErrorCopyWith<$Res> implements $RecipeListEventStateCopyWith<$Res> {
+abstract mixin class _$ToastErrorCopyWith<$Res> implements $DetailEffectCopyWith<$Res> {
   factory _$ToastErrorCopyWith(_ToastError value, $Res Function(_ToastError) _then) = __$ToastErrorCopyWithImpl;
 @useResult
 $Res call({
@@ -243,7 +237,7 @@ class __$ToastErrorCopyWithImpl<$Res>
   final _ToastError _self;
   final $Res Function(_ToastError) _then;
 
-/// Create a copy of RecipeListEventState
+/// Create a copy of DetailEffect
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? messgae = null,}) {
   return _then(_ToastError(
@@ -258,13 +252,13 @@ as String,
 /// @nodoc
 
 
-class _ToastSuccess implements RecipeListEventState {
+class _ToastSuccess implements DetailEffect {
   const _ToastSuccess(this.messgae);
   
 
  final  String messgae;
 
-/// Create a copy of RecipeListEventState
+/// Create a copy of DetailEffect
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -283,14 +277,14 @@ int get hashCode => Object.hash(runtimeType,messgae);
 
 @override
 String toString() {
-  return 'RecipeListEventState.toastSuccess(messgae: $messgae)';
+  return 'DetailEffect.toastSuccess(messgae: $messgae)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ToastSuccessCopyWith<$Res> implements $RecipeListEventStateCopyWith<$Res> {
+abstract mixin class _$ToastSuccessCopyWith<$Res> implements $DetailEffectCopyWith<$Res> {
   factory _$ToastSuccessCopyWith(_ToastSuccess value, $Res Function(_ToastSuccess) _then) = __$ToastSuccessCopyWithImpl;
 @useResult
 $Res call({
@@ -309,7 +303,7 @@ class __$ToastSuccessCopyWithImpl<$Res>
   final _ToastSuccess _self;
   final $Res Function(_ToastSuccess) _then;
 
-/// Create a copy of RecipeListEventState
+/// Create a copy of DetailEffect
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? messgae = null,}) {
   return _then(_ToastSuccess(
@@ -324,108 +318,67 @@ as String,
 /// @nodoc
 
 
-class _OpenReceiptDetail implements RecipeListEventState {
-  const _OpenReceiptDetail(this.item);
+class _OpenUrlLink implements DetailEffect {
+  const _OpenUrlLink(this.url);
   
 
- final  RecipeItem item;
+ final  String url;
 
-/// Create a copy of RecipeListEventState
+/// Create a copy of DetailEffect
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$OpenReceiptDetailCopyWith<_OpenReceiptDetail> get copyWith => __$OpenReceiptDetailCopyWithImpl<_OpenReceiptDetail>(this, _$identity);
+_$OpenUrlLinkCopyWith<_OpenUrlLink> get copyWith => __$OpenUrlLinkCopyWithImpl<_OpenUrlLink>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OpenReceiptDetail&&(identical(other.item, item) || other.item == item));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OpenUrlLink&&(identical(other.url, url) || other.url == url));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,item);
+int get hashCode => Object.hash(runtimeType,url);
 
 @override
 String toString() {
-  return 'RecipeListEventState.openReceiptDetail(item: $item)';
+  return 'DetailEffect.openUrlLink(url: $url)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$OpenReceiptDetailCopyWith<$Res> implements $RecipeListEventStateCopyWith<$Res> {
-  factory _$OpenReceiptDetailCopyWith(_OpenReceiptDetail value, $Res Function(_OpenReceiptDetail) _then) = __$OpenReceiptDetailCopyWithImpl;
+abstract mixin class _$OpenUrlLinkCopyWith<$Res> implements $DetailEffectCopyWith<$Res> {
+  factory _$OpenUrlLinkCopyWith(_OpenUrlLink value, $Res Function(_OpenUrlLink) _then) = __$OpenUrlLinkCopyWithImpl;
 @useResult
 $Res call({
- RecipeItem item
+ String url
 });
 
 
-$RecipeItemCopyWith<$Res> get item;
+
 
 }
 /// @nodoc
-class __$OpenReceiptDetailCopyWithImpl<$Res>
-    implements _$OpenReceiptDetailCopyWith<$Res> {
-  __$OpenReceiptDetailCopyWithImpl(this._self, this._then);
+class __$OpenUrlLinkCopyWithImpl<$Res>
+    implements _$OpenUrlLinkCopyWith<$Res> {
+  __$OpenUrlLinkCopyWithImpl(this._self, this._then);
 
-  final _OpenReceiptDetail _self;
-  final $Res Function(_OpenReceiptDetail) _then;
+  final _OpenUrlLink _self;
+  final $Res Function(_OpenUrlLink) _then;
 
-/// Create a copy of RecipeListEventState
+/// Create a copy of DetailEffect
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? item = null,}) {
-  return _then(_OpenReceiptDetail(
-null == item ? _self.item : item // ignore: cast_nullable_to_non_nullable
-as RecipeItem,
+@pragma('vm:prefer-inline') $Res call({Object? url = null,}) {
+  return _then(_OpenUrlLink(
+null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
-/// Create a copy of RecipeListEventState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$RecipeItemCopyWith<$Res> get item {
-  
-  return $RecipeItemCopyWith<$Res>(_self.item, (value) {
-    return _then(_self.copyWith(item: value));
-  });
-}
-}
-
-/// @nodoc
-
-
-class _OpenSearchRecipe implements RecipeListEventState {
-  const _OpenSearchRecipe();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OpenSearchRecipe);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'RecipeListEventState.openSearchRecipe()';
-}
-
 
 }
-
-
-
 
 // dart format on

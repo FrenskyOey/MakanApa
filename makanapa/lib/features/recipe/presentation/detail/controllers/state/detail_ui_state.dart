@@ -1,19 +1,22 @@
-/*
+import 'package:makanapa/core/states/data_state.dart';
+import 'package:makanapa/features/recipe/domain/models/recipe_detail.dart';
 
-class TemplateUIState {
-  final DataState<Template> state;
-  final bool hideLoading;
+class DetailUiState {
+  final DataState<RecipeDetail> state;
+  final bool bookMarkState;
 
-  TemplateUIState({this.state = DataState.Initial(), required this.hideLoading = true});
+  DetailUiState({
+    this.state = const Initial<RecipeDetail>(),
+    this.bookMarkState = false,
+  });
 
-  TemplateUIState copyWith({bool? hideLoading,DataState<Template>? state}) {
-    return TemplateUIState(
+  DetailUiState copyWith({
+    DataState<RecipeDetail>? state,
+    bool? bookMarkState,
+  }) {
+    return DetailUiState(
+      bookMarkState: bookMarkState ?? this.bookMarkState,
       state: state ?? this.state,
-      hideLoading: hideLoading ?? this.hideLoading,
     );
   }
 }
-
-
-
- */
