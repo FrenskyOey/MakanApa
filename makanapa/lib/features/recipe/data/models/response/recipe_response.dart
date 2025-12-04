@@ -17,6 +17,8 @@ abstract class RecipeResponse with _$RecipeResponse {
     @JsonKey(name: 'reseptype', defaultValue: '') required String resepType,
     @JsonKey(name: 'classtype', defaultValue: '') required String classType,
     @JsonKey(name: 'picture', defaultValue: '') required String picture,
+    @JsonKey(name: 'is_bookmarked', defaultValue: false)
+    required bool isBookmark,
   }) = _RecipeResponse;
 
   RecipeItem toDomain() {

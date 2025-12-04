@@ -25,9 +25,14 @@ const RecipeEmbedModelSchema = Schema(
       type: IsarType.string,
     ),
     r'enName': PropertySchema(id: 3, name: r'enName', type: IsarType.string),
-    r'name': PropertySchema(id: 4, name: r'name', type: IsarType.string),
-    r'picture': PropertySchema(id: 5, name: r'picture', type: IsarType.string),
-    r'urlLink': PropertySchema(id: 6, name: r'urlLink', type: IsarType.string),
+    r'isBookmarked': PropertySchema(
+      id: 4,
+      name: r'isBookmarked',
+      type: IsarType.bool,
+    ),
+    r'name': PropertySchema(id: 5, name: r'name', type: IsarType.string),
+    r'picture': PropertySchema(id: 6, name: r'picture', type: IsarType.string),
+    r'urlLink': PropertySchema(id: 7, name: r'urlLink', type: IsarType.string),
   },
 
   estimateSize: _recipeEmbedModelEstimateSize,
@@ -61,9 +66,10 @@ void _recipeEmbedModelSerialize(
   writer.writeLong(offsets[1], object.dataId);
   writer.writeString(offsets[2], object.dishType);
   writer.writeString(offsets[3], object.enName);
-  writer.writeString(offsets[4], object.name);
-  writer.writeString(offsets[5], object.picture);
-  writer.writeString(offsets[6], object.urlLink);
+  writer.writeBool(offsets[4], object.isBookmarked);
+  writer.writeString(offsets[5], object.name);
+  writer.writeString(offsets[6], object.picture);
+  writer.writeString(offsets[7], object.urlLink);
 }
 
 RecipeEmbedModel _recipeEmbedModelDeserialize(
@@ -77,9 +83,10 @@ RecipeEmbedModel _recipeEmbedModelDeserialize(
   object.dataId = reader.readLong(offsets[1]);
   object.dishType = reader.readString(offsets[2]);
   object.enName = reader.readString(offsets[3]);
-  object.name = reader.readString(offsets[4]);
-  object.picture = reader.readString(offsets[5]);
-  object.urlLink = reader.readString(offsets[6]);
+  object.isBookmarked = reader.readBool(offsets[4]);
+  object.name = reader.readString(offsets[5]);
+  object.picture = reader.readString(offsets[6]);
+  object.urlLink = reader.readString(offsets[7]);
   return object;
 }
 
@@ -99,10 +106,12 @@ P _recipeEmbedModelDeserializeProp<P>(
     case 3:
       return (reader.readString(offset)) as P;
     case 4:
-      return (reader.readString(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 5:
       return (reader.readString(offset)) as P;
     case 6:
+      return (reader.readString(offset)) as P;
+    case 7:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -585,6 +594,15 @@ extension RecipeEmbedModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.greaterThan(property: r'enName', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<RecipeEmbedModel, RecipeEmbedModel, QAfterFilterCondition>
+  isBookmarkedEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'isBookmarked', value: value),
       );
     });
   }

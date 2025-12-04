@@ -20,6 +20,7 @@ abstract class RecipeDetailResponse with _$RecipeDetailResponse {
     return RecipeDetail(
       ingredients: ingredients.map((e) => e.toDomain()).toList(),
       recipe: recipe.toDomain(),
+      isBookmarked: recipe.isBookmark,
     );
   }
 

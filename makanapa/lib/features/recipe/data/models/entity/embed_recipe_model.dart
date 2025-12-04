@@ -14,10 +14,11 @@ class RecipeEmbedModel {
   late String dishType;
   late String classType;
   late String urlLink;
+  late bool isBookmarked;
 
   RecipeEmbedModel();
 
-  factory RecipeEmbedModel.fromEntity(RecipeItem item) {
+  factory RecipeEmbedModel.fromEntity(RecipeItem item, bool isBookmarked) {
     return RecipeEmbedModel()
       ..dataId = item.id
       ..name = item.name
@@ -25,7 +26,8 @@ class RecipeEmbedModel {
       ..picture = item.picture
       ..dishType = item.dishType.name
       ..classType = item.classType.name
-      ..urlLink = item.urlLinks;
+      ..urlLink = item.urlLinks
+      ..isBookmarked = isBookmarked;
   }
 
   /// Converts the [RecipeEmbedModel] to a [RecipeItem] domain model.

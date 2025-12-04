@@ -26,5 +26,5 @@ abstract class RecipeRepository {
     required String query,
   });
 
-  Future<Either<String, Unit>> bookmarkRecipe({required int recipeId});
+  Future<Either<String, void>> bookmarkRecipe({required int recipeId});
 }

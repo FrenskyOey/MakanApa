@@ -18,6 +18,10 @@ class FilterWidget extends HookConsumerWidget {
 
     String filters = selectedFilter ?? "";
 
+    if (filters == "bookmark") {
+      filters = "Favorite";
+    }
+
     useEffect(() {
       final sub = ref.read(mainControllerProvider.notifier).events.listen((
         event,

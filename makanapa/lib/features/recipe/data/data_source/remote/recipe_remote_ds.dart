@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:makanapa/features/recipe/data/data_source/recipe_data_source.dart';
+import 'package:makanapa/features/recipe/data/models/response/bookmark_response.dart';
 import 'package:makanapa/features/recipe/data/models/response/recipe_detail_response.dart';
 import 'package:makanapa/features/recipe/data/models/response/recipe_list_response.dart';
 import 'package:makanapa/features/recipe/data/models/response/recipe_response.dart';
@@ -64,8 +65,18 @@ class RecipeRemoteDs implements RecipeRemoteDataSource {
   }
 
   @override
-  Future<String> bookMarkRecipe(int recipeId, bool state) {
-    // TODO: implement bookMarkRecipe
-    throw UnimplementedError();
+  Future<String> bookMarkRecipe(int recipeId) async {
+    try {
+      final response = await client.post(
+        '/v1/bookmarkRecipe',
+        data: {'recipe_id': recipeId},
+      );
+      final Map<String, dynamic> rawData = response.data;
+      final dynamic data = rawData['data'];
+      final BookmarkResponse results = BookmarkResponse.fromJson(data);
+      return results.action;
+    } catch (e) {
+      rethrow;
+    }
   }
 }

@@ -41,7 +41,7 @@ final class RecipeControllerProvider
   }
 }
 
-String _$recipeControllerHash() => r'c15f2bb832e23a86fbf668ea8579303d66daba9f';
+String _$recipeControllerHash() => r'25d9e64080f8758505b37b9096026b8c4eb6560c';
 
 abstract class _$RecipeController extends $Notifier<RecipeUiState> {
   RecipeUiState build();

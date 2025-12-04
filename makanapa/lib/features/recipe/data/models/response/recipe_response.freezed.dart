@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RecipeResponse {
 
-@JsonKey(name: 'id', defaultValue: 0) int get id;@JsonKey(name: 'name', defaultValue: '') String get name;@JsonKey(name: 'en_name', defaultValue: '') String get enName;@JsonKey(name: 'reseptype', defaultValue: '') String get resepType;@JsonKey(name: 'classtype', defaultValue: '') String get classType;@JsonKey(name: 'picture', defaultValue: '') String get picture;
+@JsonKey(name: 'id', defaultValue: 0) int get id;@JsonKey(name: 'name', defaultValue: '') String get name;@JsonKey(name: 'en_name', defaultValue: '') String get enName;@JsonKey(name: 'reseptype', defaultValue: '') String get resepType;@JsonKey(name: 'classtype', defaultValue: '') String get classType;@JsonKey(name: 'picture', defaultValue: '') String get picture;@JsonKey(name: 'is_bookmarked', defaultValue: false) bool get isBookmark;
 /// Create a copy of RecipeResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $RecipeResponseCopyWith<RecipeResponse> get copyWith => _$RecipeResponseCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeResponse&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.enName, enName) || other.enName == enName)&&(identical(other.resepType, resepType) || other.resepType == resepType)&&(identical(other.classType, classType) || other.classType == classType)&&(identical(other.picture, picture) || other.picture == picture));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeResponse&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.enName, enName) || other.enName == enName)&&(identical(other.resepType, resepType) || other.resepType == resepType)&&(identical(other.classType, classType) || other.classType == classType)&&(identical(other.picture, picture) || other.picture == picture)&&(identical(other.isBookmark, isBookmark) || other.isBookmark == isBookmark));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,enName,resepType,classType,picture);
+int get hashCode => Object.hash(runtimeType,id,name,enName,resepType,classType,picture,isBookmark);
 
 @override
 String toString() {
-  return 'RecipeResponse(id: $id, name: $name, enName: $enName, resepType: $resepType, classType: $classType, picture: $picture)';
+  return 'RecipeResponse(id: $id, name: $name, enName: $enName, resepType: $resepType, classType: $classType, picture: $picture, isBookmark: $isBookmark)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $RecipeResponseCopyWith<$Res>  {
   factory $RecipeResponseCopyWith(RecipeResponse value, $Res Function(RecipeResponse) _then) = _$RecipeResponseCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'id', defaultValue: 0) int id,@JsonKey(name: 'name', defaultValue: '') String name,@JsonKey(name: 'en_name', defaultValue: '') String enName,@JsonKey(name: 'reseptype', defaultValue: '') String resepType,@JsonKey(name: 'classtype', defaultValue: '') String classType,@JsonKey(name: 'picture', defaultValue: '') String picture
+@JsonKey(name: 'id', defaultValue: 0) int id,@JsonKey(name: 'name', defaultValue: '') String name,@JsonKey(name: 'en_name', defaultValue: '') String enName,@JsonKey(name: 'reseptype', defaultValue: '') String resepType,@JsonKey(name: 'classtype', defaultValue: '') String classType,@JsonKey(name: 'picture', defaultValue: '') String picture,@JsonKey(name: 'is_bookmarked', defaultValue: false) bool isBookmark
 });
 
 
@@ -65,7 +65,7 @@ class _$RecipeResponseCopyWithImpl<$Res>
 
 /// Create a copy of RecipeResponse
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? enName = null,Object? resepType = null,Object? classType = null,Object? picture = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? enName = null,Object? resepType = null,Object? classType = null,Object? picture = null,Object? isBookmark = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -73,7 +73,8 @@ as String,enName: null == enName ? _self.enName : enName // ignore: cast_nullabl
 as String,resepType: null == resepType ? _self.resepType : resepType // ignore: cast_nullable_to_non_nullable
 as String,classType: null == classType ? _self.classType : classType // ignore: cast_nullable_to_non_nullable
 as String,picture: null == picture ? _self.picture : picture // ignore: cast_nullable_to_non_nullable
-as String,
+as String,isBookmark: null == isBookmark ? _self.isBookmark : isBookmark // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -158,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'id', defaultValue: 0)  int id, @JsonKey(name: 'name', defaultValue: '')  String name, @JsonKey(name: 'en_name', defaultValue: '')  String enName, @JsonKey(name: 'reseptype', defaultValue: '')  String resepType, @JsonKey(name: 'classtype', defaultValue: '')  String classType, @JsonKey(name: 'picture', defaultValue: '')  String picture)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'id', defaultValue: 0)  int id, @JsonKey(name: 'name', defaultValue: '')  String name, @JsonKey(name: 'en_name', defaultValue: '')  String enName, @JsonKey(name: 'reseptype', defaultValue: '')  String resepType, @JsonKey(name: 'classtype', defaultValue: '')  String classType, @JsonKey(name: 'picture', defaultValue: '')  String picture, @JsonKey(name: 'is_bookmarked', defaultValue: false)  bool isBookmark)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RecipeResponse() when $default != null:
-return $default(_that.id,_that.name,_that.enName,_that.resepType,_that.classType,_that.picture);case _:
+return $default(_that.id,_that.name,_that.enName,_that.resepType,_that.classType,_that.picture,_that.isBookmark);case _:
   return orElse();
 
 }
@@ -179,10 +180,10 @@ return $default(_that.id,_that.name,_that.enName,_that.resepType,_that.classType
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'id', defaultValue: 0)  int id, @JsonKey(name: 'name', defaultValue: '')  String name, @JsonKey(name: 'en_name', defaultValue: '')  String enName, @JsonKey(name: 'reseptype', defaultValue: '')  String resepType, @JsonKey(name: 'classtype', defaultValue: '')  String classType, @JsonKey(name: 'picture', defaultValue: '')  String picture)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'id', defaultValue: 0)  int id, @JsonKey(name: 'name', defaultValue: '')  String name, @JsonKey(name: 'en_name', defaultValue: '')  String enName, @JsonKey(name: 'reseptype', defaultValue: '')  String resepType, @JsonKey(name: 'classtype', defaultValue: '')  String classType, @JsonKey(name: 'picture', defaultValue: '')  String picture, @JsonKey(name: 'is_bookmarked', defaultValue: false)  bool isBookmark)  $default,) {final _that = this;
 switch (_that) {
 case _RecipeResponse():
-return $default(_that.id,_that.name,_that.enName,_that.resepType,_that.classType,_that.picture);case _:
+return $default(_that.id,_that.name,_that.enName,_that.resepType,_that.classType,_that.picture,_that.isBookmark);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +200,10 @@ return $default(_that.id,_that.name,_that.enName,_that.resepType,_that.classType
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'id', defaultValue: 0)  int id, @JsonKey(name: 'name', defaultValue: '')  String name, @JsonKey(name: 'en_name', defaultValue: '')  String enName, @JsonKey(name: 'reseptype', defaultValue: '')  String resepType, @JsonKey(name: 'classtype', defaultValue: '')  String classType, @JsonKey(name: 'picture', defaultValue: '')  String picture)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'id', defaultValue: 0)  int id, @JsonKey(name: 'name', defaultValue: '')  String name, @JsonKey(name: 'en_name', defaultValue: '')  String enName, @JsonKey(name: 'reseptype', defaultValue: '')  String resepType, @JsonKey(name: 'classtype', defaultValue: '')  String classType, @JsonKey(name: 'picture', defaultValue: '')  String picture, @JsonKey(name: 'is_bookmarked', defaultValue: false)  bool isBookmark)?  $default,) {final _that = this;
 switch (_that) {
 case _RecipeResponse() when $default != null:
-return $default(_that.id,_that.name,_that.enName,_that.resepType,_that.classType,_that.picture);case _:
+return $default(_that.id,_that.name,_that.enName,_that.resepType,_that.classType,_that.picture,_that.isBookmark);case _:
   return null;
 
 }
@@ -214,7 +215,7 @@ return $default(_that.id,_that.name,_that.enName,_that.resepType,_that.classType
 @JsonSerializable()
 
 class _RecipeResponse extends RecipeResponse {
-  const _RecipeResponse({@JsonKey(name: 'id', defaultValue: 0) required this.id, @JsonKey(name: 'name', defaultValue: '') required this.name, @JsonKey(name: 'en_name', defaultValue: '') required this.enName, @JsonKey(name: 'reseptype', defaultValue: '') required this.resepType, @JsonKey(name: 'classtype', defaultValue: '') required this.classType, @JsonKey(name: 'picture', defaultValue: '') required this.picture}): super._();
+  const _RecipeResponse({@JsonKey(name: 'id', defaultValue: 0) required this.id, @JsonKey(name: 'name', defaultValue: '') required this.name, @JsonKey(name: 'en_name', defaultValue: '') required this.enName, @JsonKey(name: 'reseptype', defaultValue: '') required this.resepType, @JsonKey(name: 'classtype', defaultValue: '') required this.classType, @JsonKey(name: 'picture', defaultValue: '') required this.picture, @JsonKey(name: 'is_bookmarked', defaultValue: false) required this.isBookmark}): super._();
   factory _RecipeResponse.fromJson(Map<String, dynamic> json) => _$RecipeResponseFromJson(json);
 
 @override@JsonKey(name: 'id', defaultValue: 0) final  int id;
@@ -223,6 +224,7 @@ class _RecipeResponse extends RecipeResponse {
 @override@JsonKey(name: 'reseptype', defaultValue: '') final  String resepType;
 @override@JsonKey(name: 'classtype', defaultValue: '') final  String classType;
 @override@JsonKey(name: 'picture', defaultValue: '') final  String picture;
+@override@JsonKey(name: 'is_bookmarked', defaultValue: false) final  bool isBookmark;
 
 /// Create a copy of RecipeResponse
 /// with the given fields replaced by the non-null parameter values.
@@ -237,16 +239,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeResponse&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.enName, enName) || other.enName == enName)&&(identical(other.resepType, resepType) || other.resepType == resepType)&&(identical(other.classType, classType) || other.classType == classType)&&(identical(other.picture, picture) || other.picture == picture));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeResponse&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.enName, enName) || other.enName == enName)&&(identical(other.resepType, resepType) || other.resepType == resepType)&&(identical(other.classType, classType) || other.classType == classType)&&(identical(other.picture, picture) || other.picture == picture)&&(identical(other.isBookmark, isBookmark) || other.isBookmark == isBookmark));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,enName,resepType,classType,picture);
+int get hashCode => Object.hash(runtimeType,id,name,enName,resepType,classType,picture,isBookmark);
 
 @override
 String toString() {
-  return 'RecipeResponse(id: $id, name: $name, enName: $enName, resepType: $resepType, classType: $classType, picture: $picture)';
+  return 'RecipeResponse(id: $id, name: $name, enName: $enName, resepType: $resepType, classType: $classType, picture: $picture, isBookmark: $isBookmark)';
 }
 
 
@@ -257,7 +259,7 @@ abstract mixin class _$RecipeResponseCopyWith<$Res> implements $RecipeResponseCo
   factory _$RecipeResponseCopyWith(_RecipeResponse value, $Res Function(_RecipeResponse) _then) = __$RecipeResponseCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'id', defaultValue: 0) int id,@JsonKey(name: 'name', defaultValue: '') String name,@JsonKey(name: 'en_name', defaultValue: '') String enName,@JsonKey(name: 'reseptype', defaultValue: '') String resepType,@JsonKey(name: 'classtype', defaultValue: '') String classType,@JsonKey(name: 'picture', defaultValue: '') String picture
+@JsonKey(name: 'id', defaultValue: 0) int id,@JsonKey(name: 'name', defaultValue: '') String name,@JsonKey(name: 'en_name', defaultValue: '') String enName,@JsonKey(name: 'reseptype', defaultValue: '') String resepType,@JsonKey(name: 'classtype', defaultValue: '') String classType,@JsonKey(name: 'picture', defaultValue: '') String picture,@JsonKey(name: 'is_bookmarked', defaultValue: false) bool isBookmark
 });
 
 
@@ -274,7 +276,7 @@ class __$RecipeResponseCopyWithImpl<$Res>
 
 /// Create a copy of RecipeResponse
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? enName = null,Object? resepType = null,Object? classType = null,Object? picture = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? enName = null,Object? resepType = null,Object? classType = null,Object? picture = null,Object? isBookmark = null,}) {
   return _then(_RecipeResponse(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -282,7 +284,8 @@ as String,enName: null == enName ? _self.enName : enName // ignore: cast_nullabl
 as String,resepType: null == resepType ? _self.resepType : resepType // ignore: cast_nullable_to_non_nullable
 as String,classType: null == classType ? _self.classType : classType // ignore: cast_nullable_to_non_nullable
 as String,picture: null == picture ? _self.picture : picture // ignore: cast_nullable_to_non_nullable
-as String,
+as String,isBookmark: null == isBookmark ? _self.isBookmark : isBookmark // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

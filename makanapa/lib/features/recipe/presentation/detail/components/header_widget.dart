@@ -1,13 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:makanapa/core/extension/index.dart';
 import 'package:makanapa/features/recipe/domain/models/recipe_item.dart';
+import 'package:makanapa/features/recipe/presentation/detail/controllers/detail_bloc_controller.dart';
+import 'package:makanapa/features/recipe/presentation/detail/controllers/state/detail_event.dart';
+import 'package:makanapa/features/recipe/presentation/detail/controllers/state/detail_ui_state.dart';
 
 class HeaderWidget extends SliverPersistentHeaderDelegate {
+  final DetailBloc bloc;
   final RecipeItem recipeItem;
   final VoidCallback onBack;
-  final VoidCallback onBookmark;
-  final bool isBookmarked;
 
   // Configuration
   final double expandedHeight = 300.0;
@@ -16,8 +19,7 @@ class HeaderWidget extends SliverPersistentHeaderDelegate {
   HeaderWidget({
     required this.recipeItem,
     required this.onBack,
-    required this.onBookmark,
-    required this.isBookmarked,
+    required this.bloc,
   });
 
   @override
@@ -66,31 +68,43 @@ class HeaderWidget extends SliverPersistentHeaderDelegate {
             height:
                 kToolbarHeight +
                 MediaQuery.of(context).padding.top, // Standard Toolbar height
-            child: NavigationToolbar(
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: onBack,
-              ),
+            child: BlocBuilder<DetailBloc, DetailUiState>(
+              bloc: bloc,
+              buildWhen: (p, c) {
+                return p.bookMarkState != c.bookMarkState;
+              },
+              builder: (context, state) {
+                return NavigationToolbar(
+                  leading: IconButton(
+                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: onBack,
+                  ),
 
-              middle: AnimatedOpacity(
-                duration: const Duration(milliseconds: 200),
-                opacity: titleOpacity,
-                child: Text(
-                  recipeItem.name,
-                  style: context.titleMedium?.copyWith(color: Colors.white),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
+                  middle: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 200),
+                    opacity: titleOpacity,
+                    child: Text(
+                      recipeItem.name,
+                      style: context.titleMedium?.copyWith(color: Colors.white),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
 
-              // TRAILING: Bookmark Button
-              trailing: IconButton(
-                icon: Icon(
-                  isBookmarked ? Icons.bookmark : Icons.bookmark_border,
-                  color: Colors.white,
-                ),
-                onPressed: onBookmark,
-              ),
+                  // TRAILING: Bookmark Button
+                  trailing: IconButton(
+                    icon: Icon(
+                      state.bookMarkState
+                          ? Icons.bookmark
+                          : Icons.bookmark_border,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      bloc.add(ToggleBookmarkEvent(recipeItem.id));
+                    },
+                  ),
+                );
+              },
             ),
           ),
         ),
@@ -106,6 +120,6 @@ class HeaderWidget extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(covariant HeaderWidget oldDelegate) {
-    return oldDelegate.isBookmarked != isBookmarked;
+    return oldDelegate.recipeItem != recipeItem;
   }
 }

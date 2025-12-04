@@ -12,6 +12,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailUiState>
     with SideEffectMixin<DetailEffect, DetailUiState> {
   final RecipeRepository _repository;
   StreamSubscription<RecipeDetail?>? _recipeSubscription;
+  bool isBookMarkProcess = false;
 
   DetailBloc({required RecipeRepository repository})
     : _repository = repository,
@@ -57,7 +58,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailUiState>
         }
       },
       (_) {
-        emitEffect(DetailEffect.toastSuccess("Data berhasil di update"));
+        //emitEffect(DetailEffect.toastSuccess("Data berhasil di update"));
       },
     );
   }
@@ -66,20 +67,41 @@ class DetailBloc extends Bloc<DetailEvent, DetailUiState>
     RecipeUpdateStreamEvent event,
     Emitter<DetailUiState> emit,
   ) async {
-    emit(state.copyWith(state: Success(event.data)));
+    emit(
+      state.copyWith(
+        bookMarkState: event.data.isBookmarked,
+        state: Success(event.data),
+      ),
+    );
   }
 
   Future<void> _onToggleBookmark(
     ToggleBookmarkEvent event,
     Emitter<DetailUiState> emit,
   ) async {
-    /*
-    // Optimistic Update: Switch UI immediately
+    if (isBookMarkProcess) {
+      return;
+    }
+
+    isBookMarkProcess = true;
+
     emit(state.copyWith(bookMarkState: !state.bookMarkState));
 
-    // Perform API call... if fail, revert the state
-    // try { await repo.bookmark(...) } catch (e) { emit(state.copyWith(...)) }
-    */
+    final results = await _repository.bookmarkRecipe(recipeId: event.recipeId);
+
+    if (isClosed) {
+      return;
+    }
+
+    results.fold(
+      (l) async {
+        emitEffect(DetailEffect.toastSuccess("Bookmark gagal di update"));
+      },
+      (r) {
+        emitEffect(DetailEffect.toastSuccess("Bookmark berhasil di update"));
+      },
+    );
+    isBookMarkProcess = false;
   }
 
   void _onOpenUrl(OpenUrlEvent event, Emitter<DetailUiState> emit) {

@@ -14,6 +14,7 @@ _RecipeResponse _$RecipeResponseFromJson(Map<String, dynamic> json) =>
       resepType: json['reseptype'] as String? ?? '',
       classType: json['classtype'] as String? ?? '',
       picture: json['picture'] as String? ?? '',
+      isBookmark: json['is_bookmarked'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$RecipeResponseToJson(_RecipeResponse instance) =>
@@ -24,4 +25,5 @@ Map<String, dynamic> _$RecipeResponseToJson(_RecipeResponse instance) =>
       'reseptype': instance.resepType,
       'classtype': instance.classType,
       'picture': instance.picture,
+      'is_bookmarked': instance.isBookmark,
     };

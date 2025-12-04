@@ -81,6 +81,14 @@ class RecipeLocalDs implements RecipeLocalDataSource {
   }
 
   @override
+  Future<RecipeDetailEntity?> getReceiptDetail(int recipeId) {
+    return isar.recipeDetailEntitys
+        .filter()
+        .recipeIdEqualTo(recipeId)
+        .findFirst();
+  }
+
+  @override
   Future<void> cacheRecipeDetail(int recipeId, RecipeDetail detail) async {
     await isar.writeTxn(() async {
       final insertData = RecipeDetailEntity.fromEntity(recipeId, detail);

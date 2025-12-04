@@ -128,8 +128,21 @@ class RecipeRepoImpl implements RecipeRepository {
   }
 
   @override
-  Future<Either<String, Unit>> bookmarkRecipe({required int recipeId}) {
-    // TODO: implement bookmarkRecipe
-    throw UnimplementedError();
+  Future<Either<String, void>> bookmarkRecipe({required int recipeId}) async {
+    try {
+      final data = await remoteDataSource.bookMarkRecipe(recipeId);
+      final localEntity = await localDataSource.getReceiptDetail(recipeId);
+      if (localEntity != null) {
+        localEntity.recipe.isBookmarked = data == 'bookmarked';
+        await localDataSource.cacheRecipeDetail(
+          recipeId,
+          localEntity.toDomain(),
+        );
+      }
+      return Right(null);
+    } catch (e, stackTrace) {
+      final message = handleError(e, stackTrace);
+      return Left(message);
+    }
   }
 }

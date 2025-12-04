@@ -48,7 +48,7 @@ class RecipeDetailScreen extends HookConsumerWidget {
             SnackBarHelper.showError(context, error);
           },
           toastSuccess: (message) {
-            //SnackBarHelper.showSuccess(context, message);
+            SnackBarHelper.showSuccess(context, message);
           },
           openUrlLink: (url) {
             //launchingUrl("https://id.shp.ee/7CR2q55");
@@ -106,10 +106,9 @@ class RecipeDetailScreen extends HookConsumerWidget {
                 SliverPersistentHeader(
                   pinned: true,
                   delegate: HeaderWidget(
+                    bloc: detailBloc,
                     recipeItem: recipeItem,
                     onBack: () => Navigator.pop(context),
-                    onBookmark: () {},
-                    isBookmarked: false,
                   ),
                 ),
                 getWidgetBody(state.state),

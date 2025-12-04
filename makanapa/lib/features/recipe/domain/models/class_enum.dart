@@ -1,5 +1,6 @@
 enum ClassEnum {
   all('Semua'),
+  favorite('bookmark'),
   indonesia('Indonesia'),
   china('China'),
   korea('Korea'),

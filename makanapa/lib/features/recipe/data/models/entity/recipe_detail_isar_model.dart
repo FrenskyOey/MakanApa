@@ -26,7 +26,7 @@ class RecipeDetailEntity {
       ..ingredients = detail.ingredients
           .map((item) => IngredientsEmbedModel.fromEntity(item))
           .toList()
-      ..recipe = RecipeEmbedModel.fromEntity(recipe);
+      ..recipe = RecipeEmbedModel.fromEntity(recipe, detail.isBookmarked);
   }
 
   RecipeDetail toDomain() {
@@ -35,6 +35,10 @@ class RecipeDetailEntity {
         .toList();
     RecipeItem recipez = recipe.toDomain();
 
-    return RecipeDetail(ingredients: ingredientz, recipe: recipez);
+    return RecipeDetail(
+      ingredients: ingredientz,
+      recipe: recipez,
+      isBookmarked: recipe.isBookmarked,
+    );
   }
 }
