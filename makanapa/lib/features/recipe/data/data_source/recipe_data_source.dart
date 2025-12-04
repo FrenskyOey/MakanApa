@@ -30,5 +30,8 @@ abstract class RecipeLocalDataSource {
   Future<void> cacheRecipeDetail(int recipeId, RecipeDetail detail);
   Future<List<RecipeEntity>> getCachedSearchResults(String query);
   Future<List<RecipeEntity>> getReceiptByReceiptId(List<int> recipeIds);
-  Future<int?> getNextCursor(String? filterHash, int targetPage);
+  Future<RecipeIndexEntity?> getRecipeIndexEntity(
+    String? filterHash,
+    int targetPage,
+  );
 }

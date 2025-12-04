@@ -6,10 +6,11 @@ part 'recipe_index_isar_model.g.dart';
 
 @collection
 class RecipeIndexEntity {
-  Id id = Isar.autoIncrement;
+  Id? id;
 
-  @Index(unique: true, replace: true)
+  @Index()
   late String filterKey;
+  @Index()
   late int pageIndex;
   late int? nextCursor;
   late int? dataCounter;
@@ -24,6 +25,7 @@ class RecipeIndexEntity {
     int pageIndex,
   ) {
     return RecipeIndexEntity()
+      ..id = null
       ..filterKey = filterKey
       ..pageIndex = pageIndex
       ..nextCursor = page.nextCursor

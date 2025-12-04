@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:makanapa/core/extension/index.dart';
 import 'package:makanapa/core/themes/app_color.dart';
+import 'package:makanapa/features/recipe/presentation/list/components/filter_recipe_bottomsheet_widget.dart';
+import 'package:makanapa/features/shared/main/main_controller.dart';
+import 'package:makanapa/features/shared/main/state/main_event.dart';
 
-class MainScreen extends HookWidget {
+class MainScreen extends HookConsumerWidget {
   const MainScreen({super.key, required this.navigationShell});
   final StatefulNavigationShell navigationShell;
   void onTabTapped(int index) {
@@ -12,7 +16,41 @@ class MainScreen extends HookWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(mainControllerProvider);
+
+    void openBottomSheet(String? selectedValue) async {
+      final String? selectedItem = await showModalBottomSheet<String>(
+        context: context,
+        isScrollControlled: true,
+        builder: (BuildContext context) {
+          return FilterRecipeBottomsheet(currentSelection: selectedValue);
+        },
+      );
+
+      // 5. Update state (selectedValue) and controller
+      if (selectedItem != null) {
+        ref
+            .read(mainControllerProvider.notifier)
+            .onTypeBottomSheetResult(selectedItem);
+      }
+    }
+
+    useEffect(() {
+      final subz = ref.read(mainControllerProvider.notifier).events.listen((
+        event,
+      ) {
+        event.maybeWhen(
+          openTypeBottomSheet: (type) {
+            openBottomSheet(type);
+          },
+          orElse: () {},
+        );
+      });
+
+      return subz.cancel; // Dispose subscription
+    }, const []);
+
     final selectedIndex = navigationShell.currentIndex;
     final primaryColor = context.primary;
     final selectedColor = context.textPrimary;

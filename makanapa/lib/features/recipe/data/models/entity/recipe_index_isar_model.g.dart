@@ -58,13 +58,26 @@ const RecipeIndexEntitySchema = CollectionSchema(
     r'filterKey': IndexSchema(
       id: -6513534407312558196,
       name: r'filterKey',
-      unique: true,
-      replace: true,
+      unique: false,
+      replace: false,
       properties: [
         IndexPropertySchema(
           name: r'filterKey',
           type: IndexType.hash,
           caseSensitive: true,
+        ),
+      ],
+    ),
+    r'pageIndex': IndexSchema(
+      id: -6792988718546572558,
+      name: r'pageIndex',
+      unique: false,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'pageIndex',
+          type: IndexType.value,
+          caseSensitive: false,
         ),
       ],
     ),
@@ -145,7 +158,7 @@ P _recipeIndexEntityDeserializeProp<P>(
 }
 
 Id _recipeIndexEntityGetId(RecipeIndexEntity object) {
-  return object.id;
+  return object.id ?? Isar.autoIncrement;
 }
 
 List<IsarLinkBase<dynamic>> _recipeIndexEntityGetLinks(
@@ -162,70 +175,20 @@ void _recipeIndexEntityAttach(
   object.id = id;
 }
 
-extension RecipeIndexEntityByIndex on IsarCollection<RecipeIndexEntity> {
-  Future<RecipeIndexEntity?> getByFilterKey(String filterKey) {
-    return getByIndex(r'filterKey', [filterKey]);
-  }
-
-  RecipeIndexEntity? getByFilterKeySync(String filterKey) {
-    return getByIndexSync(r'filterKey', [filterKey]);
-  }
-
-  Future<bool> deleteByFilterKey(String filterKey) {
-    return deleteByIndex(r'filterKey', [filterKey]);
-  }
-
-  bool deleteByFilterKeySync(String filterKey) {
-    return deleteByIndexSync(r'filterKey', [filterKey]);
-  }
-
-  Future<List<RecipeIndexEntity?>> getAllByFilterKey(
-    List<String> filterKeyValues,
-  ) {
-    final values = filterKeyValues.map((e) => [e]).toList();
-    return getAllByIndex(r'filterKey', values);
-  }
-
-  List<RecipeIndexEntity?> getAllByFilterKeySync(List<String> filterKeyValues) {
-    final values = filterKeyValues.map((e) => [e]).toList();
-    return getAllByIndexSync(r'filterKey', values);
-  }
-
-  Future<int> deleteAllByFilterKey(List<String> filterKeyValues) {
-    final values = filterKeyValues.map((e) => [e]).toList();
-    return deleteAllByIndex(r'filterKey', values);
-  }
-
-  int deleteAllByFilterKeySync(List<String> filterKeyValues) {
-    final values = filterKeyValues.map((e) => [e]).toList();
-    return deleteAllByIndexSync(r'filterKey', values);
-  }
-
-  Future<Id> putByFilterKey(RecipeIndexEntity object) {
-    return putByIndex(r'filterKey', object);
-  }
-
-  Id putByFilterKeySync(RecipeIndexEntity object, {bool saveLinks = true}) {
-    return putByIndexSync(r'filterKey', object, saveLinks: saveLinks);
-  }
-
-  Future<List<Id>> putAllByFilterKey(List<RecipeIndexEntity> objects) {
-    return putAllByIndex(r'filterKey', objects);
-  }
-
-  List<Id> putAllByFilterKeySync(
-    List<RecipeIndexEntity> objects, {
-    bool saveLinks = true,
-  }) {
-    return putAllByIndexSync(r'filterKey', objects, saveLinks: saveLinks);
-  }
-}
-
 extension RecipeIndexEntityQueryWhereSort
     on QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QWhere> {
   QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
+    });
+  }
+
+  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterWhere>
+  anyPageIndex() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        const IndexWhereClause.any(indexName: r'pageIndex'),
+      );
     });
   }
 }
@@ -348,6 +311,106 @@ extension RecipeIndexEntityQueryWhere
               ),
             );
       }
+    });
+  }
+
+  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterWhereClause>
+  pageIndexEqualTo(int pageIndex) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.equalTo(indexName: r'pageIndex', value: [pageIndex]),
+      );
+    });
+  }
+
+  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterWhereClause>
+  pageIndexNotEqualTo(int pageIndex) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'pageIndex',
+                lower: [],
+                upper: [pageIndex],
+                includeUpper: false,
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'pageIndex',
+                lower: [pageIndex],
+                includeLower: false,
+                upper: [],
+              ),
+            );
+      } else {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'pageIndex',
+                lower: [pageIndex],
+                includeLower: false,
+                upper: [],
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'pageIndex',
+                lower: [],
+                upper: [pageIndex],
+                includeUpper: false,
+              ),
+            );
+      }
+    });
+  }
+
+  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterWhereClause>
+  pageIndexGreaterThan(int pageIndex, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.between(
+          indexName: r'pageIndex',
+          lower: [pageIndex],
+          includeLower: include,
+          upper: [],
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterWhereClause>
+  pageIndexLessThan(int pageIndex, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.between(
+          indexName: r'pageIndex',
+          lower: [],
+          upper: [pageIndex],
+          includeUpper: include,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterWhereClause>
+  pageIndexBetween(
+    int lowerPageIndex,
+    int upperPageIndex, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.between(
+          indexName: r'pageIndex',
+          lower: [lowerPageIndex],
+          includeLower: includeLower,
+          upper: [upperPageIndex],
+          includeUpper: includeUpper,
+        ),
+      );
     });
   }
 }
@@ -569,7 +632,25 @@ extension RecipeIndexEntityQueryFilter
   }
 
   QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterFilterCondition>
-  idEqualTo(Id value) {
+  idIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'id'),
+      );
+    });
+  }
+
+  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterFilterCondition>
+  idIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'id'),
+      );
+    });
+  }
+
+  QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterFilterCondition>
+  idEqualTo(Id? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.equalTo(property: r'id', value: value),
@@ -578,7 +659,7 @@ extension RecipeIndexEntityQueryFilter
   }
 
   QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterFilterCondition>
-  idGreaterThan(Id value, {bool include = false}) {
+  idGreaterThan(Id? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.greaterThan(
@@ -591,7 +672,7 @@ extension RecipeIndexEntityQueryFilter
   }
 
   QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterFilterCondition>
-  idLessThan(Id value, {bool include = false}) {
+  idLessThan(Id? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.lessThan(
@@ -605,8 +686,8 @@ extension RecipeIndexEntityQueryFilter
 
   QueryBuilder<RecipeIndexEntity, RecipeIndexEntity, QAfterFilterCondition>
   idBetween(
-    Id lower,
-    Id upper, {
+    Id? lower,
+    Id? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {

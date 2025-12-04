@@ -13,6 +13,11 @@ abstract class RecipeRepository {
     String? filter,
   });
 
+  Future<RecipePage?> getLocalReceiptPage({
+    required int pageIndex,
+    String? filter,
+  });
+
   Future<Either<String, void>> getRecipeDetail({required int recipeId});
   Stream<RecipeDetail?> getRecipeDetailStream({required int recipeId});
 
