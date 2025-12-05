@@ -50,17 +50,12 @@ class DetailBloc extends Bloc<DetailEvent, DetailUiState>
     if (isClosed) {
       return;
     }
-    result.fold(
-      (errorMessage) {
-        if ((state.state is Success) == false) {
-          emit(state.copyWith(state: Error(errorMessage)));
-          emitEffect(DetailEffect.toastError("Gagal Ambil Data"));
-        }
-      },
-      (_) {
-        //emitEffect(DetailEffect.toastSuccess("Data berhasil di update"));
-      },
-    );
+    result.fold((errorMessage) {
+      if ((state.state is Success) == false) {
+        emit(state.copyWith(state: Error(errorMessage)));
+        emitEffect(DetailEffect.toastError("Gagal Ambil Data"));
+      }
+    }, (_) {});
   }
 
   Future<void> _onRecipeStreamUpdated(

@@ -12,8 +12,10 @@ class RouteNames {
   static const String home = '/home';
 
   // recipe routes
-  static const String receipt = '/receipt';
-  static const String recipeDetail = '/recipe-detail';
+  static const String receipt = '/recipe';
+  static const String recipeDetailRecipe = '/recipe/recipe-detail';
+  static const String recipeDetailSearch = '/search/recipe-detail';
+  static const String recipeSearch = '/search';
 
   // basket Routes
   static const String basket = '/basket';

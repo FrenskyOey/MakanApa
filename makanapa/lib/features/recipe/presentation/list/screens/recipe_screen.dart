@@ -75,10 +75,10 @@ class RecipeScreen extends HookConsumerWidget {
             SnackBarHelper.showSuccess(context, message);
           },
           openReceiptDetail: (item) {
-            context.pushNamed(RouteNames.recipeDetail, extra: item);
+            context.pushNamed(RouteNames.recipeDetailRecipe, extra: item);
           },
           openSearchRecipe: () {
-            SnackBarHelper.showWarning(context, "Belum Ready");
+            context.pushNamed(RouteNames.recipeSearch);
           },
           orElse: () {},
         );

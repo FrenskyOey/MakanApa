@@ -22,8 +22,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 class RecipeDetailScreen extends HookConsumerWidget {
   final RecipeItem recipeItem;
+  final String? heroTag;
 
-  const RecipeDetailScreen({super.key, required this.recipeItem});
+  const RecipeDetailScreen({super.key, required this.recipeItem, this.heroTag});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -109,6 +110,7 @@ class RecipeDetailScreen extends HookConsumerWidget {
                     bloc: detailBloc,
                     recipeItem: recipeItem,
                     onBack: () => Navigator.pop(context),
+                    heroTag: heroTag,
                   ),
                 ),
                 getWidgetBody(state.state),

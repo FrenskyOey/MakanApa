@@ -45,7 +45,7 @@ class RecipeDetailBodyWidget extends HookConsumerWidget {
                       style: context.labelMedium,
                     ),
                     Dimens.md.space,
-                    Text('Bahan', style: context.titleMedium),
+                    Text('Bahan', style: context.titleLarge),
                     Dimens.md.space,
                   ],
                 ),
@@ -82,7 +82,12 @@ class RecipeDetailBodyWidget extends HookConsumerWidget {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: Dimens.md),
+                padding: const EdgeInsets.fromLTRB(
+                  Dimens.md,
+                  0,
+                  Dimens.md,
+                  Dimens.md,
+                ),
                 child: SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:makanapa/core/extension/index.dart';
+import 'package:makanapa/core/themes/app_color.dart';
 import 'package:makanapa/core/themes/dimens_constant.dart';
 import 'package:makanapa/features/recipe/presentation/list/controllers/recipe_controller.dart';
 
@@ -24,7 +25,7 @@ class SearchRecipeWidget extends HookConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(Icons.search, color: context.textPrimary),
+                Icon(Icons.search, color: AppColor.primary),
                 Dimens.sm.space,
                 Text("Cari Resep", style: context.bodyMedium),
               ],
