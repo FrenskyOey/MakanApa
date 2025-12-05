@@ -12,7 +12,7 @@ abstract class RecipeRemoteDataSource {
   Future<RecipeListResponse> getRecipeData(String? filterHash, int? cursorId);
   Future<RecipeDetailResponse> fetchRecipeDetail(int resepIds);
   Future<List<RecipeResponse>> searchRecipes(String? query);
-  Future<String> bookMarkRecipe(int recipeId, bool state);
+  Future<String> bookMarkRecipe(int recipeId);
 }
 
 abstract class RecipeLocalDataSource {
@@ -27,6 +27,7 @@ abstract class RecipeLocalDataSource {
   );
   Future<void> cacheRecipeItemList(List<RecipeItem> data);
   Stream<RecipeDetailEntity?> getCachedRecipeDetail(int recipeId);
+  Future<RecipeDetailEntity?> getReceiptDetail(int recipeId);
   Future<void> cacheRecipeDetail(int recipeId, RecipeDetail detail);
   Future<List<RecipeEntity>> getCachedSearchResults(String query);
   Future<List<RecipeEntity>> getReceiptByReceiptId(List<int> recipeIds);

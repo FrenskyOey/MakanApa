@@ -33,9 +33,9 @@ class RecipeController extends _$RecipeController {
   }
 
   // --- INTERNAL: MANAGE SUBSCRIPTION ---
-  void _startDbObservation() {
+  void _startDbObservation() async {
     // Cancel any existing subscription (important when limit changes)
-    _recipeSubscription?.cancel();
+    await _recipeSubscription?.cancel();
 
     // Create new subscription based on current Page Limit & Filter
     _recipeSubscription = _repo
@@ -76,7 +76,7 @@ class RecipeController extends _$RecipeController {
   }
 
   void openDetailPage(RecipeItem item) {
-    _eventController.add(RecipeListEventState.openReceiptDetail(item.id));
+    _eventController.add(RecipeListEventState.openReceiptDetail(item));
   }
 
   void openSearchRecipe() {

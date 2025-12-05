@@ -17,6 +17,7 @@ class FilterRecipeBottomsheet extends StatelessWidget {
   Widget build(BuildContext context) {
     List<ClassEnum> items = [
       ClassEnum.all,
+      ClassEnum.favorite,
       ClassEnum.indonesia,
       ClassEnum.china,
       ClassEnum.korea,
@@ -58,11 +59,15 @@ class FilterRecipeBottomsheet extends StatelessWidget {
             itemCount: items.length,
             itemBuilder: (context, index) {
               final item = items[index];
+              String description = item.description;
+              if (item == ClassEnum.favorite) {
+                description = "Favorite";
+              }
               final isSelected = item.description == currentSelection;
 
               return ListTile(
                 title: Text(
-                  item.description,
+                  description,
                   style: TextStyle(
                     color: isSelected ? selectedColor : null,
                     fontWeight: isSelected
