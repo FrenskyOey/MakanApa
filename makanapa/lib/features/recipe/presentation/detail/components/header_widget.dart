@@ -11,6 +11,7 @@ class HeaderWidget extends SliverPersistentHeaderDelegate {
   final DetailBloc bloc;
   final RecipeItem recipeItem;
   final VoidCallback onBack;
+  final String? heroTag;
 
   // Configuration
   final double expandedHeight = 300.0;
@@ -20,6 +21,7 @@ class HeaderWidget extends SliverPersistentHeaderDelegate {
     required this.recipeItem,
     required this.onBack,
     required this.bloc,
+    this.heroTag,
   });
 
   @override
@@ -41,7 +43,7 @@ class HeaderWidget extends SliverPersistentHeaderDelegate {
         // 1. BACKGROUND IMAGE (With Hero)
         // We use a shader mask or container color to darken it as it shrinks
         Hero(
-          tag: "recipe_${recipeItem.id}",
+          tag: heroTag ?? "pictures",
           child: CachedNetworkImage(
             imageUrl: recipeItem.picture,
             fit: BoxFit.cover,

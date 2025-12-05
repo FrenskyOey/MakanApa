@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:makanapa/core/handlers/error/error_handler.dart';
 import 'package:makanapa/features/recipe/data/data_source/recipe_data_source.dart';
 import 'package:makanapa/features/recipe/domain/models/recipe_detail.dart';
@@ -112,11 +113,12 @@ class RecipeRepoImpl implements RecipeRepository {
   @override
   Future<Either<String, List<RecipeItem>>> searchRecipes({
     required String query,
+    required CancelToken token,
   }) async {
     try {
       final cacheData = await localDataSource.getCachedSearchResults(query);
       _searchStreamController.add(cacheData.map((e) => e.toDomain()).toList());
-      final data = await remoteDataSource.searchRecipes(query);
+      final data = await remoteDataSource.searchRecipes(query, token);
       final domainData = data.map((element) => element.toDomain()).toList();
       _searchStreamController.add(domainData);
       await localDataSource.cacheRecipeItemList(domainData);

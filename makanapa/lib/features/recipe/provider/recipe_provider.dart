@@ -7,6 +7,7 @@ import 'package:makanapa/features/recipe/data/data_source/remote/recipe_remote_d
 import 'package:makanapa/features/recipe/data/repositories/recipe_repo.dart';
 import 'package:makanapa/features/recipe/domain/repositories/recipe_repository.dart';
 import 'package:makanapa/features/recipe/presentation/detail/controllers/detail_bloc_controller.dart';
+import 'package:makanapa/features/recipe/presentation/search/controllers/search_bloc_controller.dart';
 import 'package:makanapa/features/shared/provider/master_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -41,8 +42,15 @@ RecipeRepository recipeRepository(Ref ref) {
 
 // provide bloc controller using riverpod
 final detailBlocProvider = Provider.autoDispose<DetailBloc>((ref) {
-  final repository = ref.watch(recipeRepositoryProvider);
+  final repository = ref.read(recipeRepositoryProvider);
   final bloc = DetailBloc(repository: repository);
+  ref.onDispose(() => bloc.close());
+  return bloc;
+});
+
+final searchBlocProvider = Provider.autoDispose<SearchBloc>((ref) {
+  final repository = ref.read(recipeRepositoryProvider);
+  final bloc = SearchBloc(repository: repository);
   ref.onDispose(() => bloc.close());
   return bloc;
 });

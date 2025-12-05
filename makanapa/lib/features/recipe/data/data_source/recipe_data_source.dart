@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:makanapa/features/recipe/data/models/entity/recipe_detail_isar_model.dart';
 import 'package:makanapa/features/recipe/data/models/entity/recipe_index_isar_model.dart';
 import 'package:makanapa/features/recipe/data/models/entity/recipe_isar_model.dart';
@@ -11,7 +12,7 @@ import 'package:makanapa/features/recipe/domain/models/recipe_page.dart';
 abstract class RecipeRemoteDataSource {
   Future<RecipeListResponse> getRecipeData(String? filterHash, int? cursorId);
   Future<RecipeDetailResponse> fetchRecipeDetail(int resepIds);
-  Future<List<RecipeResponse>> searchRecipes(String? query);
+  Future<List<RecipeResponse>> searchRecipes(String? query, CancelToken token);
   Future<String> bookMarkRecipe(int recipeId);
 }
 

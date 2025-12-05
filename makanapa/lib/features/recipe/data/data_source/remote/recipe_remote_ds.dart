@@ -46,11 +46,15 @@ class RecipeRemoteDs implements RecipeRemoteDataSource {
   }
 
   @override
-  Future<List<RecipeResponse>> searchRecipes(String? query) async {
+  Future<List<RecipeResponse>> searchRecipes(
+    String? query,
+    CancelToken token,
+  ) async {
     try {
       final response = await client.post(
         '/v1/search-resep',
         data: {'resep_query': query},
+        cancelToken: token,
       );
       final Map<String, dynamic> rawData = response.data;
       final List<dynamic> rawList = rawData['data'];

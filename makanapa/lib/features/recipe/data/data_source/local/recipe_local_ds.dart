@@ -118,9 +118,9 @@ class RecipeLocalDs implements RecipeLocalDataSource {
 
     final searchData = await isar.recipeEntitys
         .filter()
-        .nameContains(query)
+        .nameContains(query, caseSensitive: false)
         .or()
-        .enNameContains(query)
+        .enNameContains(query, caseSensitive: false)
         .sortByName()
         .limit(10)
         .findAll();
