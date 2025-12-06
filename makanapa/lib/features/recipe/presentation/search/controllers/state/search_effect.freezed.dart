@@ -55,12 +55,11 @@ extension SearchEffectPatterns on SearchEffect {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ToastError value)?  toastError,TResult Function( _ToastSuccess value)?  toastSuccess,TResult Function( _OpenDetailPage value)?  openDetailPage,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ToastError value)?  toastError,TResult Function( _OpenDetailPage value)?  openDetailPage,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
-return toastError(_that);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that);case _OpenDetailPage() when openDetailPage != null:
+return toastError(_that);case _OpenDetailPage() when openDetailPage != null:
 return openDetailPage(_that);case _:
   return orElse();
 
@@ -79,12 +78,11 @@ return openDetailPage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ToastError value)  toastError,required TResult Function( _ToastSuccess value)  toastSuccess,required TResult Function( _OpenDetailPage value)  openDetailPage,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ToastError value)  toastError,required TResult Function( _OpenDetailPage value)  openDetailPage,}){
 final _that = this;
 switch (_that) {
 case _ToastError():
-return toastError(_that);case _ToastSuccess():
-return toastSuccess(_that);case _OpenDetailPage():
+return toastError(_that);case _OpenDetailPage():
 return openDetailPage(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -102,12 +100,11 @@ return openDetailPage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ToastError value)?  toastError,TResult? Function( _ToastSuccess value)?  toastSuccess,TResult? Function( _OpenDetailPage value)?  openDetailPage,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ToastError value)?  toastError,TResult? Function( _OpenDetailPage value)?  openDetailPage,}){
 final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
-return toastError(_that);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that);case _OpenDetailPage() when openDetailPage != null:
+return toastError(_that);case _OpenDetailPage() when openDetailPage != null:
 return openDetailPage(_that);case _:
   return null;
 
@@ -125,11 +122,10 @@ return openDetailPage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String messgae)?  toastError,TResult Function( String messgae)?  toastSuccess,TResult Function( RecipeItem item)?  openDetailPage,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String messgae)?  toastError,TResult Function( RecipeItem item)?  openDetailPage,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
-return toastError(_that.messgae);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that.messgae);case _OpenDetailPage() when openDetailPage != null:
+return toastError(_that.messgae);case _OpenDetailPage() when openDetailPage != null:
 return openDetailPage(_that.item);case _:
   return orElse();
 
@@ -148,11 +144,10 @@ return openDetailPage(_that.item);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String messgae)  toastError,required TResult Function( String messgae)  toastSuccess,required TResult Function( RecipeItem item)  openDetailPage,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String messgae)  toastError,required TResult Function( RecipeItem item)  openDetailPage,}) {final _that = this;
 switch (_that) {
 case _ToastError():
-return toastError(_that.messgae);case _ToastSuccess():
-return toastSuccess(_that.messgae);case _OpenDetailPage():
+return toastError(_that.messgae);case _OpenDetailPage():
 return openDetailPage(_that.item);case _:
   throw StateError('Unexpected subclass');
 
@@ -170,11 +165,10 @@ return openDetailPage(_that.item);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String messgae)?  toastError,TResult? Function( String messgae)?  toastSuccess,TResult? Function( RecipeItem item)?  openDetailPage,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String messgae)?  toastError,TResult? Function( RecipeItem item)?  openDetailPage,}) {final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
-return toastError(_that.messgae);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that.messgae);case _OpenDetailPage() when openDetailPage != null:
+return toastError(_that.messgae);case _OpenDetailPage() when openDetailPage != null:
 return openDetailPage(_that.item);case _:
   return null;
 
@@ -241,72 +235,6 @@ class __$ToastErrorCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? messgae = null,}) {
   return _then(_ToastError(
-null == messgae ? _self.messgae : messgae // ignore: cast_nullable_to_non_nullable
-as String,
-  ));
-}
-
-
-}
-
-/// @nodoc
-
-
-class _ToastSuccess implements SearchEffect {
-  const _ToastSuccess(this.messgae);
-  
-
- final  String messgae;
-
-/// Create a copy of SearchEffect
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$ToastSuccessCopyWith<_ToastSuccess> get copyWith => __$ToastSuccessCopyWithImpl<_ToastSuccess>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ToastSuccess&&(identical(other.messgae, messgae) || other.messgae == messgae));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,messgae);
-
-@override
-String toString() {
-  return 'SearchEffect.toastSuccess(messgae: $messgae)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class _$ToastSuccessCopyWith<$Res> implements $SearchEffectCopyWith<$Res> {
-  factory _$ToastSuccessCopyWith(_ToastSuccess value, $Res Function(_ToastSuccess) _then) = __$ToastSuccessCopyWithImpl;
-@useResult
-$Res call({
- String messgae
-});
-
-
-
-
-}
-/// @nodoc
-class __$ToastSuccessCopyWithImpl<$Res>
-    implements _$ToastSuccessCopyWith<$Res> {
-  __$ToastSuccessCopyWithImpl(this._self, this._then);
-
-  final _ToastSuccess _self;
-  final $Res Function(_ToastSuccess) _then;
-
-/// Create a copy of SearchEffect
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? messgae = null,}) {
-  return _then(_ToastSuccess(
 null == messgae ? _self.messgae : messgae // ignore: cast_nullable_to_non_nullable
 as String,
   ));

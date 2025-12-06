@@ -4,20 +4,18 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:makanapa/core/extension/index.dart';
 import 'package:makanapa/core/states/data_state.dart';
 import 'package:makanapa/core/themes/dimens_constant.dart';
+import 'package:makanapa/features/recipe/domain/models/ingredient_enum.dart';
 import 'package:makanapa/features/recipe/domain/models/recipe_detail.dart';
 import 'package:makanapa/features/recipe/presentation/detail/controllers/detail_bloc_controller.dart';
 import 'package:makanapa/features/recipe/presentation/detail/controllers/state/detail_event.dart';
 import 'package:makanapa/features/recipe/presentation/detail/controllers/state/detail_ui_state.dart';
 
 class RecipeDetailBodyWidget extends HookConsumerWidget {
-  final DetailBloc bloc;
-
-  const RecipeDetailBodyWidget({super.key, required this.bloc});
+  const RecipeDetailBodyWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return BlocBuilder<DetailBloc, DetailUiState>(
-      bloc: bloc,
       buildWhen: (p, c) {
         if (c.state is Success) {
           return true;
@@ -65,7 +63,12 @@ class RecipeDetailBodyWidget extends HookConsumerWidget {
                           Icon(
                             Icons.radio_button_checked,
                             size: 20,
-                            color: context.primary,
+                            color: switch (item.type) {
+                              IngredientEnum.vegetable => context.primary,
+                              IngredientEnum.meat => context.error,
+                              IngredientEnum.other => context.textPrimary,
+                              _ => context.primary,
+                            },
                           ),
                           Dimens.md.space,
                           Text(
@@ -92,7 +95,9 @@ class RecipeDetailBodyWidget extends HookConsumerWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      bloc.add(OpenUrlEvent(recipe.urlLinks));
+                      context.read<DetailBloc>().add(
+                        OpenUrlEvent(recipe.urlLinks),
+                      );
                     },
                     child: const Text('Liat Cara Masak'),
                   ),

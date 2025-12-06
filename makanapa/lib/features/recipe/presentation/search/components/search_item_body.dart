@@ -9,12 +9,10 @@ import 'package:makanapa/features/recipe/presentation/search/controllers/state/s
 import 'package:makanapa/features/recipe/presentation/search/controllers/state/search_ui_state.dart';
 
 class SearchItemBodyWidget extends HookConsumerWidget {
-  final SearchBloc bloc;
-  const SearchItemBodyWidget({super.key, required this.bloc});
+  const SearchItemBodyWidget({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return BlocBuilder<SearchBloc, SearchUiState>(
-      bloc: bloc,
       buildWhen: (p, c) {
         if (p.results != c.results || p.isEmpty != c.isEmpty) {
           return true;
@@ -23,9 +21,18 @@ class SearchItemBodyWidget extends HookConsumerWidget {
       },
       builder: (context, state) {
         if (state.isEmpty) {
-          return const EmptyStateWidget(
-            title: "Perhatian",
-            subtitle: "Data tidak ditemukkan",
+          return LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: EmptyStateWidget(
+                    title: "Perhatian",
+                    subtitle: "Data tidak ditemukkan",
+                  ),
+                ),
+              );
+            },
           );
         }
 
@@ -38,7 +45,7 @@ class SearchItemBodyWidget extends HookConsumerWidget {
             return SearchItemWidget(
               item: item,
               onRecipeClick: (item) {
-                bloc.add(OpenDetailRecipeEvent(item));
+                context.read<SearchBloc>().add(OpenDetailRecipeEvent(item));
               },
             );
           },

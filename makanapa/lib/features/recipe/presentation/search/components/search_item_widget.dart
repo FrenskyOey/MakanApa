@@ -14,6 +14,7 @@ class SearchItemWidget extends HookConsumerWidget {
     required this.item,
     required this.onRecipeClick,
   });
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Stack(
