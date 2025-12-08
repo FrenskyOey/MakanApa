@@ -27,10 +27,13 @@ class ErrorStateWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              imagePath,
-              width: double.infinity,
-              fit: BoxFit.fitWidth,
+            AspectRatio(
+              aspectRatio: 16 / 9,
+              child: Image.asset(
+                imagePath,
+                width: double.infinity,
+                fit: BoxFit.fitHeight,
+              ),
             ),
             const SizedBox(height: Dimens.xxxl),
             Text(
@@ -38,13 +41,13 @@ class ErrorStateWidget extends StatelessWidget {
               style: context.titleMedium,
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 12.0),
+            Dimens.sm.space,
             Text(
               subtitle,
               style: context.bodyMedium,
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 36.0),
+            Dimens.md.space,
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
