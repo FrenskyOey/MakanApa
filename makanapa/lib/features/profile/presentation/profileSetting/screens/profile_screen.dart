@@ -44,7 +44,7 @@ class ProfileScreen extends HookConsumerWidget {
         reloadData();
       });
       return null;
-    });
+    }, []);
 
     useEffect(() {
       final sub = ref.read(profileControllerProvider.notifier).events.listen((

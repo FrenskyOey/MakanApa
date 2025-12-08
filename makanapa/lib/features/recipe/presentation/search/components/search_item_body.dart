@@ -1,0 +1,56 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:makanapa/core/themes/dimens_constant.dart';
+import 'package:makanapa/core/widgets/state/empty_state_widget.dart';
+import 'package:makanapa/features/recipe/presentation/search/components/search_item_widget.dart';
+import 'package:makanapa/features/recipe/presentation/search/controllers/search_bloc_controller.dart';
+import 'package:makanapa/features/recipe/presentation/search/controllers/state/search_event.dart';
+import 'package:makanapa/features/recipe/presentation/search/controllers/state/search_ui_state.dart';
+
+class SearchItemBodyWidget extends HookConsumerWidget {
+  const SearchItemBodyWidget({super.key});
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return BlocBuilder<SearchBloc, SearchUiState>(
+      buildWhen: (p, c) {
+        if (p.results != c.results || p.isEmpty != c.isEmpty) {
+          return true;
+        }
+        return false;
+      },
+      builder: (context, state) {
+        if (state.isEmpty) {
+          return LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: EmptyStateWidget(
+                    title: "Perhatian",
+                    subtitle: "Data tidak ditemukkan",
+                  ),
+                ),
+              );
+            },
+          );
+        }
+
+        final stateList = state.results;
+        return ListView.builder(
+          padding: const EdgeInsets.symmetric(vertical: Dimens.md),
+          itemCount: stateList.length,
+          itemBuilder: (context, index) {
+            final item = stateList[index];
+            return SearchItemWidget(
+              item: item,
+              onRecipeClick: (item) {
+                context.read<SearchBloc>().add(OpenDetailRecipeEvent(item));
+              },
+            );
+          },
+        );
+      },
+    );
+  }
+}
