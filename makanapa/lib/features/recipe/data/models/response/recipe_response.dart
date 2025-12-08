@@ -19,6 +19,7 @@ abstract class RecipeResponse with _$RecipeResponse {
     @JsonKey(name: 'picture', defaultValue: '') required String picture,
     @JsonKey(name: 'is_bookmarked', defaultValue: false)
     required bool isBookmark,
+    @JsonKey(name: 'steps_link', defaultValue: null) String? urlLinks,
   }) = _RecipeResponse;
 
   RecipeItem toDomain() {
@@ -29,6 +30,7 @@ abstract class RecipeResponse with _$RecipeResponse {
       picture: picture,
       dishType: DishEnum.fromDescription(resepType),
       classType: ClassEnum.fromDescription(classType),
+      urlLinks: urlLinks ?? "",
     );
   }
 

@@ -61,7 +61,12 @@ class RecipeDetailBodyWidget extends HookConsumerWidget {
                       Row(
                         children: [
                           Icon(
-                            Icons.radio_button_checked,
+                            switch (item.type) {
+                              IngredientEnum.vegetable => Icons.eco_rounded,
+                              IngredientEnum.meat => Icons.kebab_dining_rounded,
+                              IngredientEnum.other => Icons.photo_filter,
+                              _ => Icons.circle_outlined,
+                            },
                             size: 20,
                             color: switch (item.type) {
                               IngredientEnum.vegetable => context.primary,
