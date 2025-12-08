@@ -19,7 +19,7 @@ class AppInput {
     fillColor: AppColor.inputFill(),
     focusColor: AppColor.surface(),
     filled: true,
-    hintStyle: _baseTextStyle.bodyMedium!.copyWith(color: Colors.grey.shade400),
+    hintStyle: _baseTextStyle.bodyMedium!.copyWith(color: Colors.grey.shade300),
     labelStyle: WidgetStateTextStyle.resolveWith((Set<WidgetState> states) {
       final Color color = states.contains(WidgetState.error)
           ? AppColor.error

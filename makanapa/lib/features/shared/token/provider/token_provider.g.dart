@@ -41,7 +41,7 @@ final class TokenNotifierProvider
   }
 }
 
-String _$tokenNotifierHash() => r'b1d7eb322fa99bf463587c88a51d7d79921f4856';
+String _$tokenNotifierHash() => r'159ceeeaa29869ff5626c3b454a7ff83ed22a35f';
 
 abstract class _$TokenNotifier extends $Notifier<TokenState> {
   TokenState build();

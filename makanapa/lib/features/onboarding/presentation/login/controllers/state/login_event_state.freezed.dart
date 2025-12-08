@@ -55,10 +55,11 @@ extension LoginEventStatePatterns on LoginEventState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ShowLoading value)?  showLoading,TResult Function( _ToastError value)?  toastError,TResult Function( _ToHomePage value)?  toHomePage,TResult Function( _ToSignUpPage value)?  toSignUpPage,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _ShowLoading value)?  showLoading,TResult Function( _ToastError value)?  toastError,TResult Function( _ToHomePage value)?  toHomePage,TResult Function( _ToSignUpPage value)?  toSignUpPage,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _ShowLoading() when showLoading != null:
+case _Initial() when initial != null:
+return initial(_that);case _ShowLoading() when showLoading != null:
 return showLoading(_that);case _ToastError() when toastError != null:
 return toastError(_that);case _ToHomePage() when toHomePage != null:
 return toHomePage(_that);case _ToSignUpPage() when toSignUpPage != null:
@@ -80,10 +81,11 @@ return toSignUpPage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ShowLoading value)  showLoading,required TResult Function( _ToastError value)  toastError,required TResult Function( _ToHomePage value)  toHomePage,required TResult Function( _ToSignUpPage value)  toSignUpPage,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _ShowLoading value)  showLoading,required TResult Function( _ToastError value)  toastError,required TResult Function( _ToHomePage value)  toHomePage,required TResult Function( _ToSignUpPage value)  toSignUpPage,}){
 final _that = this;
 switch (_that) {
-case _ShowLoading():
+case _Initial():
+return initial(_that);case _ShowLoading():
 return showLoading(_that);case _ToastError():
 return toastError(_that);case _ToHomePage():
 return toHomePage(_that);case _ToSignUpPage():
@@ -104,10 +106,11 @@ return toSignUpPage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ShowLoading value)?  showLoading,TResult? Function( _ToastError value)?  toastError,TResult? Function( _ToHomePage value)?  toHomePage,TResult? Function( _ToSignUpPage value)?  toSignUpPage,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _ShowLoading value)?  showLoading,TResult? Function( _ToastError value)?  toastError,TResult? Function( _ToHomePage value)?  toHomePage,TResult? Function( _ToSignUpPage value)?  toSignUpPage,}){
 final _that = this;
 switch (_that) {
-case _ShowLoading() when showLoading != null:
+case _Initial() when initial != null:
+return initial(_that);case _ShowLoading() when showLoading != null:
 return showLoading(_that);case _ToastError() when toastError != null:
 return toastError(_that);case _ToHomePage() when toHomePage != null:
 return toHomePage(_that);case _ToSignUpPage() when toSignUpPage != null:
@@ -128,9 +131,10 @@ return toSignUpPage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  showLoading,TResult Function( String messgae)?  toastError,TResult Function()?  toHomePage,TResult Function()?  toSignUpPage,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  showLoading,TResult Function( String messgae)?  toastError,TResult Function()?  toHomePage,TResult Function()?  toSignUpPage,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _ShowLoading() when showLoading != null:
+case _Initial() when initial != null:
+return initial();case _ShowLoading() when showLoading != null:
 return showLoading();case _ToastError() when toastError != null:
 return toastError(_that.messgae);case _ToHomePage() when toHomePage != null:
 return toHomePage();case _ToSignUpPage() when toSignUpPage != null:
@@ -152,9 +156,10 @@ return toSignUpPage();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  showLoading,required TResult Function( String messgae)  toastError,required TResult Function()  toHomePage,required TResult Function()  toSignUpPage,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  showLoading,required TResult Function( String messgae)  toastError,required TResult Function()  toHomePage,required TResult Function()  toSignUpPage,}) {final _that = this;
 switch (_that) {
-case _ShowLoading():
+case _Initial():
+return initial();case _ShowLoading():
 return showLoading();case _ToastError():
 return toastError(_that.messgae);case _ToHomePage():
 return toHomePage();case _ToSignUpPage():
@@ -175,9 +180,10 @@ return toSignUpPage();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  showLoading,TResult? Function( String messgae)?  toastError,TResult? Function()?  toHomePage,TResult? Function()?  toSignUpPage,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  showLoading,TResult? Function( String messgae)?  toastError,TResult? Function()?  toHomePage,TResult? Function()?  toSignUpPage,}) {final _that = this;
 switch (_that) {
-case _ShowLoading() when showLoading != null:
+case _Initial() when initial != null:
+return initial();case _ShowLoading() when showLoading != null:
 return showLoading();case _ToastError() when toastError != null:
 return toastError(_that.messgae);case _ToHomePage() when toHomePage != null:
 return toHomePage();case _ToSignUpPage() when toSignUpPage != null:
@@ -188,6 +194,38 @@ return toSignUpPage();case _:
 }
 
 }
+
+/// @nodoc
+
+
+class _Initial implements LoginEventState {
+  const _Initial();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'LoginEventState.initial()';
+}
+
+
+}
+
+
+
 
 /// @nodoc
 
