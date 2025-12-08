@@ -24,8 +24,7 @@ class LoadingShimmerWidget extends HookConsumerWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AspectRatio(
-            aspectRatio: 1,
+          Expanded(
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -36,13 +35,14 @@ class LoadingShimmerWidget extends HookConsumerWidget {
               child: Bone.square(borderRadius: BorderRadius.circular(12)),
             ),
           ),
+
           Dimens.ms.space,
           // Title Text
           SizedBox(
             height: 50,
             child: Text(
               titles[index],
-              style: context.bodyLarge,
+              style: context.titleMedium,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -105,7 +105,7 @@ class LoadingShimmerWidget extends HookConsumerWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 24,
-                childAspectRatio: 0.74,
+                childAspectRatio: 0.75,
               ),
               itemBuilder: (context, index) {
                 return buildRecipeItem(index);

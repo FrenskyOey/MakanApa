@@ -64,7 +64,6 @@ class LoadingShimmerWidget extends HookConsumerWidget {
                       );
                     },
                   ),
-                  Dimens.xl.space,
                   Skeleton.leaf(
                     child: Container(
                       width: double.infinity,
@@ -75,6 +74,7 @@ class LoadingShimmerWidget extends HookConsumerWidget {
                       ),
                     ),
                   ),
+                  Dimens.md.space,
                 ],
               ),
             ),

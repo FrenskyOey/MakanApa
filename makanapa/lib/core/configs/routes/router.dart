@@ -18,8 +18,9 @@ import 'package:makanapa/features/profile/presentation/faq/screens/faq_screen.da
 import 'package:makanapa/features/profile/presentation/profileEdit/screens/profile_edit_screen.dart';
 import 'package:makanapa/features/profile/presentation/profileSetting/screens/profile_screen.dart';
 import 'package:makanapa/features/recipe/domain/models/recipe_item.dart';
-import 'package:makanapa/features/recipe/presentation/detail/screens/recipe_detail_screen.dart';
-import 'package:makanapa/features/recipe/presentation/list/screens/recipe_screen.dart';
+import 'package:makanapa/features/recipe/presentation/detail/screens/recipe_detail_provider_screen.dart';
+import 'package:makanapa/features/recipe/presentation/list/screens/recipe_provider_screen.dart';
+import 'package:makanapa/features/recipe/presentation/search/screens/search_provider_screen.dart';
 import 'package:makanapa/features/shared/token/provider/token_provider.dart';
 import 'package:makanapa/features/shared/token/provider/token_state.dart';
 import 'package:makanapa/features/splash_screen.dart';
@@ -87,8 +88,8 @@ final routeProvider = Provider((ref) {
             routes: [
               GoRoute(
                 name: RouteNames.receipt,
-                path: "/receipt",
-                builder: (context, state) => const RecipeScreen(),
+                path: "/recipe",
+                builder: (context, state) => const RecipeProviderScreen(),
               ),
             ],
           ),
@@ -135,11 +136,32 @@ final routeProvider = Provider((ref) {
         },
       ),
       GoRoute(
-        name: RouteNames.recipeDetail,
-        path: '/recipe-detail',
+        name: RouteNames.recipeDetailRecipe,
+        path: '/recipe/recipe-detail',
         builder: (BuildContext context, GoRouterState state) {
           final item = state.extra as RecipeItem;
-          return RecipeDetailScreen(recipeItem: item);
+          return RecipeDetailProviderScreen(
+            recipeItem: item,
+            heroTag: "recipe_${item.id}",
+          );
+        },
+      ),
+      GoRoute(
+        name: RouteNames.recipeSearch,
+        path: '/search',
+        builder: (BuildContext context, GoRouterState state) {
+          return SearchProviderScreen();
+        },
+      ),
+      GoRoute(
+        name: RouteNames.recipeDetailSearch,
+        path: '/search/recipe-detail',
+        builder: (BuildContext context, GoRouterState state) {
+          final item = state.extra as RecipeItem;
+          return RecipeDetailProviderScreen(
+            recipeItem: item,
+            heroTag: "search_recipe_${item.id}",
+          );
         },
       ),
     ],

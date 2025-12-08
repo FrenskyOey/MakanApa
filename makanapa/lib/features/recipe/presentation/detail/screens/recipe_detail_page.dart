@@ -17,18 +17,16 @@ import 'package:makanapa/features/recipe/presentation/detail/controllers/detail_
 import 'package:makanapa/features/recipe/presentation/detail/controllers/state/detail_effect.dart';
 import 'package:makanapa/features/recipe/presentation/detail/controllers/state/detail_event.dart';
 import 'package:makanapa/features/recipe/presentation/detail/controllers/state/detail_ui_state.dart';
-import 'package:makanapa/features/recipe/provider/recipe_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class RecipeDetailScreen extends HookConsumerWidget {
+class RecipeDetailPage extends HookConsumerWidget {
   final RecipeItem recipeItem;
+  final String? heroTag;
 
-  const RecipeDetailScreen({super.key, required this.recipeItem});
+  const RecipeDetailPage({super.key, required this.recipeItem, this.heroTag});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final detailBloc = ref.watch(detailBlocProvider);
-
     Future<void> launchingUrl(String urlString) async {
       final Uri url = Uri.parse(urlString);
       if (!await launchUrl(url)) {
@@ -37,12 +35,12 @@ class RecipeDetailScreen extends HookConsumerWidget {
     }
 
     useEffect(() {
-      detailBloc.add(LoadDetailEvent(recipeItem.id));
+      context.read<DetailBloc>().add(LoadDetailEvent(recipeItem.id));
       return null;
     }, const []);
 
     useEffect(() {
-      final sub = detailBloc.sideEffects.listen((event) {
+      final sub = context.read<DetailBloc>().sideEffects.listen((event) {
         event.maybeWhen(
           toastError: (error) {
             SnackBarHelper.showError(context, error);
@@ -68,7 +66,7 @@ class RecipeDetailScreen extends HookConsumerWidget {
 
     Widget getWidgetBody(DataState<RecipeDetail> state) {
       if (state is Loading) {
-        return LoadingShimmerWidget();
+        return const LoadingShimmerWidget();
       }
 
       if (state is Error) {
@@ -79,23 +77,22 @@ class RecipeDetailScreen extends HookConsumerWidget {
             subtitle: messages,
             buttonText: "Coba Lagi",
             onButtonPressed: () {
-              detailBloc.add(LoadDetailEvent(recipeItem.id));
+              context.read<DetailBloc>().add(LoadDetailEvent(recipeItem.id));
             },
           ),
         );
       }
 
       if (state is Success) {
-        return RecipeDetailBodyWidget(bloc: detailBloc);
+        return const RecipeDetailBodyWidget();
       }
 
-      return SliverToBoxAdapter(child: SizedBox());
+      return const SliverToBoxAdapter(child: SizedBox());
     }
 
     return Scaffold(
       body: SafeArea(
         child: BlocConsumer<DetailBloc, DetailUiState>(
-          bloc: detailBloc,
           listener: (context, state) {},
           buildWhen: (previous, current) {
             return previous.state != current.state;
@@ -106,9 +103,9 @@ class RecipeDetailScreen extends HookConsumerWidget {
                 SliverPersistentHeader(
                   pinned: true,
                   delegate: HeaderWidget(
-                    bloc: detailBloc,
                     recipeItem: recipeItem,
                     onBack: () => Navigator.pop(context),
+                    heroTag: heroTag,
                   ),
                 ),
                 getWidgetBody(state.state),

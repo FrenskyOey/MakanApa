@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'recipe_event_state.dart';
+part of 'recipe_list_effect.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,7 +12,7 @@ part of 'recipe_event_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$RecipeListEventState {
+mixin _$RecipeListEffect {
 
 
 
@@ -20,7 +20,7 @@ mixin _$RecipeListEventState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeListEventState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeListEffect);
 }
 
 
@@ -29,20 +29,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RecipeListEventState()';
+  return 'RecipeListEffect()';
 }
 
 
 }
 
 /// @nodoc
-class $RecipeListEventStateCopyWith<$Res>  {
-$RecipeListEventStateCopyWith(RecipeListEventState _, $Res Function(RecipeListEventState) __);
+class $RecipeListEffectCopyWith<$Res>  {
+$RecipeListEffectCopyWith(RecipeListEffect _, $Res Function(RecipeListEffect) __);
 }
 
 
-/// Adds pattern-matching-related methods to [RecipeListEventState].
-extension RecipeListEventStatePatterns on RecipeListEventState {
+/// Adds pattern-matching-related methods to [RecipeListEffect].
+extension RecipeListEffectPatterns on RecipeListEffect {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -192,13 +192,13 @@ return openSearchRecipe();case _:
 /// @nodoc
 
 
-class _ToastError implements RecipeListEventState {
+class _ToastError implements RecipeListEffect {
   const _ToastError(this.messgae);
   
 
  final  String messgae;
 
-/// Create a copy of RecipeListEventState
+/// Create a copy of RecipeListEffect
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -217,14 +217,14 @@ int get hashCode => Object.hash(runtimeType,messgae);
 
 @override
 String toString() {
-  return 'RecipeListEventState.toastError(messgae: $messgae)';
+  return 'RecipeListEffect.toastError(messgae: $messgae)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ToastErrorCopyWith<$Res> implements $RecipeListEventStateCopyWith<$Res> {
+abstract mixin class _$ToastErrorCopyWith<$Res> implements $RecipeListEffectCopyWith<$Res> {
   factory _$ToastErrorCopyWith(_ToastError value, $Res Function(_ToastError) _then) = __$ToastErrorCopyWithImpl;
 @useResult
 $Res call({
@@ -243,7 +243,7 @@ class __$ToastErrorCopyWithImpl<$Res>
   final _ToastError _self;
   final $Res Function(_ToastError) _then;
 
-/// Create a copy of RecipeListEventState
+/// Create a copy of RecipeListEffect
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? messgae = null,}) {
   return _then(_ToastError(
@@ -258,13 +258,13 @@ as String,
 /// @nodoc
 
 
-class _ToastSuccess implements RecipeListEventState {
+class _ToastSuccess implements RecipeListEffect {
   const _ToastSuccess(this.messgae);
   
 
  final  String messgae;
 
-/// Create a copy of RecipeListEventState
+/// Create a copy of RecipeListEffect
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -283,14 +283,14 @@ int get hashCode => Object.hash(runtimeType,messgae);
 
 @override
 String toString() {
-  return 'RecipeListEventState.toastSuccess(messgae: $messgae)';
+  return 'RecipeListEffect.toastSuccess(messgae: $messgae)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ToastSuccessCopyWith<$Res> implements $RecipeListEventStateCopyWith<$Res> {
+abstract mixin class _$ToastSuccessCopyWith<$Res> implements $RecipeListEffectCopyWith<$Res> {
   factory _$ToastSuccessCopyWith(_ToastSuccess value, $Res Function(_ToastSuccess) _then) = __$ToastSuccessCopyWithImpl;
 @useResult
 $Res call({
@@ -309,7 +309,7 @@ class __$ToastSuccessCopyWithImpl<$Res>
   final _ToastSuccess _self;
   final $Res Function(_ToastSuccess) _then;
 
-/// Create a copy of RecipeListEventState
+/// Create a copy of RecipeListEffect
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? messgae = null,}) {
   return _then(_ToastSuccess(
@@ -324,13 +324,13 @@ as String,
 /// @nodoc
 
 
-class _OpenReceiptDetail implements RecipeListEventState {
+class _OpenReceiptDetail implements RecipeListEffect {
   const _OpenReceiptDetail(this.item);
   
 
  final  RecipeItem item;
 
-/// Create a copy of RecipeListEventState
+/// Create a copy of RecipeListEffect
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -349,14 +349,14 @@ int get hashCode => Object.hash(runtimeType,item);
 
 @override
 String toString() {
-  return 'RecipeListEventState.openReceiptDetail(item: $item)';
+  return 'RecipeListEffect.openReceiptDetail(item: $item)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$OpenReceiptDetailCopyWith<$Res> implements $RecipeListEventStateCopyWith<$Res> {
+abstract mixin class _$OpenReceiptDetailCopyWith<$Res> implements $RecipeListEffectCopyWith<$Res> {
   factory _$OpenReceiptDetailCopyWith(_OpenReceiptDetail value, $Res Function(_OpenReceiptDetail) _then) = __$OpenReceiptDetailCopyWithImpl;
 @useResult
 $Res call({
@@ -375,7 +375,7 @@ class __$OpenReceiptDetailCopyWithImpl<$Res>
   final _OpenReceiptDetail _self;
   final $Res Function(_OpenReceiptDetail) _then;
 
-/// Create a copy of RecipeListEventState
+/// Create a copy of RecipeListEffect
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? item = null,}) {
   return _then(_OpenReceiptDetail(
@@ -384,7 +384,7 @@ as RecipeItem,
   ));
 }
 
-/// Create a copy of RecipeListEventState
+/// Create a copy of RecipeListEffect
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -399,7 +399,7 @@ $RecipeItemCopyWith<$Res> get item {
 /// @nodoc
 
 
-class _OpenSearchRecipe implements RecipeListEventState {
+class _OpenSearchRecipe implements RecipeListEffect {
   const _OpenSearchRecipe();
   
 
@@ -419,7 +419,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RecipeListEventState.openSearchRecipe()';
+  return 'RecipeListEffect.openSearchRecipe()';
 }
 
 

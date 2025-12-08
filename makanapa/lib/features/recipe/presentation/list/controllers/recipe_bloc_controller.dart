@@ -1,35 +1,31 @@
 import 'dart:async';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:makanapa/core/extension/side_effect_mixin.dart';
 import 'package:makanapa/core/states/data_state.dart';
-import 'package:makanapa/features/recipe/domain/models/recipe_item.dart';
 import 'package:makanapa/features/recipe/domain/repositories/recipe_repository.dart';
-import 'package:makanapa/features/recipe/presentation/list/controllers/state/recipe_event_state.dart';
+import 'package:makanapa/features/recipe/presentation/list/controllers/state/recipe_list_effect.dart';
+import 'package:makanapa/features/recipe/presentation/list/controllers/state/recipe_ui_event.dart';
 import 'package:makanapa/features/recipe/presentation/list/controllers/state/recipe_ui_state.dart';
-import 'package:makanapa/features/recipe/provider/recipe_provider.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'recipe_controller.g.dart';
-
-@riverpod
-class RecipeController extends _$RecipeController {
-  late RecipeRepository _repo;
+class RecipeBloc extends Bloc<RecipeUiEvent, RecipeUiState>
+    with SideEffectMixin<RecipeListEffect, RecipeUiState> {
+  late final RecipeRepository _repo;
   StreamSubscription? _recipeSubscription;
-  final _eventController = StreamController<RecipeListEventState>.broadcast();
-  Stream<RecipeListEventState> get events => _eventController.stream;
 
   bool _isFetching = false;
   bool _hasMoreData = true;
-
   int _currentPage = 1;
 
-  @override
-  RecipeUiState build() {
-    _repo = ref.read(recipeRepositoryProvider);
-    ref.onDispose(() {
-      _recipeSubscription?.cancel();
-      _eventController.close();
-    });
-    return RecipeUiState();
+  RecipeBloc({required RecipeRepository repository})
+    : _repo = repository,
+      super(RecipeUiState()) {
+    // register event Handler
+    on<ChangeFilterDataEvent>(_changeFilterData);
+    on<ReloadRecipeDataEvent>(_reloadRecipeDataEvent);
+    on<LoadNextDataEvent>(_loadNextDataEvent);
+    on<OpenDetailPageEvent>(_openDetailPageEvent);
+    on<OpenSearchRecipeEvent>(_openSearchRecipeEvent);
+    on<PageUpdateStreamEvent>(_pageUpdateStreamEvent);
   }
 
   // --- INTERNAL: MANAGE SUBSCRIPTION ---
@@ -41,67 +37,52 @@ class RecipeController extends _$RecipeController {
     _recipeSubscription = _repo
         .getReceiptStream(pageIndex: _currentPage, filter: state.currentFilter)
         .listen((localData) {
-          final pageState = state.state;
-          if ((pageState is Success) == false) {
-            state = state.copyWith(
-              showPageLoading: false,
-              showRefreshLoading: false,
-              state: Success("Loaded"),
-              recipeList: localData,
-            );
-          } else {
-            state = state.copyWith(
-              showPageLoading: false,
-              showRefreshLoading: false,
-              recipeList: localData,
-            );
-          }
+          add(PageUpdateStreamEvent(localData));
         });
   }
 
-  Future<void> changeFilterData({required String filter}) async {
+  Future<void> _changeFilterData(
+    ChangeFilterDataEvent event,
+    Emitter<RecipeUiState> emit,
+  ) async {
+    final filter = event.filter;
     if (_isFetching) {
       return;
     }
-
     final String? filterData = filter.isEmpty ? null : filter;
     final String? currentFilterData = state.currentFilter;
 
     if (filterData == currentFilterData) {
       return;
     }
-
-    state = state.copyWith(currentFilter: filter);
-    reloadRecipeData();
+    emit(state.copyWith(currentFilter: filter));
+    add(ReloadRecipeDataEvent());
   }
 
-  void openDetailPage(RecipeItem item) {
-    _eventController.add(RecipeListEventState.openReceiptDetail(item));
-  }
-
-  void openSearchRecipe() {
-    _eventController.add(RecipeListEventState.openSearchRecipe());
-  }
-
-  Future<void> reloadRecipeData({bool fromPullRefresh = false}) async {
+  Future<void> _reloadRecipeDataEvent(
+    ReloadRecipeDataEvent event,
+    Emitter<RecipeUiState> emit,
+  ) async {
     if (_isFetching) {
       return;
     }
     _isFetching = true;
 
-    if (fromPullRefresh) {
-      state = state.copyWith(showRefreshLoading: true, isSyncing: true);
+    if (event.fromPullRefresh) {
+      emit(state.copyWith(showRefreshLoading: true, isSyncing: true));
     } else {
-      state = state.copyWith(
-        state: const Loading<String>(),
-        recipeList: const [],
-        isSyncing: true,
+      emit(
+        state.copyWith(
+          state: const Loading<String>(),
+          recipeList: const [],
+          isSyncing: true,
+        ),
       );
     }
 
     // intentionally delayed to avoid blink loading effect
     await Future.delayed(Duration(milliseconds: 1000));
-    if (!ref.mounted) {
+    if (isClosed) {
       return;
     }
 
@@ -115,7 +96,7 @@ class RecipeController extends _$RecipeController {
       filter: state.currentFilter,
     );
 
-    if (!ref.mounted) {
+    if (isClosed) {
       return;
     }
 
@@ -127,7 +108,7 @@ class RecipeController extends _$RecipeController {
         );
 
         if (pageLocal == null) {
-          state = state.copyWith(state: Error(l));
+          emit(state.copyWith(state: Error(l)));
         } else {
           final counters = pageLocal.dataCounter;
           if (counters <= 0) {
@@ -148,20 +129,23 @@ class RecipeController extends _$RecipeController {
     );
 
     _isFetching = false;
-    state = state.copyWith(showRefreshLoading: false, isSyncing: false);
+    emit(state.copyWith(showRefreshLoading: false, isSyncing: false));
   }
 
-  Future<void> loadNextData() async {
+  Future<void> _loadNextDataEvent(
+    LoadNextDataEvent event,
+    Emitter<RecipeUiState> emit,
+  ) async {
     if (_isFetching || !_hasMoreData) {
       return;
     }
 
     _isFetching = true;
-    state = state.copyWith(showPageLoading: true, isSyncing: true);
+    emit(state.copyWith(showPageLoading: true, isSyncing: true));
 
     // intentionally delayed to avoid blink loading effect
     await Future.delayed(Duration(milliseconds: 1500));
-    if (!ref.mounted) {
+    if (isClosed) {
       return;
     }
 
@@ -172,7 +156,7 @@ class RecipeController extends _$RecipeController {
       pageIndex: _currentPage,
       filter: state.currentFilter,
     );
-    if (!ref.mounted) {
+    if (isClosed) {
       return;
     }
 
@@ -187,7 +171,7 @@ class RecipeController extends _$RecipeController {
         if (pageLocal == null) {
           // reset page to previous state
           _currentPage = _currentPage - 1;
-          _eventController.add(RecipeListEventState.toastError(l));
+          emitEffect(RecipeListEffect.toastError(l));
         } else {
           final counters = pageLocal.dataCounter;
           if (counters <= 0) {
@@ -208,6 +192,51 @@ class RecipeController extends _$RecipeController {
       },
     );
     _isFetching = false;
-    state = state.copyWith(showPageLoading: false, isSyncing: false);
+    emit(state.copyWith(showPageLoading: false, isSyncing: false));
+  }
+
+  void _openDetailPageEvent(
+    OpenDetailPageEvent event,
+    Emitter<RecipeUiState> emit,
+  ) {
+    emitEffect(RecipeListEffect.openReceiptDetail(event.item));
+  }
+
+  void _openSearchRecipeEvent(
+    OpenSearchRecipeEvent event,
+    Emitter<RecipeUiState> emit,
+  ) {
+    emitEffect(RecipeListEffect.openSearchRecipe());
+  }
+
+  void _pageUpdateStreamEvent(
+    PageUpdateStreamEvent event,
+    Emitter<RecipeUiState> emit,
+  ) {
+    final pageState = state.state;
+    if ((pageState is Success) == false) {
+      emit(
+        state.copyWith(
+          showPageLoading: false,
+          showRefreshLoading: false,
+          state: Success("Loaded"),
+          recipeList: event.data,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          showPageLoading: false,
+          showRefreshLoading: false,
+          recipeList: event.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<void> close() {
+    _recipeSubscription?.cancel();
+    return super.close();
   }
 }

@@ -1,19 +1,37 @@
-/*
+import 'package:makanapa/core/extension/src/string_extension.dart';
+import 'package:makanapa/features/recipe/domain/models/recipe_item.dart';
 
-class TemplateUIState {
-  final DataState<Template> state;
-  final bool hideLoading;
+class SearchUiState {
+  final List<RecipeItem> results;
+  final String currentQuery;
+  final bool isInitial;
+  final bool isLoading;
+  final String? errorMessage;
 
-  TemplateUIState({this.state = DataState.Initial(), required this.hideLoading = true});
+  bool get isEmpty =>
+      !isLoading && errorMessage.isNullOrEmpty && results.isEmpty;
 
-  TemplateUIState copyWith({bool? hideLoading,DataState<Template>? state}) {
-    return TemplateUIState(
-      state: state ?? this.state,
-      hideLoading: hideLoading ?? this.hideLoading,
+  SearchUiState({
+    this.results = const [],
+    this.currentQuery = '',
+    this.isLoading = false,
+    this.errorMessage,
+    this.isInitial = true,
+  });
+
+  SearchUiState copyWith({
+    List<RecipeItem>? results,
+    String? currentQuery,
+    bool? isLoading,
+    bool? isInitial,
+    String? errorMessage,
+  }) {
+    return SearchUiState(
+      results: results ?? this.results,
+      currentQuery: currentQuery ?? this.currentQuery,
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      isInitial: isInitial ?? this.isInitial,
     );
   }
 }
-
-
-
- */
