@@ -18,7 +18,24 @@ const WeeklyDetailEntitySchema = CollectionSchema(
   name: r'WeeklyDetailEntity',
   id: -1069174269746213981,
   properties: {
-    r'content': PropertySchema(id: 0, name: r'content', type: IsarType.string),
+    r'endDate': PropertySchema(
+      id: 0,
+      name: r'endDate',
+      type: IsarType.dateTime,
+    ),
+    r'groupId': PropertySchema(id: 1, name: r'groupId', type: IsarType.long),
+    r'meals': PropertySchema(
+      id: 2,
+      name: r'meals',
+      type: IsarType.objectList,
+
+      target: r'DailyMealEmbed',
+    ),
+    r'startDate': PropertySchema(
+      id: 3,
+      name: r'startDate',
+      type: IsarType.dateTime,
+    ),
   },
 
   estimateSize: _weeklyDetailEntityEstimateSize,
@@ -26,9 +43,26 @@ const WeeklyDetailEntitySchema = CollectionSchema(
   deserialize: _weeklyDetailEntityDeserialize,
   deserializeProp: _weeklyDetailEntityDeserializeProp,
   idName: r'id',
-  indexes: {},
+  indexes: {
+    r'groupId': IndexSchema(
+      id: -8523216633229774932,
+      name: r'groupId',
+      unique: true,
+      replace: true,
+      properties: [
+        IndexPropertySchema(
+          name: r'groupId',
+          type: IndexType.value,
+          caseSensitive: false,
+        ),
+      ],
+    ),
+  },
   links: {},
-  embeddedSchemas: {},
+  embeddedSchemas: {
+    r'DailyMealEmbed': DailyMealEmbedSchema,
+    r'RecipeEmbedModel': RecipeEmbedModelSchema,
+  },
 
   getId: _weeklyDetailEntityGetId,
   getLinks: _weeklyDetailEntityGetLinks,
@@ -42,7 +76,18 @@ int _weeklyDetailEntityEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.content.length * 3;
+  bytesCount += 3 + object.meals.length * 3;
+  {
+    final offsets = allOffsets[DailyMealEmbed]!;
+    for (var i = 0; i < object.meals.length; i++) {
+      final value = object.meals[i];
+      bytesCount += DailyMealEmbedSchema.estimateSize(
+        value,
+        offsets,
+        allOffsets,
+      );
+    }
+  }
   return bytesCount;
 }
 
@@ -52,7 +97,15 @@ void _weeklyDetailEntitySerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeString(offsets[0], object.content);
+  writer.writeDateTime(offsets[0], object.endDate);
+  writer.writeLong(offsets[1], object.groupId);
+  writer.writeObjectList<DailyMealEmbed>(
+    offsets[2],
+    allOffsets,
+    DailyMealEmbedSchema.serialize,
+    object.meals,
+  );
+  writer.writeDateTime(offsets[3], object.startDate);
 }
 
 WeeklyDetailEntity _weeklyDetailEntityDeserialize(
@@ -62,8 +115,18 @@ WeeklyDetailEntity _weeklyDetailEntityDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = WeeklyDetailEntity();
-  object.content = reader.readString(offsets[0]);
+  object.endDate = reader.readDateTime(offsets[0]);
+  object.groupId = reader.readLong(offsets[1]);
   object.id = id;
+  object.meals =
+      reader.readObjectList<DailyMealEmbed>(
+        offsets[2],
+        DailyMealEmbedSchema.deserialize,
+        allOffsets,
+        DailyMealEmbed(),
+      ) ??
+      [];
+  object.startDate = reader.readDateTime(offsets[3]);
   return object;
 }
 
@@ -75,7 +138,20 @@ P _weeklyDetailEntityDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readString(offset)) as P;
+      return (reader.readDateTime(offset)) as P;
+    case 1:
+      return (reader.readLong(offset)) as P;
+    case 2:
+      return (reader.readObjectList<DailyMealEmbed>(
+                offset,
+                DailyMealEmbedSchema.deserialize,
+                allOffsets,
+                DailyMealEmbed(),
+              ) ??
+              [])
+          as P;
+    case 3:
+      return (reader.readDateTime(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -99,11 +175,77 @@ void _weeklyDetailEntityAttach(
   object.id = id;
 }
 
+extension WeeklyDetailEntityByIndex on IsarCollection<WeeklyDetailEntity> {
+  Future<WeeklyDetailEntity?> getByGroupId(int groupId) {
+    return getByIndex(r'groupId', [groupId]);
+  }
+
+  WeeklyDetailEntity? getByGroupIdSync(int groupId) {
+    return getByIndexSync(r'groupId', [groupId]);
+  }
+
+  Future<bool> deleteByGroupId(int groupId) {
+    return deleteByIndex(r'groupId', [groupId]);
+  }
+
+  bool deleteByGroupIdSync(int groupId) {
+    return deleteByIndexSync(r'groupId', [groupId]);
+  }
+
+  Future<List<WeeklyDetailEntity?>> getAllByGroupId(List<int> groupIdValues) {
+    final values = groupIdValues.map((e) => [e]).toList();
+    return getAllByIndex(r'groupId', values);
+  }
+
+  List<WeeklyDetailEntity?> getAllByGroupIdSync(List<int> groupIdValues) {
+    final values = groupIdValues.map((e) => [e]).toList();
+    return getAllByIndexSync(r'groupId', values);
+  }
+
+  Future<int> deleteAllByGroupId(List<int> groupIdValues) {
+    final values = groupIdValues.map((e) => [e]).toList();
+    return deleteAllByIndex(r'groupId', values);
+  }
+
+  int deleteAllByGroupIdSync(List<int> groupIdValues) {
+    final values = groupIdValues.map((e) => [e]).toList();
+    return deleteAllByIndexSync(r'groupId', values);
+  }
+
+  Future<Id> putByGroupId(WeeklyDetailEntity object) {
+    return putByIndex(r'groupId', object);
+  }
+
+  Id putByGroupIdSync(WeeklyDetailEntity object, {bool saveLinks = true}) {
+    return putByIndexSync(r'groupId', object, saveLinks: saveLinks);
+  }
+
+  Future<List<Id>> putAllByGroupId(List<WeeklyDetailEntity> objects) {
+    return putAllByIndex(r'groupId', objects);
+  }
+
+  List<Id> putAllByGroupIdSync(
+    List<WeeklyDetailEntity> objects, {
+    bool saveLinks = true,
+  }) {
+    return putAllByIndexSync(r'groupId', objects, saveLinks: saveLinks);
+  }
+}
+
 extension WeeklyDetailEntityQueryWhereSort
     on QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QWhere> {
   QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterWhere>
+  anyGroupId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        const IndexWhereClause.any(indexName: r'groupId'),
+      );
     });
   }
 }
@@ -176,147 +318,216 @@ extension WeeklyDetailEntityQueryWhere
       );
     });
   }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterWhereClause>
+  groupIdEqualTo(int groupId) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.equalTo(indexName: r'groupId', value: [groupId]),
+      );
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterWhereClause>
+  groupIdNotEqualTo(int groupId) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'groupId',
+                lower: [],
+                upper: [groupId],
+                includeUpper: false,
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'groupId',
+                lower: [groupId],
+                includeLower: false,
+                upper: [],
+              ),
+            );
+      } else {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'groupId',
+                lower: [groupId],
+                includeLower: false,
+                upper: [],
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'groupId',
+                lower: [],
+                upper: [groupId],
+                includeUpper: false,
+              ),
+            );
+      }
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterWhereClause>
+  groupIdGreaterThan(int groupId, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.between(
+          indexName: r'groupId',
+          lower: [groupId],
+          includeLower: include,
+          upper: [],
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterWhereClause>
+  groupIdLessThan(int groupId, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.between(
+          indexName: r'groupId',
+          lower: [],
+          upper: [groupId],
+          includeUpper: include,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterWhereClause>
+  groupIdBetween(
+    int lowerGroupId,
+    int upperGroupId, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.between(
+          indexName: r'groupId',
+          lower: [lowerGroupId],
+          includeLower: includeLower,
+          upper: [upperGroupId],
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
 }
 
 extension WeeklyDetailEntityQueryFilter
     on QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QFilterCondition> {
   QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
-  contentEqualTo(String value, {bool caseSensitive = true}) {
+  endDateEqualTo(DateTime value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        FilterCondition.equalTo(
-          property: r'content',
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
+        FilterCondition.equalTo(property: r'endDate', value: value),
       );
     });
   }
 
   QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
-  contentGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
+  endDateGreaterThan(DateTime value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.greaterThan(
           include: include,
-          property: r'content',
+          property: r'endDate',
           value: value,
-          caseSensitive: caseSensitive,
         ),
       );
     });
   }
 
   QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
-  contentLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
+  endDateLessThan(DateTime value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.lessThan(
           include: include,
-          property: r'content',
+          property: r'endDate',
           value: value,
-          caseSensitive: caseSensitive,
         ),
       );
     });
   }
 
   QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
-  contentBetween(
-    String lower,
-    String upper, {
+  endDateBetween(
+    DateTime lower,
+    DateTime upper, {
     bool includeLower = true,
     bool includeUpper = true,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.between(
-          property: r'content',
+          property: r'endDate',
           lower: lower,
           includeLower: includeLower,
           upper: upper,
           includeUpper: includeUpper,
-          caseSensitive: caseSensitive,
         ),
       );
     });
   }
 
   QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
-  contentStartsWith(String value, {bool caseSensitive = true}) {
+  groupIdEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        FilterCondition.startsWith(
-          property: r'content',
+        FilterCondition.equalTo(property: r'groupId', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
+  groupIdGreaterThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'groupId',
           value: value,
-          caseSensitive: caseSensitive,
         ),
       );
     });
   }
 
   QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
-  contentEndsWith(String value, {bool caseSensitive = true}) {
+  groupIdLessThan(int value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        FilterCondition.endsWith(
-          property: r'content',
+        FilterCondition.lessThan(
+          include: include,
+          property: r'groupId',
           value: value,
-          caseSensitive: caseSensitive,
         ),
       );
     });
   }
 
   QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
-  contentContains(String value, {bool caseSensitive = true}) {
+  groupIdBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
-        FilterCondition.contains(
-          property: r'content',
-          value: value,
-          caseSensitive: caseSensitive,
+        FilterCondition.between(
+          property: r'groupId',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
         ),
-      );
-    });
-  }
-
-  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
-  contentMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.matches(
-          property: r'content',
-          wildcard: pattern,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
-  contentIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.equalTo(property: r'content', value: ''),
-      );
-    });
-  }
-
-  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
-  contentIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.greaterThan(property: r'content', value: ''),
       );
     });
   }
@@ -375,10 +586,125 @@ extension WeeklyDetailEntityQueryFilter
       );
     });
   }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
+  mealsLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'meals', length, true, length, true);
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
+  mealsIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'meals', 0, true, 0, true);
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
+  mealsIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'meals', 0, false, 999999, true);
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
+  mealsLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'meals', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
+  mealsLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'meals', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
+  mealsLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'meals',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
+  startDateEqualTo(DateTime value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'startDate', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
+  startDateGreaterThan(DateTime value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'startDate',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
+  startDateLessThan(DateTime value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'startDate',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
+  startDateBetween(
+    DateTime lower,
+    DateTime upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'startDate',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
 }
 
 extension WeeklyDetailEntityQueryObject
-    on QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QFilterCondition> {}
+    on QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QFilterCondition> {
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterFilterCondition>
+  mealsElement(FilterQuery<DailyMealEmbed> q) {
+    return QueryBuilder.apply(this, (query) {
+      return query.object(q, r'meals');
+    });
+  }
+}
 
 extension WeeklyDetailEntityQueryLinks
     on QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QFilterCondition> {}
@@ -386,16 +712,44 @@ extension WeeklyDetailEntityQueryLinks
 extension WeeklyDetailEntityQuerySortBy
     on QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QSortBy> {
   QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterSortBy>
-  sortByContent() {
+  sortByEndDate() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'content', Sort.asc);
+      return query.addSortBy(r'endDate', Sort.asc);
     });
   }
 
   QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterSortBy>
-  sortByContentDesc() {
+  sortByEndDateDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'content', Sort.desc);
+      return query.addSortBy(r'endDate', Sort.desc);
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterSortBy>
+  sortByGroupId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'groupId', Sort.asc);
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterSortBy>
+  sortByGroupIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'groupId', Sort.desc);
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterSortBy>
+  sortByStartDate() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'startDate', Sort.asc);
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterSortBy>
+  sortByStartDateDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'startDate', Sort.desc);
     });
   }
 }
@@ -403,16 +757,30 @@ extension WeeklyDetailEntityQuerySortBy
 extension WeeklyDetailEntityQuerySortThenBy
     on QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QSortThenBy> {
   QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterSortBy>
-  thenByContent() {
+  thenByEndDate() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'content', Sort.asc);
+      return query.addSortBy(r'endDate', Sort.asc);
     });
   }
 
   QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterSortBy>
-  thenByContentDesc() {
+  thenByEndDateDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'content', Sort.desc);
+      return query.addSortBy(r'endDate', Sort.desc);
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterSortBy>
+  thenByGroupId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'groupId', Sort.asc);
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterSortBy>
+  thenByGroupIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'groupId', Sort.desc);
     });
   }
 
@@ -429,14 +797,42 @@ extension WeeklyDetailEntityQuerySortThenBy
       return query.addSortBy(r'id', Sort.desc);
     });
   }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterSortBy>
+  thenByStartDate() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'startDate', Sort.asc);
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QAfterSortBy>
+  thenByStartDateDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'startDate', Sort.desc);
+    });
+  }
 }
 
 extension WeeklyDetailEntityQueryWhereDistinct
     on QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QDistinct> {
   QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QDistinct>
-  distinctByContent({bool caseSensitive = true}) {
+  distinctByEndDate() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'content', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'endDate');
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QDistinct>
+  distinctByGroupId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'groupId');
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, WeeklyDetailEntity, QDistinct>
+  distinctByStartDate() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'startDate');
     });
   }
 }
@@ -449,9 +845,30 @@ extension WeeklyDetailEntityQueryProperty
     });
   }
 
-  QueryBuilder<WeeklyDetailEntity, String, QQueryOperations> contentProperty() {
+  QueryBuilder<WeeklyDetailEntity, DateTime, QQueryOperations>
+  endDateProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'content');
+      return query.addPropertyName(r'endDate');
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, int, QQueryOperations> groupIdProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'groupId');
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, List<DailyMealEmbed>, QQueryOperations>
+  mealsProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'meals');
+    });
+  }
+
+  QueryBuilder<WeeklyDetailEntity, DateTime, QQueryOperations>
+  startDateProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'startDate');
     });
   }
 }

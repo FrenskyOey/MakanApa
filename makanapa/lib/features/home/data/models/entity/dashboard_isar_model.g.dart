@@ -17,7 +17,16 @@ const DashboardEntitySchema = CollectionSchema(
   name: r'DashboardEntity',
   id: 8281951863799898696,
   properties: {
-    r'content': PropertySchema(id: 0, name: r'content', type: IsarType.string),
+    r'jsonBlob': PropertySchema(
+      id: 0,
+      name: r'jsonBlob',
+      type: IsarType.string,
+    ),
+    r'lastUpdated': PropertySchema(
+      id: 1,
+      name: r'lastUpdated',
+      type: IsarType.dateTime,
+    ),
   },
 
   estimateSize: _dashboardEntityEstimateSize,
@@ -25,7 +34,21 @@ const DashboardEntitySchema = CollectionSchema(
   deserialize: _dashboardEntityDeserialize,
   deserializeProp: _dashboardEntityDeserializeProp,
   idName: r'id',
-  indexes: {},
+  indexes: {
+    r'lastUpdated': IndexSchema(
+      id: 8989359681631629925,
+      name: r'lastUpdated',
+      unique: false,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'lastUpdated',
+          type: IndexType.value,
+          caseSensitive: false,
+        ),
+      ],
+    ),
+  },
   links: {},
   embeddedSchemas: {},
 
@@ -41,7 +64,7 @@ int _dashboardEntityEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.content.length * 3;
+  bytesCount += 3 + object.jsonBlob.length * 3;
   return bytesCount;
 }
 
@@ -51,7 +74,8 @@ void _dashboardEntitySerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeString(offsets[0], object.content);
+  writer.writeString(offsets[0], object.jsonBlob);
+  writer.writeDateTime(offsets[1], object.lastUpdated);
 }
 
 DashboardEntity _dashboardEntityDeserialize(
@@ -61,8 +85,9 @@ DashboardEntity _dashboardEntityDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = DashboardEntity();
-  object.content = reader.readString(offsets[0]);
   object.id = id;
+  object.jsonBlob = reader.readString(offsets[0]);
+  object.lastUpdated = reader.readDateTime(offsets[1]);
   return object;
 }
 
@@ -75,6 +100,8 @@ P _dashboardEntityDeserializeProp<P>(
   switch (propertyId) {
     case 0:
       return (reader.readString(offset)) as P;
+    case 1:
+      return (reader.readDateTime(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -101,6 +128,14 @@ extension DashboardEntityQueryWhereSort
   QueryBuilder<DashboardEntity, DashboardEntity, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterWhere> anyLastUpdated() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        const IndexWhereClause.any(indexName: r'lastUpdated'),
+      );
     });
   }
 }
@@ -175,151 +210,113 @@ extension DashboardEntityQueryWhere
       );
     });
   }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterWhereClause>
+  lastUpdatedEqualTo(DateTime lastUpdated) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.equalTo(
+          indexName: r'lastUpdated',
+          value: [lastUpdated],
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterWhereClause>
+  lastUpdatedNotEqualTo(DateTime lastUpdated) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'lastUpdated',
+                lower: [],
+                upper: [lastUpdated],
+                includeUpper: false,
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'lastUpdated',
+                lower: [lastUpdated],
+                includeLower: false,
+                upper: [],
+              ),
+            );
+      } else {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'lastUpdated',
+                lower: [lastUpdated],
+                includeLower: false,
+                upper: [],
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'lastUpdated',
+                lower: [],
+                upper: [lastUpdated],
+                includeUpper: false,
+              ),
+            );
+      }
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterWhereClause>
+  lastUpdatedGreaterThan(DateTime lastUpdated, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.between(
+          indexName: r'lastUpdated',
+          lower: [lastUpdated],
+          includeLower: include,
+          upper: [],
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterWhereClause>
+  lastUpdatedLessThan(DateTime lastUpdated, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.between(
+          indexName: r'lastUpdated',
+          lower: [],
+          upper: [lastUpdated],
+          includeUpper: include,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterWhereClause>
+  lastUpdatedBetween(
+    DateTime lowerLastUpdated,
+    DateTime upperLastUpdated, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.between(
+          indexName: r'lastUpdated',
+          lower: [lowerLastUpdated],
+          includeLower: includeLower,
+          upper: [upperLastUpdated],
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
 }
 
 extension DashboardEntityQueryFilter
     on QueryBuilder<DashboardEntity, DashboardEntity, QFilterCondition> {
-  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
-  contentEqualTo(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.equalTo(
-          property: r'content',
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
-  contentGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.greaterThan(
-          include: include,
-          property: r'content',
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
-  contentLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.lessThan(
-          include: include,
-          property: r'content',
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
-  contentBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.between(
-          property: r'content',
-          lower: lower,
-          includeLower: includeLower,
-          upper: upper,
-          includeUpper: includeUpper,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
-  contentStartsWith(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.startsWith(
-          property: r'content',
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
-  contentEndsWith(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.endsWith(
-          property: r'content',
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
-  contentContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.contains(
-          property: r'content',
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
-  contentMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.matches(
-          property: r'content',
-          wildcard: pattern,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
-  contentIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.equalTo(property: r'content', value: ''),
-      );
-    });
-  }
-
-  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
-  contentIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.greaterThan(property: r'content', value: ''),
-      );
-    });
-  }
-
   QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
   idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
@@ -374,6 +371,202 @@ extension DashboardEntityQueryFilter
       );
     });
   }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
+  jsonBlobEqualTo(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'jsonBlob',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
+  jsonBlobGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'jsonBlob',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
+  jsonBlobLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'jsonBlob',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
+  jsonBlobBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'jsonBlob',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
+  jsonBlobStartsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'jsonBlob',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
+  jsonBlobEndsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'jsonBlob',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
+  jsonBlobContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'jsonBlob',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
+  jsonBlobMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'jsonBlob',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
+  jsonBlobIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'jsonBlob', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
+  jsonBlobIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'jsonBlob', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
+  lastUpdatedEqualTo(DateTime value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'lastUpdated', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
+  lastUpdatedGreaterThan(DateTime value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'lastUpdated',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
+  lastUpdatedLessThan(DateTime value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'lastUpdated',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterFilterCondition>
+  lastUpdatedBetween(
+    DateTime lower,
+    DateTime upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'lastUpdated',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
 }
 
 extension DashboardEntityQueryObject
@@ -384,35 +577,37 @@ extension DashboardEntityQueryLinks
 
 extension DashboardEntityQuerySortBy
     on QueryBuilder<DashboardEntity, DashboardEntity, QSortBy> {
-  QueryBuilder<DashboardEntity, DashboardEntity, QAfterSortBy> sortByContent() {
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterSortBy>
+  sortByJsonBlob() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'content', Sort.asc);
+      return query.addSortBy(r'jsonBlob', Sort.asc);
     });
   }
 
   QueryBuilder<DashboardEntity, DashboardEntity, QAfterSortBy>
-  sortByContentDesc() {
+  sortByJsonBlobDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'content', Sort.desc);
+      return query.addSortBy(r'jsonBlob', Sort.desc);
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterSortBy>
+  sortByLastUpdated() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastUpdated', Sort.asc);
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterSortBy>
+  sortByLastUpdatedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastUpdated', Sort.desc);
     });
   }
 }
 
 extension DashboardEntityQuerySortThenBy
     on QueryBuilder<DashboardEntity, DashboardEntity, QSortThenBy> {
-  QueryBuilder<DashboardEntity, DashboardEntity, QAfterSortBy> thenByContent() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'content', Sort.asc);
-    });
-  }
-
-  QueryBuilder<DashboardEntity, DashboardEntity, QAfterSortBy>
-  thenByContentDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'content', Sort.desc);
-    });
-  }
-
   QueryBuilder<DashboardEntity, DashboardEntity, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
@@ -424,15 +619,50 @@ extension DashboardEntityQuerySortThenBy
       return query.addSortBy(r'id', Sort.desc);
     });
   }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterSortBy>
+  thenByJsonBlob() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'jsonBlob', Sort.asc);
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterSortBy>
+  thenByJsonBlobDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'jsonBlob', Sort.desc);
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterSortBy>
+  thenByLastUpdated() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastUpdated', Sort.asc);
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QAfterSortBy>
+  thenByLastUpdatedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastUpdated', Sort.desc);
+    });
+  }
 }
 
 extension DashboardEntityQueryWhereDistinct
     on QueryBuilder<DashboardEntity, DashboardEntity, QDistinct> {
-  QueryBuilder<DashboardEntity, DashboardEntity, QDistinct> distinctByContent({
+  QueryBuilder<DashboardEntity, DashboardEntity, QDistinct> distinctByJsonBlob({
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'content', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'jsonBlob', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DashboardEntity, QDistinct>
+  distinctByLastUpdated() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'lastUpdated');
     });
   }
 }
@@ -445,9 +675,16 @@ extension DashboardEntityQueryProperty
     });
   }
 
-  QueryBuilder<DashboardEntity, String, QQueryOperations> contentProperty() {
+  QueryBuilder<DashboardEntity, String, QQueryOperations> jsonBlobProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'content');
+      return query.addPropertyName(r'jsonBlob');
+    });
+  }
+
+  QueryBuilder<DashboardEntity, DateTime, QQueryOperations>
+  lastUpdatedProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'lastUpdated');
     });
   }
 }
