@@ -6,7 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:makanapa/core/configs/routes/route_names.dart';
 import 'package:makanapa/features/basket/presentation/screens/basket_screen.dart';
-import 'package:makanapa/features/home/presentation/screens/home_screen.dart';
+import 'package:makanapa/features/home/presentation/create/screens/create_screen.dart';
+import 'package:makanapa/features/home/presentation/home/screens/home_screen.dart';
 import 'package:makanapa/features/main_screen.dart';
 import 'package:makanapa/features/not_found_screen.dart';
 import 'package:makanapa/features/onboarding/domain/models/user.dart';
@@ -162,6 +163,20 @@ final routeProvider = Provider((ref) {
             recipeItem: item,
             heroTag: "search_recipe_${item.id}",
           );
+        },
+      ),
+      GoRoute(
+        name: RouteNames.createPlan,
+        path: '/plan/create',
+        builder: (BuildContext context, GoRouterState state) {
+          return CreatePlanScreen();
+        },
+      ),
+      GoRoute(
+        name: RouteNames.planDetail,
+        path: '/search',
+        builder: (BuildContext context, GoRouterState state) {
+          return SearchProviderScreen();
         },
       ),
     ],
