@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:makanapa/core/extension/index.dart';
 import 'package:makanapa/core/themes/app_color.dart';
+import 'package:makanapa/features/home/domain/models/avaiblity_item.dart';
+import 'package:makanapa/features/home/presentation/home/components/avaibility_bottom_sheet.dart';
+
 import 'package:makanapa/features/recipe/presentation/list/components/filter_recipe_bottomsheet_widget.dart';
 import 'package:makanapa/features/shared/main/main_controller.dart';
 import 'package:makanapa/features/shared/main/state/main_event.dart';
@@ -36,6 +39,24 @@ class MainScreen extends HookConsumerWidget {
       }
     }
 
+    void openAvaibilityBottomSheet(List<AvaiblityItem> items) async {
+      final AvaiblityItem? selectedItem =
+          await showModalBottomSheet<AvaiblityItem>(
+            context: context,
+            isScrollControlled: true,
+            builder: (BuildContext context) {
+              return AvaibilityBottomSheetWidget(items: items);
+            },
+          );
+
+      // 5. Update state (selectedValue) and controller
+      if (selectedItem != null) {
+        ref
+            .read(mainControllerProvider.notifier)
+            .onAvaiblitySelected(selectedItem);
+      }
+    }
+
     useEffect(() {
       final subz = ref.read(mainControllerProvider.notifier).events.listen((
         event,
@@ -43,6 +64,9 @@ class MainScreen extends HookConsumerWidget {
         event.maybeWhen(
           openTypeBottomSheet: (type) {
             openBottomSheet(type);
+          },
+          openAvaibilityBottomSheet: (items) {
+            openAvaibilityBottomSheet(items);
           },
           orElse: () {},
         );

@@ -55,13 +55,13 @@ extension HomeEventStatePatterns on HomeEventState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ToastError value)?  toastError,TResult Function( _ToastSuccess value)?  toastSuccess,TResult Function( _ClosePage value)?  closePage,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ToastError value)?  toastError,TResult Function( _ToastSuccess value)?  toastSuccess,TResult Function( _OpenCreatePlan value)?  openCreatePlan,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that);case _ClosePage() when closePage != null:
-return closePage(_that);case _:
+return toastSuccess(_that);case _OpenCreatePlan() when openCreatePlan != null:
+return openCreatePlan(_that);case _:
   return orElse();
 
 }
@@ -79,13 +79,13 @@ return closePage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ToastError value)  toastError,required TResult Function( _ToastSuccess value)  toastSuccess,required TResult Function( _ClosePage value)  closePage,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ToastError value)  toastError,required TResult Function( _ToastSuccess value)  toastSuccess,required TResult Function( _OpenCreatePlan value)  openCreatePlan,}){
 final _that = this;
 switch (_that) {
 case _ToastError():
 return toastError(_that);case _ToastSuccess():
-return toastSuccess(_that);case _ClosePage():
-return closePage(_that);case _:
+return toastSuccess(_that);case _OpenCreatePlan():
+return openCreatePlan(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -102,13 +102,13 @@ return closePage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ToastError value)?  toastError,TResult? Function( _ToastSuccess value)?  toastSuccess,TResult? Function( _ClosePage value)?  closePage,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ToastError value)?  toastError,TResult? Function( _ToastSuccess value)?  toastSuccess,TResult? Function( _OpenCreatePlan value)?  openCreatePlan,}){
 final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that);case _ClosePage() when closePage != null:
-return closePage(_that);case _:
+return toastSuccess(_that);case _OpenCreatePlan() when openCreatePlan != null:
+return openCreatePlan(_that);case _:
   return null;
 
 }
@@ -125,12 +125,12 @@ return closePage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String message)?  toastError,TResult Function( String message)?  toastSuccess,TResult Function()?  closePage,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String message)?  toastError,TResult Function( String message)?  toastSuccess,TResult Function( AvaiblityItem item)?  openCreatePlan,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that.message);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that.message);case _ClosePage() when closePage != null:
-return closePage();case _:
+return toastSuccess(_that.message);case _OpenCreatePlan() when openCreatePlan != null:
+return openCreatePlan(_that.item);case _:
   return orElse();
 
 }
@@ -148,12 +148,12 @@ return closePage();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String message)  toastError,required TResult Function( String message)  toastSuccess,required TResult Function()  closePage,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String message)  toastError,required TResult Function( String message)  toastSuccess,required TResult Function( AvaiblityItem item)  openCreatePlan,}) {final _that = this;
 switch (_that) {
 case _ToastError():
 return toastError(_that.message);case _ToastSuccess():
-return toastSuccess(_that.message);case _ClosePage():
-return closePage();case _:
+return toastSuccess(_that.message);case _OpenCreatePlan():
+return openCreatePlan(_that.item);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -170,12 +170,12 @@ return closePage();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String message)?  toastError,TResult? Function( String message)?  toastSuccess,TResult? Function()?  closePage,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String message)?  toastError,TResult? Function( String message)?  toastSuccess,TResult? Function( AvaiblityItem item)?  openCreatePlan,}) {final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that.message);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that.message);case _ClosePage() when closePage != null:
-return closePage();case _:
+return toastSuccess(_that.message);case _OpenCreatePlan() when openCreatePlan != null:
+return openCreatePlan(_that.item);case _:
   return null;
 
 }
@@ -318,33 +318,67 @@ as String,
 /// @nodoc
 
 
-class _ClosePage implements HomeEventState {
-  const _ClosePage();
+class _OpenCreatePlan implements HomeEventState {
+  const _OpenCreatePlan(this.item);
   
 
+ final  AvaiblityItem item;
 
-
+/// Create a copy of HomeEventState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$OpenCreatePlanCopyWith<_OpenCreatePlan> get copyWith => __$OpenCreatePlanCopyWithImpl<_OpenCreatePlan>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ClosePage);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OpenCreatePlan&&(identical(other.item, item) || other.item == item));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,item);
 
 @override
 String toString() {
-  return 'HomeEventState.closePage()';
+  return 'HomeEventState.openCreatePlan(item: $item)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class _$OpenCreatePlanCopyWith<$Res> implements $HomeEventStateCopyWith<$Res> {
+  factory _$OpenCreatePlanCopyWith(_OpenCreatePlan value, $Res Function(_OpenCreatePlan) _then) = __$OpenCreatePlanCopyWithImpl;
+@useResult
+$Res call({
+ AvaiblityItem item
+});
 
 
+
+
+}
+/// @nodoc
+class __$OpenCreatePlanCopyWithImpl<$Res>
+    implements _$OpenCreatePlanCopyWith<$Res> {
+  __$OpenCreatePlanCopyWithImpl(this._self, this._then);
+
+  final _OpenCreatePlan _self;
+  final $Res Function(_OpenCreatePlan) _then;
+
+/// Create a copy of HomeEventState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? item = null,}) {
+  return _then(_OpenCreatePlan(
+null == item ? _self.item : item // ignore: cast_nullable_to_non_nullable
+as AvaiblityItem,
+  ));
+}
+
+
+}
 
 // dart format on

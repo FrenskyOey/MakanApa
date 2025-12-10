@@ -4,9 +4,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:makanapa/core/extension/index.dart';
 import 'package:makanapa/core/themes/dimens_constant.dart';
 import 'package:makanapa/core/widgets/gradient_text.dart';
+import 'package:makanapa/features/home/domain/models/avaiblity_item.dart';
 
 class CreatePlanScreen extends HookConsumerWidget {
-  const CreatePlanScreen({super.key});
+  final AvaiblityItem request;
+  const CreatePlanScreen({super.key, required this.request});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

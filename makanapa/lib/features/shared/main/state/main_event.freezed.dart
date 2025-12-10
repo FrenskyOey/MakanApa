@@ -55,12 +55,14 @@ extension MainEventPatterns on MainEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _OpenTypeBottomSheet value)?  openTypeBottomSheet,TResult Function( _TypeBottomSheetResult value)?  typeBottomSheetResult,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _OpenTypeBottomSheet value)?  openTypeBottomSheet,TResult Function( _TypeBottomSheetResult value)?  typeBottomSheetResult,TResult Function( _OpenAvaibilityBottomSheet value)?  openAvaibilityBottomSheet,TResult Function( _AvaibilityBottomSheetResult value)?  avaibilityBottomSheetResult,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _OpenTypeBottomSheet() when openTypeBottomSheet != null:
 return openTypeBottomSheet(_that);case _TypeBottomSheetResult() when typeBottomSheetResult != null:
-return typeBottomSheetResult(_that);case _:
+return typeBottomSheetResult(_that);case _OpenAvaibilityBottomSheet() when openAvaibilityBottomSheet != null:
+return openAvaibilityBottomSheet(_that);case _AvaibilityBottomSheetResult() when avaibilityBottomSheetResult != null:
+return avaibilityBottomSheetResult(_that);case _:
   return orElse();
 
 }
@@ -78,12 +80,14 @@ return typeBottomSheetResult(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _OpenTypeBottomSheet value)  openTypeBottomSheet,required TResult Function( _TypeBottomSheetResult value)  typeBottomSheetResult,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _OpenTypeBottomSheet value)  openTypeBottomSheet,required TResult Function( _TypeBottomSheetResult value)  typeBottomSheetResult,required TResult Function( _OpenAvaibilityBottomSheet value)  openAvaibilityBottomSheet,required TResult Function( _AvaibilityBottomSheetResult value)  avaibilityBottomSheetResult,}){
 final _that = this;
 switch (_that) {
 case _OpenTypeBottomSheet():
 return openTypeBottomSheet(_that);case _TypeBottomSheetResult():
-return typeBottomSheetResult(_that);case _:
+return typeBottomSheetResult(_that);case _OpenAvaibilityBottomSheet():
+return openAvaibilityBottomSheet(_that);case _AvaibilityBottomSheetResult():
+return avaibilityBottomSheetResult(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -100,12 +104,14 @@ return typeBottomSheetResult(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _OpenTypeBottomSheet value)?  openTypeBottomSheet,TResult? Function( _TypeBottomSheetResult value)?  typeBottomSheetResult,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _OpenTypeBottomSheet value)?  openTypeBottomSheet,TResult? Function( _TypeBottomSheetResult value)?  typeBottomSheetResult,TResult? Function( _OpenAvaibilityBottomSheet value)?  openAvaibilityBottomSheet,TResult? Function( _AvaibilityBottomSheetResult value)?  avaibilityBottomSheetResult,}){
 final _that = this;
 switch (_that) {
 case _OpenTypeBottomSheet() when openTypeBottomSheet != null:
 return openTypeBottomSheet(_that);case _TypeBottomSheetResult() when typeBottomSheetResult != null:
-return typeBottomSheetResult(_that);case _:
+return typeBottomSheetResult(_that);case _OpenAvaibilityBottomSheet() when openAvaibilityBottomSheet != null:
+return openAvaibilityBottomSheet(_that);case _AvaibilityBottomSheetResult() when avaibilityBottomSheetResult != null:
+return avaibilityBottomSheetResult(_that);case _:
   return null;
 
 }
@@ -122,11 +128,13 @@ return typeBottomSheetResult(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String? currentType)?  openTypeBottomSheet,TResult Function( String type)?  typeBottomSheetResult,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String? currentType)?  openTypeBottomSheet,TResult Function( String type)?  typeBottomSheetResult,TResult Function( List<AvaiblityItem> item)?  openAvaibilityBottomSheet,TResult Function( AvaiblityItem item)?  avaibilityBottomSheetResult,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OpenTypeBottomSheet() when openTypeBottomSheet != null:
 return openTypeBottomSheet(_that.currentType);case _TypeBottomSheetResult() when typeBottomSheetResult != null:
-return typeBottomSheetResult(_that.type);case _:
+return typeBottomSheetResult(_that.type);case _OpenAvaibilityBottomSheet() when openAvaibilityBottomSheet != null:
+return openAvaibilityBottomSheet(_that.item);case _AvaibilityBottomSheetResult() when avaibilityBottomSheetResult != null:
+return avaibilityBottomSheetResult(_that.item);case _:
   return orElse();
 
 }
@@ -144,11 +152,13 @@ return typeBottomSheetResult(_that.type);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String? currentType)  openTypeBottomSheet,required TResult Function( String type)  typeBottomSheetResult,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String? currentType)  openTypeBottomSheet,required TResult Function( String type)  typeBottomSheetResult,required TResult Function( List<AvaiblityItem> item)  openAvaibilityBottomSheet,required TResult Function( AvaiblityItem item)  avaibilityBottomSheetResult,}) {final _that = this;
 switch (_that) {
 case _OpenTypeBottomSheet():
 return openTypeBottomSheet(_that.currentType);case _TypeBottomSheetResult():
-return typeBottomSheetResult(_that.type);case _:
+return typeBottomSheetResult(_that.type);case _OpenAvaibilityBottomSheet():
+return openAvaibilityBottomSheet(_that.item);case _AvaibilityBottomSheetResult():
+return avaibilityBottomSheetResult(_that.item);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -165,11 +175,13 @@ return typeBottomSheetResult(_that.type);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String? currentType)?  openTypeBottomSheet,TResult? Function( String type)?  typeBottomSheetResult,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String? currentType)?  openTypeBottomSheet,TResult? Function( String type)?  typeBottomSheetResult,TResult? Function( List<AvaiblityItem> item)?  openAvaibilityBottomSheet,TResult? Function( AvaiblityItem item)?  avaibilityBottomSheetResult,}) {final _that = this;
 switch (_that) {
 case _OpenTypeBottomSheet() when openTypeBottomSheet != null:
 return openTypeBottomSheet(_that.currentType);case _TypeBottomSheetResult() when typeBottomSheetResult != null:
-return typeBottomSheetResult(_that.type);case _:
+return typeBottomSheetResult(_that.type);case _OpenAvaibilityBottomSheet() when openAvaibilityBottomSheet != null:
+return openAvaibilityBottomSheet(_that.item);case _AvaibilityBottomSheetResult() when avaibilityBottomSheetResult != null:
+return avaibilityBottomSheetResult(_that.item);case _:
   return null;
 
 }
@@ -303,6 +315,144 @@ class __$TypeBottomSheetResultCopyWithImpl<$Res>
   return _then(_TypeBottomSheetResult(
 null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _OpenAvaibilityBottomSheet implements MainEvent {
+  const _OpenAvaibilityBottomSheet(final  List<AvaiblityItem> item): _item = item;
+  
+
+ final  List<AvaiblityItem> _item;
+ List<AvaiblityItem> get item {
+  if (_item is EqualUnmodifiableListView) return _item;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_item);
+}
+
+
+/// Create a copy of MainEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$OpenAvaibilityBottomSheetCopyWith<_OpenAvaibilityBottomSheet> get copyWith => __$OpenAvaibilityBottomSheetCopyWithImpl<_OpenAvaibilityBottomSheet>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OpenAvaibilityBottomSheet&&const DeepCollectionEquality().equals(other._item, _item));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_item));
+
+@override
+String toString() {
+  return 'MainEvent.openAvaibilityBottomSheet(item: $item)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$OpenAvaibilityBottomSheetCopyWith<$Res> implements $MainEventCopyWith<$Res> {
+  factory _$OpenAvaibilityBottomSheetCopyWith(_OpenAvaibilityBottomSheet value, $Res Function(_OpenAvaibilityBottomSheet) _then) = __$OpenAvaibilityBottomSheetCopyWithImpl;
+@useResult
+$Res call({
+ List<AvaiblityItem> item
+});
+
+
+
+
+}
+/// @nodoc
+class __$OpenAvaibilityBottomSheetCopyWithImpl<$Res>
+    implements _$OpenAvaibilityBottomSheetCopyWith<$Res> {
+  __$OpenAvaibilityBottomSheetCopyWithImpl(this._self, this._then);
+
+  final _OpenAvaibilityBottomSheet _self;
+  final $Res Function(_OpenAvaibilityBottomSheet) _then;
+
+/// Create a copy of MainEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? item = null,}) {
+  return _then(_OpenAvaibilityBottomSheet(
+null == item ? _self._item : item // ignore: cast_nullable_to_non_nullable
+as List<AvaiblityItem>,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _AvaibilityBottomSheetResult implements MainEvent {
+  const _AvaibilityBottomSheetResult(this.item);
+  
+
+ final  AvaiblityItem item;
+
+/// Create a copy of MainEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AvaibilityBottomSheetResultCopyWith<_AvaibilityBottomSheetResult> get copyWith => __$AvaibilityBottomSheetResultCopyWithImpl<_AvaibilityBottomSheetResult>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AvaibilityBottomSheetResult&&(identical(other.item, item) || other.item == item));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,item);
+
+@override
+String toString() {
+  return 'MainEvent.avaibilityBottomSheetResult(item: $item)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AvaibilityBottomSheetResultCopyWith<$Res> implements $MainEventCopyWith<$Res> {
+  factory _$AvaibilityBottomSheetResultCopyWith(_AvaibilityBottomSheetResult value, $Res Function(_AvaibilityBottomSheetResult) _then) = __$AvaibilityBottomSheetResultCopyWithImpl;
+@useResult
+$Res call({
+ AvaiblityItem item
+});
+
+
+
+
+}
+/// @nodoc
+class __$AvaibilityBottomSheetResultCopyWithImpl<$Res>
+    implements _$AvaibilityBottomSheetResultCopyWith<$Res> {
+  __$AvaibilityBottomSheetResultCopyWithImpl(this._self, this._then);
+
+  final _AvaibilityBottomSheetResult _self;
+  final $Res Function(_AvaibilityBottomSheetResult) _then;
+
+/// Create a copy of MainEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? item = null,}) {
+  return _then(_AvaibilityBottomSheetResult(
+null == item ? _self.item : item // ignore: cast_nullable_to_non_nullable
+as AvaiblityItem,
   ));
 }
 

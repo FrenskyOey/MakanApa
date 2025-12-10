@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:makanapa/core/configs/routes/route_names.dart';
 import 'package:makanapa/features/basket/presentation/screens/basket_screen.dart';
+import 'package:makanapa/features/home/domain/models/avaiblity_item.dart';
 import 'package:makanapa/features/home/presentation/create/screens/create_screen.dart';
 import 'package:makanapa/features/home/presentation/home/screens/home_screen.dart';
 import 'package:makanapa/features/home/presentation/plan/screens/plan_screen.dart';
@@ -170,7 +171,8 @@ final routeProvider = Provider((ref) {
         name: RouteNames.createPlan,
         path: '/plan/create',
         builder: (BuildContext context, GoRouterState state) {
-          return CreatePlanScreen();
+          final item = state.extra as AvaiblityItem;
+          return CreatePlanScreen(request: item);
         },
       ),
       GoRoute(

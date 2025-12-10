@@ -7,10 +7,12 @@ part 'weekly_plan_response.g.dart';
 
 @freezed
 abstract class WeeklyPlanResponse with _$WeeklyPlanResponse {
+  const WeeklyPlanResponse._();
+
   const factory WeeklyPlanResponse({
-    @JsonKey(name: 'group_id') required int groupId,
-    @JsonKey(name: 'start_date') required String startDate,
-    @JsonKey(name: 'end_date') required String endDate,
+    @JsonKey(name: 'group_id', defaultValue: 0) required int groupId,
+    @JsonKey(name: 'start_date', defaultValue: "") required String startDate,
+    @JsonKey(name: 'end_date', defaultValue: "") required String endDate,
     @JsonKey(name: 'meal_plan', defaultValue: [])
     required List<DailyMealResponse> mealPlan,
   }) = _WeeklyPlanResponse;
