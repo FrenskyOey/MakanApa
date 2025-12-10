@@ -10,6 +10,8 @@ class RouteNames {
 
   // home screen routes
   static const String home = '/home';
+  static const String createPlan = '/plan/create';
+  static const String planDetail = '/plan/detail';
 
   // recipe routes
   static const String receipt = '/recipe';
