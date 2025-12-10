@@ -9,5 +9,5 @@ abstract class MealPlanRepository {
   Future<Either<String, void>> createMealPlan(CreatePlanRequest params);
 
   Stream<Dashboard?> getDashboardStream();
-  Stream<WeeklyPlan> getWeeklyPlanStream();
+  Stream<WeeklyPlan?> getWeeklyPlanStream(int groupId);
 }

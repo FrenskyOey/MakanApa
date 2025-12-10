@@ -4,7 +4,6 @@ import 'package:makanapa/features/home/data/models/response/create_plan_response
 import 'package:makanapa/features/home/data/models/response/dashboard/dashboard_response.dart';
 import 'package:makanapa/features/home/data/models/response/dashboard/weekly_plan_response.dart';
 import 'package:makanapa/features/home/domain/models/create_plan_request.dart';
-import 'package:makanapa/features/home/domain/models/dashboard.dart';
 import 'package:makanapa/features/home/domain/models/weekly_plan.dart';
 
 abstract class PlanRemoteDataSource {
@@ -14,7 +13,7 @@ abstract class PlanRemoteDataSource {
 }
 
 abstract class PlanLocalDataSource {
-  Future<void> cacheDashboardData(Dashboard dashboard);
+  Future<void> cacheDashboardData(DashboardResponse dashboard);
   Future<void> cacheWeeklyPlan(WeeklyPlan weeklyPlan);
   Stream<DashboardEntity?> getDashboardStream();
   Stream<WeeklyDetailEntity?> getWeeklyPlanStream(int groupId);

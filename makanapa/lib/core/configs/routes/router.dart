@@ -8,6 +8,7 @@ import 'package:makanapa/core/configs/routes/route_names.dart';
 import 'package:makanapa/features/basket/presentation/screens/basket_screen.dart';
 import 'package:makanapa/features/home/presentation/create/screens/create_screen.dart';
 import 'package:makanapa/features/home/presentation/home/screens/home_screen.dart';
+import 'package:makanapa/features/home/presentation/plan/screens/plan_screen.dart';
 import 'package:makanapa/features/main_screen.dart';
 import 'package:makanapa/features/not_found_screen.dart';
 import 'package:makanapa/features/onboarding/domain/models/user.dart';
@@ -174,9 +175,9 @@ final routeProvider = Provider((ref) {
       ),
       GoRoute(
         name: RouteNames.planDetail,
-        path: '/search',
+        path: '/plan/detail',
         builder: (BuildContext context, GoRouterState state) {
-          return SearchProviderScreen();
+          return PlanScreen();
         },
       ),
     ],
