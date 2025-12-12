@@ -23,6 +23,7 @@ import 'package:makanapa/features/profile/presentation/profileSetting/screens/pr
 import 'package:makanapa/features/recipe/domain/models/recipe_item.dart';
 import 'package:makanapa/features/recipe/presentation/detail/screens/recipe_detail_provider_screen.dart';
 import 'package:makanapa/features/recipe/presentation/list/screens/recipe_provider_screen.dart';
+import 'package:makanapa/features/recipe/presentation/search/model/search_enum.dart';
 import 'package:makanapa/features/recipe/presentation/search/screens/search_provider_screen.dart';
 import 'package:makanapa/features/shared/token/provider/token_provider.dart';
 import 'package:makanapa/features/shared/token/provider/token_state.dart';
@@ -154,6 +155,13 @@ final routeProvider = Provider((ref) {
         path: '/search',
         builder: (BuildContext context, GoRouterState state) {
           return SearchProviderScreen();
+        },
+      ),
+      GoRoute(
+        name: RouteNames.recipeSelection,
+        path: '/selection',
+        builder: (BuildContext context, GoRouterState state) {
+          return SearchProviderScreen(type: SearchType.selection);
         },
       ),
       GoRoute(

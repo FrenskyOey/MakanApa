@@ -21,18 +21,18 @@ import 'package:makanapa/features/recipe/presentation/search/controllers/state/s
 class SearchPage extends HookConsumerWidget {
   const SearchPage({super.key});
 
+  void onItemSelected(BuildContext context, RecipeItem item) async {
+    await context.pushNamed(RouteNames.recipeDetailSearch, extra: item);
+    if (!context.mounted) {
+      return;
+    }
+    context.pop();
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = useMemoized(() => GlobalKey<FormState>());
     final searchController = useTextEditingController();
-
-    void openDetailPage(RecipeItem item) async {
-      await context.pushNamed(RouteNames.recipeDetailSearch, extra: item);
-      if (!context.mounted) {
-        return;
-      }
-      context.pop();
-    }
 
     useEffect(() {
       context.read<SearchBloc>().add(SearchRecipeEvent(""));
@@ -46,7 +46,7 @@ class SearchPage extends HookConsumerWidget {
             SnackBarHelper.showError(context, error);
           },
           openDetailPage: (item) {
-            openDetailPage(item);
+            onItemSelected(context, item);
           },
           orElse: () {},
         );

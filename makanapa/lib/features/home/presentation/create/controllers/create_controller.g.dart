@@ -41,7 +41,7 @@ final class CreateControllerProvider
   }
 }
 
-String _$createControllerHash() => r'39b195d458f39cd9373f2b7281b9a5131df92fff';
+String _$createControllerHash() => r'7d1e3bf59ff4738acc7965a97c8920f64382b00c';
 
 abstract class _$CreateController extends $Notifier<CreateUiState> {
   CreateUiState build();
