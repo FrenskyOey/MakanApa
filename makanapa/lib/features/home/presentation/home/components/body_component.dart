@@ -5,6 +5,7 @@ import 'package:makanapa/features/home/presentation/home/components/body_content
 import 'package:makanapa/features/home/presentation/home/components/empty_component.dart';
 import 'package:makanapa/features/home/presentation/home/components/week_daily_selector.dart';
 import 'package:makanapa/features/home/presentation/home/controllers/home_controller.dart';
+import 'package:makanapa/features/home/presentation/home/controllers/pager_controller.dart';
 
 class BodyComponentWidget extends HookConsumerWidget {
   const BodyComponentWidget({super.key});
@@ -21,12 +22,49 @@ class BodyComponentWidget extends HookConsumerWidget {
       return const EmptyComponentWidget();
     }
 
+    final pagerController = usePageController();
+
+    useEffect(() {
+      void listener() {
+        if (pagerController.hasClients) {
+          final currentPages = pagerController.page;
+          if (currentPages == null) {
+            return;
+          }
+          ref
+              .read(pagerControllerProvider.notifier)
+              .updateSelectedIndex(currentPages);
+        }
+      }
+
+      pagerController.addListener(listener);
+      return () => pagerController.removeListener(listener);
+    }, []);
+
     final startDate = currentPlan.startDate;
     final weekList = useMemoized(() {
       return List.generate(7, (index) {
         return startDate.add(Duration(days: index));
       });
     }, [startDate]);
+
+    useEffect(() {
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+      final index = weekList.indexWhere((date) {
+        final itemDate = DateTime(date.year, date.month, date.day);
+        return itemDate.isAtSameMomentAs(today);
+      });
+
+      if (index != -1) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (pagerController.hasClients) {
+            pagerController.jumpToPage(index);
+          }
+        });
+      }
+      return null;
+    }, [weekList]);
 
     return SliverToBoxAdapter(
       child: Column(
@@ -35,12 +73,14 @@ class BodyComponentWidget extends HookConsumerWidget {
         children: [
           WeeklyDateSelector(
             dates: weekList,
-            selectedIndex: 4,
-            onDateSelected: (index) {},
+            onDateSelected: (index) {
+              pagerController.jumpToPage(index);
+            },
           ),
           SizedBox(
             height: 220,
             child: PageView.builder(
+              controller: pagerController,
               itemCount: currentPlan.meals.length,
               itemBuilder: (context, index) {
                 return BodyContentComponentWidget(

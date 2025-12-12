@@ -6,6 +6,7 @@ import 'package:makanapa/core/extension/src/spacing_extension.dart';
 import 'package:makanapa/core/extension/src/text_style_extension.dart';
 import 'package:makanapa/core/themes/dimens_constant.dart';
 import 'package:makanapa/features/home/domain/models/daily_meal.dart';
+import 'package:makanapa/features/home/presentation/home/controllers/home_controller.dart';
 import 'package:makanapa/features/recipe/domain/models/recipe_item.dart';
 
 class BodyContentComponentWidget extends HookConsumerWidget {
@@ -58,7 +59,7 @@ class BodyContentComponentWidget extends HookConsumerWidget {
                   topLeft: Radius.circular(12),
                   topRight: Radius.circular(12),
                 ),
-                child: image,
+                child: Hero(tag: "home_${item.id}", child: image),
               ),
             ),
             Dimens.ms.space,
@@ -98,9 +99,25 @@ class BodyContentComponentWidget extends HookConsumerWidget {
     ) {
       return Row(
         children: [
-          Expanded(child: buildRecipeTile(context, lunch, "Siang")),
+          Expanded(
+            child: GestureDetector(
+              onTap: () {
+                ref.read(homeControllerProvider.notifier).toDetailrecipe(lunch);
+              },
+              child: buildRecipeTile(context, lunch, "Siang"),
+            ),
+          ),
           Dimens.md.space,
-          Expanded(child: buildRecipeTile(context, dinner, "Malam")),
+          Expanded(
+            child: GestureDetector(
+              onTap: () {
+                ref
+                    .read(homeControllerProvider.notifier)
+                    .toDetailrecipe(dinner);
+              },
+              child: buildRecipeTile(context, dinner, "Malam"),
+            ),
+          ),
         ],
       );
     }
@@ -113,7 +130,16 @@ class BodyContentComponentWidget extends HookConsumerWidget {
       return Row(
         children: [
           Expanded(
-            child: buildRecipeTile(context, item, isLunch ? "Siang" : "Malam"),
+            child: GestureDetector(
+              onTap: () {
+                ref.read(homeControllerProvider.notifier).toDetailrecipe(item);
+              },
+              child: buildRecipeTile(
+                context,
+                item,
+                isLunch ? "Siang" : "Malam",
+              ),
+            ),
           ),
         ],
       );

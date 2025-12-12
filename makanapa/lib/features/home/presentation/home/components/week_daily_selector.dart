@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:makanapa/core/extension/src/text_style_extension.dart';
 import 'package:makanapa/core/themes/app_color.dart';
+import 'package:makanapa/features/home/presentation/home/controllers/pager_controller.dart';
 
-class WeeklyDateSelector extends StatelessWidget {
+class WeeklyDateSelector extends HookConsumerWidget {
   final List<DateTime> dates;
-  final int selectedIndex;
   final Function(int) onDateSelected;
 
   const WeeklyDateSelector({
     super.key,
     required this.dates,
-    required this.selectedIndex,
     required this.onDateSelected,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final int selectedIndex = ref.watch(pagerControllerProvider).round();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: dates.asMap().entries.map((entry) {

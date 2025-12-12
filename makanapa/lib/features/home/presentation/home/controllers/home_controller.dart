@@ -7,6 +7,7 @@ import 'package:makanapa/features/home/presentation/home/controllers/state/home_
 import 'package:makanapa/features/home/presentation/home/controllers/state/home_ui_state.dart';
 
 import 'package:makanapa/features/home/provider/plan_provider.dart';
+import 'package:makanapa/features/recipe/domain/models/recipe_item.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'home_controller.g.dart';
@@ -68,5 +69,13 @@ class HomeController extends _$HomeController {
 
   void createPlans(AvaiblityItem item) async {
     _eventController.add(HomeEventState.openCreatePlan(item));
+  }
+
+  void toDetailrecipe(RecipeItem item) {
+    _eventController.add(HomeEventState.openRecipeDetail(item));
+  }
+
+  void toPlanDetail(int groupId) {
+    _eventController.add(HomeEventState.openPlanDetail(groupId));
   }
 }

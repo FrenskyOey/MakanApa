@@ -57,7 +57,9 @@ class UpcomingComponentWidget extends HookConsumerWidget {
                     return;
                   }
                   if (index < listLengths) {
-                    // open detail page, will do it later
+                    ref
+                        .read(homeControllerProvider.notifier)
+                        .toPlanDetail(upcomingData[index].groupId);
                   } else {
                     final avaibleData = ref
                         .read(homeControllerProvider)

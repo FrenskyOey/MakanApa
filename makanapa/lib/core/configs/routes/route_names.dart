@@ -15,6 +15,7 @@ class RouteNames {
 
   // recipe routes
   static const String receipt = '/recipe';
+  static const String recipeDetailHome = '/home/recipe-detail';
   static const String recipeDetailRecipe = '/recipe/recipe-detail';
   static const String recipeDetailSearch = '/search/recipe-detail';
   static const String recipeSearch = '/search';
