@@ -198,7 +198,8 @@ final routeProvider = Provider((ref) {
         name: RouteNames.planDetail,
         path: '/plan/detail',
         builder: (BuildContext context, GoRouterState state) {
-          return PlanScreen();
+          final groupId = state.extra as int;
+          return PlanScreen(groupId: groupId);
         },
       ),
     ],

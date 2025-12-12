@@ -6,7 +6,8 @@ import 'package:makanapa/core/themes/dimens_constant.dart';
 import 'package:makanapa/core/widgets/gradient_text.dart';
 
 class PlanScreen extends HookConsumerWidget {
-  const PlanScreen({super.key});
+  final int groupId;
+  const PlanScreen({super.key, required this.groupId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -70,7 +70,7 @@ class HomeScreen extends HookConsumerWidget {
             context.pushNamed(RouteNames.recipeDetailHome, extra: item);
           },
           openPlanDetail: (groupId) {
-            SnackBarHelper.showError(context, "Belum Ready woi");
+            context.pushNamed(RouteNames.planDetail, extra: groupId);
           },
           orElse: () {},
         );
