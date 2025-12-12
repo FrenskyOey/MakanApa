@@ -28,10 +28,8 @@ class HomeScreen extends HookConsumerWidget {
       if (!context.mounted) {
         return;
       }
-      await Future.wait([
-        ref.read(homeControllerProvider.notifier).reloadDashboardData(),
-        ref.read(profileControllerProvider.notifier).reloadProfileData(),
-      ]);
+      ref.read(homeControllerProvider.notifier).reloadDashboardData();
+      ref.read(profileControllerProvider.notifier).reloadProfileData();
     }
 
     useEffect(() {
@@ -98,16 +96,29 @@ class HomeScreen extends HookConsumerWidget {
           state: screenState,
           successWidget: (data) {
             return SizedBox.expand(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(Dimens.md, 0, Dimens.md, 0),
-                child: CustomScrollView(
-                  slivers: [
-                    const HeaderComponentWidget(),
-                    const BodyComponentWidget(),
-                    const DividerComponentWidget(),
-                    const UpcomingComponentWidget(),
-                  ],
-                ),
+              child: CustomScrollView(
+                slivers: [
+                  SliverPadding(
+                    padding: EdgeInsetsGeometry.symmetric(
+                      horizontal: Dimens.md,
+                    ),
+                    sliver: const HeaderComponentWidget(),
+                  ),
+                  const BodyComponentWidget(),
+                  SliverPadding(
+                    padding: EdgeInsetsGeometry.symmetric(
+                      horizontal: Dimens.md,
+                    ),
+                    sliver: const DividerComponentWidget(),
+                  ),
+
+                  SliverPadding(
+                    padding: EdgeInsetsGeometry.symmetric(
+                      horizontal: Dimens.md,
+                    ),
+                    sliver: const UpcomingComponentWidget(),
+                  ),
+                ],
               ),
             );
           },

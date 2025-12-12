@@ -11,13 +11,23 @@ class UpcomingComponentWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final upcomingData = ref.watch(
+    final (upcomingData, avaibleData) = ref.watch(
       homeControllerProvider.select(
-        (value) => value.dashboardData?.upcomingItems,
+        (value) => (
+          value.dashboardData?.upcomingItems,
+          value.dashboardData?.avaiblityItems,
+        ),
       ),
     );
 
     final listLengths = (upcomingData?.length ?? 0);
+
+    int componentLengths = listLengths;
+
+    if (avaibleData.isNotNullOrEmpty) {
+      componentLengths += 1;
+    }
+
     return SliverPadding(
       padding: EdgeInsetsGeometry.fromLTRB(0, 0, 0, Dimens.lg),
       sliver: SliverGrid(
@@ -53,7 +63,7 @@ class UpcomingComponentWidget extends HookConsumerWidget {
                         .read(homeControllerProvider)
                         .dashboardData
                         ?.avaiblityItems;
-                    if (avaibleData == null || avaibleData.isEmpty) {
+                    if (avaibleData == null) {
                       return;
                     }
                     ref
@@ -65,7 +75,7 @@ class UpcomingComponentWidget extends HookConsumerWidget {
               ),
             ),
           );
-        }, childCount: listLengths + 1),
+        }, childCount: componentLengths),
       ),
     );
   }

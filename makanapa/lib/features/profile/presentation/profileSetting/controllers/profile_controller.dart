@@ -78,6 +78,9 @@ class ProfileController extends _$ProfileController {
         // skip nothing to do
       },
     );
+    if (!ref.mounted) {
+      return;
+    }
     state = state.copyWith(showLoading: false);
   }
 }
