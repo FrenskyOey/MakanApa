@@ -59,7 +59,7 @@ abstract class AvailablePlanResponse with _$AvailablePlanResponse {
     final parsedStartDate = parseDate(startDate);
     return AvaiblityItem(
       startDate: parsedStartDate,
-      endDate: parsedStartDate.add(const Duration(days: 7)),
+      endDate: parsedStartDate.add(const Duration(days: 6)),
     );
   }
 

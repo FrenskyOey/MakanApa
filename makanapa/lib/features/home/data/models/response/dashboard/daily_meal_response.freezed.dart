@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DailyMealResponse {
 
-@JsonKey(name: 'date') String get date;@JsonKey(name: 'lunch') RecipeResponse? get lunch;@JsonKey(name: 'dinner') RecipeResponse? get dinner;
+@JsonKey(name: 'date', defaultValue: "") String get date;@JsonKey(name: 'lunch', defaultValue: null) RecipeResponse? get lunch;@JsonKey(name: 'dinner', defaultValue: null) RecipeResponse? get dinner;
 /// Create a copy of DailyMealResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $DailyMealResponseCopyWith<$Res>  {
   factory $DailyMealResponseCopyWith(DailyMealResponse value, $Res Function(DailyMealResponse) _then) = _$DailyMealResponseCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'date') String date,@JsonKey(name: 'lunch') RecipeResponse? lunch,@JsonKey(name: 'dinner') RecipeResponse? dinner
+@JsonKey(name: 'date', defaultValue: "") String date,@JsonKey(name: 'lunch', defaultValue: null) RecipeResponse? lunch,@JsonKey(name: 'dinner', defaultValue: null) RecipeResponse? dinner
 });
 
 
@@ -179,7 +179,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'date')  String date, @JsonKey(name: 'lunch')  RecipeResponse? lunch, @JsonKey(name: 'dinner')  RecipeResponse? dinner)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'date', defaultValue: "")  String date, @JsonKey(name: 'lunch', defaultValue: null)  RecipeResponse? lunch, @JsonKey(name: 'dinner', defaultValue: null)  RecipeResponse? dinner)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DailyMealResponse() when $default != null:
 return $default(_that.date,_that.lunch,_that.dinner);case _:
@@ -200,7 +200,7 @@ return $default(_that.date,_that.lunch,_that.dinner);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'date')  String date, @JsonKey(name: 'lunch')  RecipeResponse? lunch, @JsonKey(name: 'dinner')  RecipeResponse? dinner)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'date', defaultValue: "")  String date, @JsonKey(name: 'lunch', defaultValue: null)  RecipeResponse? lunch, @JsonKey(name: 'dinner', defaultValue: null)  RecipeResponse? dinner)  $default,) {final _that = this;
 switch (_that) {
 case _DailyMealResponse():
 return $default(_that.date,_that.lunch,_that.dinner);case _:
@@ -220,7 +220,7 @@ return $default(_that.date,_that.lunch,_that.dinner);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'date')  String date, @JsonKey(name: 'lunch')  RecipeResponse? lunch, @JsonKey(name: 'dinner')  RecipeResponse? dinner)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'date', defaultValue: "")  String date, @JsonKey(name: 'lunch', defaultValue: null)  RecipeResponse? lunch, @JsonKey(name: 'dinner', defaultValue: null)  RecipeResponse? dinner)?  $default,) {final _that = this;
 switch (_that) {
 case _DailyMealResponse() when $default != null:
 return $default(_that.date,_that.lunch,_that.dinner);case _:
@@ -234,13 +234,13 @@ return $default(_that.date,_that.lunch,_that.dinner);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _DailyMealResponse implements DailyMealResponse {
-  const _DailyMealResponse({@JsonKey(name: 'date') required this.date, @JsonKey(name: 'lunch') this.lunch, @JsonKey(name: 'dinner') this.dinner});
+class _DailyMealResponse extends DailyMealResponse {
+  const _DailyMealResponse({@JsonKey(name: 'date', defaultValue: "") required this.date, @JsonKey(name: 'lunch', defaultValue: null) this.lunch, @JsonKey(name: 'dinner', defaultValue: null) this.dinner}): super._();
   factory _DailyMealResponse.fromJson(Map<String, dynamic> json) => _$DailyMealResponseFromJson(json);
 
-@override@JsonKey(name: 'date') final  String date;
-@override@JsonKey(name: 'lunch') final  RecipeResponse? lunch;
-@override@JsonKey(name: 'dinner') final  RecipeResponse? dinner;
+@override@JsonKey(name: 'date', defaultValue: "") final  String date;
+@override@JsonKey(name: 'lunch', defaultValue: null) final  RecipeResponse? lunch;
+@override@JsonKey(name: 'dinner', defaultValue: null) final  RecipeResponse? dinner;
 
 /// Create a copy of DailyMealResponse
 /// with the given fields replaced by the non-null parameter values.
@@ -275,7 +275,7 @@ abstract mixin class _$DailyMealResponseCopyWith<$Res> implements $DailyMealResp
   factory _$DailyMealResponseCopyWith(_DailyMealResponse value, $Res Function(_DailyMealResponse) _then) = __$DailyMealResponseCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'date') String date,@JsonKey(name: 'lunch') RecipeResponse? lunch,@JsonKey(name: 'dinner') RecipeResponse? dinner
+@JsonKey(name: 'date', defaultValue: "") String date,@JsonKey(name: 'lunch', defaultValue: null) RecipeResponse? lunch,@JsonKey(name: 'dinner', defaultValue: null) RecipeResponse? dinner
 });
 
 

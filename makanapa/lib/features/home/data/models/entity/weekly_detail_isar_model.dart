@@ -1,6 +1,7 @@
 import 'package:isar_community/isar.dart';
 import 'package:makanapa/features/home/data/models/entity/daily_meal_embed.dart';
 import 'package:makanapa/features/home/domain/models/weekly_plan.dart';
+import 'package:makanapa/features/recipe/data/models/entity/embed_recipe_model.dart';
 
 part 'weekly_detail_isar_model.g.dart';
 

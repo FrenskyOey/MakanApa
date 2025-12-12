@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$WeeklyPlanResponse {
 
-@JsonKey(name: 'group_id') int get groupId;@JsonKey(name: 'start_date') String get startDate;@JsonKey(name: 'end_date') String get endDate;@JsonKey(name: 'meal_plan', defaultValue: []) List<DailyMealResponse> get mealPlan;
+@JsonKey(name: 'group_id', defaultValue: 0) int get groupId;@JsonKey(name: 'start_date', defaultValue: "") String get startDate;@JsonKey(name: 'end_date', defaultValue: "") String get endDate;@JsonKey(name: 'meal_plan', defaultValue: []) List<DailyMealResponse> get mealPlan;
 /// Create a copy of WeeklyPlanResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $WeeklyPlanResponseCopyWith<$Res>  {
   factory $WeeklyPlanResponseCopyWith(WeeklyPlanResponse value, $Res Function(WeeklyPlanResponse) _then) = _$WeeklyPlanResponseCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'group_id') int groupId,@JsonKey(name: 'start_date') String startDate,@JsonKey(name: 'end_date') String endDate,@JsonKey(name: 'meal_plan', defaultValue: []) List<DailyMealResponse> mealPlan
+@JsonKey(name: 'group_id', defaultValue: 0) int groupId,@JsonKey(name: 'start_date', defaultValue: "") String startDate,@JsonKey(name: 'end_date', defaultValue: "") String endDate,@JsonKey(name: 'meal_plan', defaultValue: []) List<DailyMealResponse> mealPlan
 });
 
 
@@ -156,7 +156,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'group_id')  int groupId, @JsonKey(name: 'start_date')  String startDate, @JsonKey(name: 'end_date')  String endDate, @JsonKey(name: 'meal_plan', defaultValue: [])  List<DailyMealResponse> mealPlan)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'group_id', defaultValue: 0)  int groupId, @JsonKey(name: 'start_date', defaultValue: "")  String startDate, @JsonKey(name: 'end_date', defaultValue: "")  String endDate, @JsonKey(name: 'meal_plan', defaultValue: [])  List<DailyMealResponse> mealPlan)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _WeeklyPlanResponse() when $default != null:
 return $default(_that.groupId,_that.startDate,_that.endDate,_that.mealPlan);case _:
@@ -177,7 +177,7 @@ return $default(_that.groupId,_that.startDate,_that.endDate,_that.mealPlan);case
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'group_id')  int groupId, @JsonKey(name: 'start_date')  String startDate, @JsonKey(name: 'end_date')  String endDate, @JsonKey(name: 'meal_plan', defaultValue: [])  List<DailyMealResponse> mealPlan)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'group_id', defaultValue: 0)  int groupId, @JsonKey(name: 'start_date', defaultValue: "")  String startDate, @JsonKey(name: 'end_date', defaultValue: "")  String endDate, @JsonKey(name: 'meal_plan', defaultValue: [])  List<DailyMealResponse> mealPlan)  $default,) {final _that = this;
 switch (_that) {
 case _WeeklyPlanResponse():
 return $default(_that.groupId,_that.startDate,_that.endDate,_that.mealPlan);case _:
@@ -197,7 +197,7 @@ return $default(_that.groupId,_that.startDate,_that.endDate,_that.mealPlan);case
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'group_id')  int groupId, @JsonKey(name: 'start_date')  String startDate, @JsonKey(name: 'end_date')  String endDate, @JsonKey(name: 'meal_plan', defaultValue: [])  List<DailyMealResponse> mealPlan)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'group_id', defaultValue: 0)  int groupId, @JsonKey(name: 'start_date', defaultValue: "")  String startDate, @JsonKey(name: 'end_date', defaultValue: "")  String endDate, @JsonKey(name: 'meal_plan', defaultValue: [])  List<DailyMealResponse> mealPlan)?  $default,) {final _that = this;
 switch (_that) {
 case _WeeklyPlanResponse() when $default != null:
 return $default(_that.groupId,_that.startDate,_that.endDate,_that.mealPlan);case _:
@@ -211,13 +211,13 @@ return $default(_that.groupId,_that.startDate,_that.endDate,_that.mealPlan);case
 /// @nodoc
 @JsonSerializable()
 
-class _WeeklyPlanResponse implements WeeklyPlanResponse {
-  const _WeeklyPlanResponse({@JsonKey(name: 'group_id') required this.groupId, @JsonKey(name: 'start_date') required this.startDate, @JsonKey(name: 'end_date') required this.endDate, @JsonKey(name: 'meal_plan', defaultValue: []) required final  List<DailyMealResponse> mealPlan}): _mealPlan = mealPlan;
+class _WeeklyPlanResponse extends WeeklyPlanResponse {
+  const _WeeklyPlanResponse({@JsonKey(name: 'group_id', defaultValue: 0) required this.groupId, @JsonKey(name: 'start_date', defaultValue: "") required this.startDate, @JsonKey(name: 'end_date', defaultValue: "") required this.endDate, @JsonKey(name: 'meal_plan', defaultValue: []) required final  List<DailyMealResponse> mealPlan}): _mealPlan = mealPlan,super._();
   factory _WeeklyPlanResponse.fromJson(Map<String, dynamic> json) => _$WeeklyPlanResponseFromJson(json);
 
-@override@JsonKey(name: 'group_id') final  int groupId;
-@override@JsonKey(name: 'start_date') final  String startDate;
-@override@JsonKey(name: 'end_date') final  String endDate;
+@override@JsonKey(name: 'group_id', defaultValue: 0) final  int groupId;
+@override@JsonKey(name: 'start_date', defaultValue: "") final  String startDate;
+@override@JsonKey(name: 'end_date', defaultValue: "") final  String endDate;
  final  List<DailyMealResponse> _mealPlan;
 @override@JsonKey(name: 'meal_plan', defaultValue: []) List<DailyMealResponse> get mealPlan {
   if (_mealPlan is EqualUnmodifiableListView) return _mealPlan;
@@ -259,7 +259,7 @@ abstract mixin class _$WeeklyPlanResponseCopyWith<$Res> implements $WeeklyPlanRe
   factory _$WeeklyPlanResponseCopyWith(_WeeklyPlanResponse value, $Res Function(_WeeklyPlanResponse) _then) = __$WeeklyPlanResponseCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'group_id') int groupId,@JsonKey(name: 'start_date') String startDate,@JsonKey(name: 'end_date') String endDate,@JsonKey(name: 'meal_plan', defaultValue: []) List<DailyMealResponse> mealPlan
+@JsonKey(name: 'group_id', defaultValue: 0) int groupId,@JsonKey(name: 'start_date', defaultValue: "") String startDate,@JsonKey(name: 'end_date', defaultValue: "") String endDate,@JsonKey(name: 'meal_plan', defaultValue: []) List<DailyMealResponse> mealPlan
 });
 
 

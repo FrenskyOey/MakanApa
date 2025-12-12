@@ -10,34 +10,6 @@ class PlanScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    /*final state = ref.watch(templateControllerProvider);
-
-    ref.listen(templateEventProvider, (prev, next) {
-      if (next == null) {
-        return;
-      }
-      next.maybeWhen(
-        orElse: () {},
-      );
-
-      ref.read(templateEventProvider.notifier).resetState();
-    });
-
-    void loadData() async {
-      if (!context.mounted) {
-        return;
-      }
-
-      await ref.read(templateEventProvider.notifier).loadData();
-    }
-
-    useEffect(() {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        loadData();
-      });
-     
-    }, []);*/
-
     return Scaffold(
       body: SizedBox.expand(
         child: Column(

@@ -71,8 +71,7 @@ class ProfileController extends _$ProfileController {
   Future<void> reloadProfileData() async {
     state = state.copyWith(showLoading: true);
     await Future.delayed(Duration(seconds: 2));
-    final repo = ref.read(profileRepositoryProvider);
-    final results = await repo.reloadUserProfile();
+    final results = await _repo.reloadUserProfile();
     results.fold(
       (l) => {LogHelper.debug("Errors : $l")},
       (r) => {

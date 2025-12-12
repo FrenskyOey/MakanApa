@@ -8,10 +8,12 @@ part 'daily_meal_response.g.dart';
 
 @freezed
 abstract class DailyMealResponse with _$DailyMealResponse {
+  const DailyMealResponse._();
+
   const factory DailyMealResponse({
-    @JsonKey(name: 'date') required String date,
-    @JsonKey(name: 'lunch') RecipeResponse? lunch,
-    @JsonKey(name: 'dinner') RecipeResponse? dinner,
+    @JsonKey(name: 'date', defaultValue: "") required String date,
+    @JsonKey(name: 'lunch', defaultValue: null) RecipeResponse? lunch,
+    @JsonKey(name: 'dinner', defaultValue: null) RecipeResponse? dinner,
   }) = _DailyMealResponse;
 
   DailyMeal toDomain() {

@@ -55,12 +55,13 @@ extension CreateEventStatePatterns on CreateEventState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ToastError value)?  toastError,TResult Function( _ToastSuccess value)?  toastSuccess,TResult Function( _ClosePage value)?  closePage,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ToastError value)?  toastError,TResult Function( _ToastSuccess value)?  toastSuccess,TResult Function( _SelectFoodPage value)?  selectFoodPage,TResult Function( _ClosePage value)?  closePage,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that);case _ClosePage() when closePage != null:
+return toastSuccess(_that);case _SelectFoodPage() when selectFoodPage != null:
+return selectFoodPage(_that);case _ClosePage() when closePage != null:
 return closePage(_that);case _:
   return orElse();
 
@@ -79,12 +80,13 @@ return closePage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ToastError value)  toastError,required TResult Function( _ToastSuccess value)  toastSuccess,required TResult Function( _ClosePage value)  closePage,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ToastError value)  toastError,required TResult Function( _ToastSuccess value)  toastSuccess,required TResult Function( _SelectFoodPage value)  selectFoodPage,required TResult Function( _ClosePage value)  closePage,}){
 final _that = this;
 switch (_that) {
 case _ToastError():
 return toastError(_that);case _ToastSuccess():
-return toastSuccess(_that);case _ClosePage():
+return toastSuccess(_that);case _SelectFoodPage():
+return selectFoodPage(_that);case _ClosePage():
 return closePage(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -102,12 +104,13 @@ return closePage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ToastError value)?  toastError,TResult? Function( _ToastSuccess value)?  toastSuccess,TResult? Function( _ClosePage value)?  closePage,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ToastError value)?  toastError,TResult? Function( _ToastSuccess value)?  toastSuccess,TResult? Function( _SelectFoodPage value)?  selectFoodPage,TResult? Function( _ClosePage value)?  closePage,}){
 final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that);case _ClosePage() when closePage != null:
+return toastSuccess(_that);case _SelectFoodPage() when selectFoodPage != null:
+return selectFoodPage(_that);case _ClosePage() when closePage != null:
 return closePage(_that);case _:
   return null;
 
@@ -125,11 +128,12 @@ return closePage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String message)?  toastError,TResult Function( String message)?  toastSuccess,TResult Function()?  closePage,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String message)?  toastError,TResult Function( String message)?  toastSuccess,TResult Function( CreateItem item,  MealType type)?  selectFoodPage,TResult Function()?  closePage,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that.message);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that.message);case _ClosePage() when closePage != null:
+return toastSuccess(_that.message);case _SelectFoodPage() when selectFoodPage != null:
+return selectFoodPage(_that.item,_that.type);case _ClosePage() when closePage != null:
 return closePage();case _:
   return orElse();
 
@@ -148,11 +152,12 @@ return closePage();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String message)  toastError,required TResult Function( String message)  toastSuccess,required TResult Function()  closePage,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String message)  toastError,required TResult Function( String message)  toastSuccess,required TResult Function( CreateItem item,  MealType type)  selectFoodPage,required TResult Function()  closePage,}) {final _that = this;
 switch (_that) {
 case _ToastError():
 return toastError(_that.message);case _ToastSuccess():
-return toastSuccess(_that.message);case _ClosePage():
+return toastSuccess(_that.message);case _SelectFoodPage():
+return selectFoodPage(_that.item,_that.type);case _ClosePage():
 return closePage();case _:
   throw StateError('Unexpected subclass');
 
@@ -170,11 +175,12 @@ return closePage();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String message)?  toastError,TResult? Function( String message)?  toastSuccess,TResult? Function()?  closePage,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String message)?  toastError,TResult? Function( String message)?  toastSuccess,TResult? Function( CreateItem item,  MealType type)?  selectFoodPage,TResult? Function()?  closePage,}) {final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that.message);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that.message);case _ClosePage() when closePage != null:
+return toastSuccess(_that.message);case _SelectFoodPage() when selectFoodPage != null:
+return selectFoodPage(_that.item,_that.type);case _ClosePage() when closePage != null:
 return closePage();case _:
   return null;
 
@@ -309,6 +315,74 @@ class __$ToastSuccessCopyWithImpl<$Res>
   return _then(_ToastSuccess(
 null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
 as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _SelectFoodPage implements CreateEventState {
+  const _SelectFoodPage(this.item, this.type);
+  
+
+ final  CreateItem item;
+ final  MealType type;
+
+/// Create a copy of CreateEventState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SelectFoodPageCopyWith<_SelectFoodPage> get copyWith => __$SelectFoodPageCopyWithImpl<_SelectFoodPage>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SelectFoodPage&&(identical(other.item, item) || other.item == item)&&(identical(other.type, type) || other.type == type));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,item,type);
+
+@override
+String toString() {
+  return 'CreateEventState.selectFoodPage(item: $item, type: $type)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SelectFoodPageCopyWith<$Res> implements $CreateEventStateCopyWith<$Res> {
+  factory _$SelectFoodPageCopyWith(_SelectFoodPage value, $Res Function(_SelectFoodPage) _then) = __$SelectFoodPageCopyWithImpl;
+@useResult
+$Res call({
+ CreateItem item, MealType type
+});
+
+
+
+
+}
+/// @nodoc
+class __$SelectFoodPageCopyWithImpl<$Res>
+    implements _$SelectFoodPageCopyWith<$Res> {
+  __$SelectFoodPageCopyWithImpl(this._self, this._then);
+
+  final _SelectFoodPage _self;
+  final $Res Function(_SelectFoodPage) _then;
+
+/// Create a copy of CreateEventState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? item = null,Object? type = null,}) {
+  return _then(_SelectFoodPage(
+null == item ? _self.item : item // ignore: cast_nullable_to_non_nullable
+as CreateItem,null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as MealType,
   ));
 }
 

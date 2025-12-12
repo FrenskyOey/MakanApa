@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:makanapa/features/home/domain/models/avaiblity_item.dart';
 import 'package:makanapa/features/shared/main/state/main_event.dart';
 import 'package:makanapa/features/shared/main/state/main_ui_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -25,5 +26,13 @@ class MainController extends _$MainController {
 
   void onTypeBottomSheetResult(String type) {
     _eventController.add(MainEvent.typeBottomSheetResult(type));
+  }
+
+  void openAvaiblityBottomSheet(List<AvaiblityItem> items) {
+    _eventController.add(MainEvent.openAvaibilityBottomSheet(items));
+  }
+
+  void onAvaiblitySelected(AvaiblityItem item) {
+    _eventController.add(MainEvent.avaibilityBottomSheetResult(item));
   }
 }

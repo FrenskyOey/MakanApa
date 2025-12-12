@@ -31,8 +31,61 @@ extension DateTimeExtensions on DateTime {
       'Nov',
       'Dec',
     ];
+
+    const dayNames = [
+      // Index 0 (unused, since ISO weekday starts at 1)
+      'Senin', // Index 1
+      'Selasa', // Index 2
+      'Rabu', // Index 3
+      'Kamis', // Index 4
+      'Jumat', // Index 5
+      'Sabtu', // Index 6
+      'Minggu', // Index 7
+    ];
+
     final monthName = months[month - 1];
-    return '$monthName $day$separator$year';
+    final dayIndex = dayNames[weekday - 1];
+    return '$dayIndex - $day $monthName $year';
+  }
+
+  /// Returns a readable date format, e.g., 'Oct 24, 2025'.
+  String get toReadableDateWithDays {
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+    final monthName = months[month - 1];
+    return '$day $monthName $year';
+  }
+
+  /// Returns a readable date format, e.g., 'Oct 24, 2025'.
+  String get toReadableDateWithoutYear {
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+    final monthName = months[month - 1];
+    return '$day $monthName';
   }
 
   // --- Comparison & Utility ---

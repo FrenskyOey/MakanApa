@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:makanapa/core/configs/routes/route_names.dart';
 import 'package:makanapa/features/basket/presentation/screens/basket_screen.dart';
+import 'package:makanapa/features/home/domain/models/avaiblity_item.dart';
 import 'package:makanapa/features/home/presentation/create/screens/create_screen.dart';
 import 'package:makanapa/features/home/presentation/home/screens/home_screen.dart';
 import 'package:makanapa/features/home/presentation/plan/screens/plan_screen.dart';
@@ -22,6 +23,7 @@ import 'package:makanapa/features/profile/presentation/profileSetting/screens/pr
 import 'package:makanapa/features/recipe/domain/models/recipe_item.dart';
 import 'package:makanapa/features/recipe/presentation/detail/screens/recipe_detail_provider_screen.dart';
 import 'package:makanapa/features/recipe/presentation/list/screens/recipe_provider_screen.dart';
+import 'package:makanapa/features/recipe/presentation/search/model/search_enum.dart';
 import 'package:makanapa/features/recipe/presentation/search/screens/search_provider_screen.dart';
 import 'package:makanapa/features/shared/token/provider/token_provider.dart';
 import 'package:makanapa/features/shared/token/provider/token_state.dart';
@@ -156,6 +158,13 @@ final routeProvider = Provider((ref) {
         },
       ),
       GoRoute(
+        name: RouteNames.recipeSelection,
+        path: '/selection',
+        builder: (BuildContext context, GoRouterState state) {
+          return SearchProviderScreen(type: SearchType.selection);
+        },
+      ),
+      GoRoute(
         name: RouteNames.recipeDetailSearch,
         path: '/search/recipe-detail',
         builder: (BuildContext context, GoRouterState state) {
@@ -170,7 +179,8 @@ final routeProvider = Provider((ref) {
         name: RouteNames.createPlan,
         path: '/plan/create',
         builder: (BuildContext context, GoRouterState state) {
-          return CreatePlanScreen();
+          final item = state.extra as AvaiblityItem;
+          return CreatePlanScreen(request: item);
         },
       ),
       GoRoute(

@@ -8,9 +8,9 @@ part of 'weekly_plan_response.dart';
 
 _WeeklyPlanResponse _$WeeklyPlanResponseFromJson(Map<String, dynamic> json) =>
     _WeeklyPlanResponse(
-      groupId: (json['group_id'] as num).toInt(),
-      startDate: json['start_date'] as String,
-      endDate: json['end_date'] as String,
+      groupId: (json['group_id'] as num?)?.toInt() ?? 0,
+      startDate: json['start_date'] as String? ?? '',
+      endDate: json['end_date'] as String? ?? '',
       mealPlan:
           (json['meal_plan'] as List<dynamic>?)
               ?.map(
