@@ -41,7 +41,7 @@ final class HomeControllerProvider
   }
 }
 
-String _$homeControllerHash() => r'512522df1ad7fe5fbfd493eeadd5dbf4a2d4c5f5';
+String _$homeControllerHash() => r'0173c2cd03dd69b71d926dc17df5a38a89635234';
 
 abstract class _$HomeController extends $Notifier<HomeUiState> {
   HomeUiState build();

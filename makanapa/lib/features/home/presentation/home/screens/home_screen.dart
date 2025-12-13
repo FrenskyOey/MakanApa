@@ -99,6 +99,7 @@ class HomeScreen extends HookConsumerWidget {
       appBar: AppBar(title: Text("Makan Apa")),
       body: SafeArea(
         child: ScreenContent(
+          // To Do Shimmering loading
           state: screenState,
           successWidget: (data) {
             return SizedBox.expand(

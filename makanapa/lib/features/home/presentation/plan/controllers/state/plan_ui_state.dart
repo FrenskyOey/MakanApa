@@ -1,9 +1,12 @@
+import 'package:makanapa/core/states/data_state.dart';
+import 'package:makanapa/features/home/domain/models/weekly_plan.dart';
+
 class PlanUiState {
-  final bool hideLoading;
+  final DataState<WeeklyPlan> state;
 
-  PlanUiState({this.hideLoading = true});
+  PlanUiState({this.state = const Initial<WeeklyPlan>()});
 
-  PlanUiState copyWith({bool? hideLoading}) {
-    return PlanUiState(hideLoading: hideLoading ?? this.hideLoading);
+  PlanUiState copyWith({DataState<WeeklyPlan>? state}) {
+    return PlanUiState(state: state ?? this.state);
   }
 }
