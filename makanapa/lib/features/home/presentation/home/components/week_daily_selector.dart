@@ -19,21 +19,48 @@ class WeeklyDateSelector extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final int selectedIndex = ref.watch(pagerControllerProvider).round();
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: dates.asMap().entries.map((entry) {
-        final index = entry.key;
-        final date = entry.value;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth / dates.length;
 
-        return Expanded(
-          child: _DateItem(
-            index: index,
-            date: date,
-            isSelected: index == selectedIndex,
-            onTap: () => onDateSelected(index),
-          ),
+        return Stack(
+          children: [
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.easeOut,
+              left: selectedIndex * width,
+              top: 0,
+              bottom: 0,
+              width: width,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColor.primary,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: dates.asMap().entries.map((entry) {
+                final index = entry.key;
+                final date = entry.value;
+
+                return Expanded(
+                  child: _DateItem(
+                    index: index,
+                    date: date,
+                    isSelected: index == selectedIndex,
+                    onTap: () => onDateSelected(index),
+                  ),
+                );
+              }).toList(),
+            ),
+          ],
         );
-      }).toList(),
+      },
     );
   }
 }
@@ -76,12 +103,8 @@ class _DateItem extends StatelessWidget {
     }
 
     BoxDecoration? decoration;
-    if (isSelected) {
-      decoration = BoxDecoration(
-        color: AppColor.primary,
-        borderRadius: BorderRadius.circular(12),
-      );
-    } else if (isToday) {
+
+    if (isToday) {
       decoration = BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
@@ -128,7 +151,6 @@ class _DateItem extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Date (Dec 5)
               Text(
                 DateFormat('MMM d').format(date),
                 style: context.labelMedium?.copyWith(
@@ -137,7 +159,6 @@ class _DateItem extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 4),
-              // Day (FRI)
               Text(day, style: context.titleSmall?.copyWith(color: textColor)),
             ],
           ),

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:makanapa/core/constants/color_filter_constant.dart';
+import 'package:makanapa/core/extension/index.dart';
 import 'package:makanapa/core/extension/src/spacing_extension.dart';
 import 'package:makanapa/core/extension/src/text_style_extension.dart';
 import 'package:makanapa/core/themes/dimens_constant.dart';
@@ -146,14 +147,12 @@ class BodyContentComponentWidget extends HookConsumerWidget {
     }
 
     Widget buildNoDataLayout() {
-      return const Card(
+      return Card(
         elevation: 0,
         margin: EdgeInsets.zero,
         child: Padding(
           padding: EdgeInsets.all(16.0),
-          child: Center(
-            child: Text("Kosong", style: TextStyle(color: Colors.grey)),
-          ),
+          child: Center(child: Text("Kosong", style: context.titleMedium)),
         ),
       );
     }
