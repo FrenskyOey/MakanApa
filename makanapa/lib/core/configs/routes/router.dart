@@ -151,6 +151,17 @@ final routeProvider = Provider((ref) {
         },
       ),
       GoRoute(
+        name: RouteNames.recipeDetailHome,
+        path: '/home/recipe-detail',
+        builder: (BuildContext context, GoRouterState state) {
+          final item = state.extra as RecipeItem;
+          return RecipeDetailProviderScreen(
+            recipeItem: item,
+            heroTag: "home_${item.id}",
+          );
+        },
+      ),
+      GoRoute(
         name: RouteNames.recipeSearch,
         path: '/search',
         builder: (BuildContext context, GoRouterState state) {
@@ -187,7 +198,8 @@ final routeProvider = Provider((ref) {
         name: RouteNames.planDetail,
         path: '/plan/detail',
         builder: (BuildContext context, GoRouterState state) {
-          return PlanScreen();
+          final groupId = state.extra as int;
+          return PlanScreen(groupId: groupId);
         },
       ),
     ],

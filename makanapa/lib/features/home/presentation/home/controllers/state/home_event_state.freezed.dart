@@ -55,13 +55,15 @@ extension HomeEventStatePatterns on HomeEventState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ToastError value)?  toastError,TResult Function( _ToastSuccess value)?  toastSuccess,TResult Function( _OpenCreatePlan value)?  openCreatePlan,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ToastError value)?  toastError,TResult Function( _ToastSuccess value)?  toastSuccess,TResult Function( _OpenCreatePlan value)?  openCreatePlan,TResult Function( _OpenRecipeDetail value)?  openRecipeDetail,TResult Function( _OpenPlanDetail value)?  openPlanDetail,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that);case _ToastSuccess() when toastSuccess != null:
 return toastSuccess(_that);case _OpenCreatePlan() when openCreatePlan != null:
-return openCreatePlan(_that);case _:
+return openCreatePlan(_that);case _OpenRecipeDetail() when openRecipeDetail != null:
+return openRecipeDetail(_that);case _OpenPlanDetail() when openPlanDetail != null:
+return openPlanDetail(_that);case _:
   return orElse();
 
 }
@@ -79,13 +81,15 @@ return openCreatePlan(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ToastError value)  toastError,required TResult Function( _ToastSuccess value)  toastSuccess,required TResult Function( _OpenCreatePlan value)  openCreatePlan,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ToastError value)  toastError,required TResult Function( _ToastSuccess value)  toastSuccess,required TResult Function( _OpenCreatePlan value)  openCreatePlan,required TResult Function( _OpenRecipeDetail value)  openRecipeDetail,required TResult Function( _OpenPlanDetail value)  openPlanDetail,}){
 final _that = this;
 switch (_that) {
 case _ToastError():
 return toastError(_that);case _ToastSuccess():
 return toastSuccess(_that);case _OpenCreatePlan():
-return openCreatePlan(_that);case _:
+return openCreatePlan(_that);case _OpenRecipeDetail():
+return openRecipeDetail(_that);case _OpenPlanDetail():
+return openPlanDetail(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -102,13 +106,15 @@ return openCreatePlan(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ToastError value)?  toastError,TResult? Function( _ToastSuccess value)?  toastSuccess,TResult? Function( _OpenCreatePlan value)?  openCreatePlan,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ToastError value)?  toastError,TResult? Function( _ToastSuccess value)?  toastSuccess,TResult? Function( _OpenCreatePlan value)?  openCreatePlan,TResult? Function( _OpenRecipeDetail value)?  openRecipeDetail,TResult? Function( _OpenPlanDetail value)?  openPlanDetail,}){
 final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that);case _ToastSuccess() when toastSuccess != null:
 return toastSuccess(_that);case _OpenCreatePlan() when openCreatePlan != null:
-return openCreatePlan(_that);case _:
+return openCreatePlan(_that);case _OpenRecipeDetail() when openRecipeDetail != null:
+return openRecipeDetail(_that);case _OpenPlanDetail() when openPlanDetail != null:
+return openPlanDetail(_that);case _:
   return null;
 
 }
@@ -125,12 +131,14 @@ return openCreatePlan(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String message)?  toastError,TResult Function( String message)?  toastSuccess,TResult Function( AvaiblityItem item)?  openCreatePlan,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String message)?  toastError,TResult Function( String message)?  toastSuccess,TResult Function( AvaiblityItem item)?  openCreatePlan,TResult Function( RecipeItem item)?  openRecipeDetail,TResult Function( int groupId)?  openPlanDetail,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that.message);case _ToastSuccess() when toastSuccess != null:
 return toastSuccess(_that.message);case _OpenCreatePlan() when openCreatePlan != null:
-return openCreatePlan(_that.item);case _:
+return openCreatePlan(_that.item);case _OpenRecipeDetail() when openRecipeDetail != null:
+return openRecipeDetail(_that.item);case _OpenPlanDetail() when openPlanDetail != null:
+return openPlanDetail(_that.groupId);case _:
   return orElse();
 
 }
@@ -148,12 +156,14 @@ return openCreatePlan(_that.item);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String message)  toastError,required TResult Function( String message)  toastSuccess,required TResult Function( AvaiblityItem item)  openCreatePlan,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String message)  toastError,required TResult Function( String message)  toastSuccess,required TResult Function( AvaiblityItem item)  openCreatePlan,required TResult Function( RecipeItem item)  openRecipeDetail,required TResult Function( int groupId)  openPlanDetail,}) {final _that = this;
 switch (_that) {
 case _ToastError():
 return toastError(_that.message);case _ToastSuccess():
 return toastSuccess(_that.message);case _OpenCreatePlan():
-return openCreatePlan(_that.item);case _:
+return openCreatePlan(_that.item);case _OpenRecipeDetail():
+return openRecipeDetail(_that.item);case _OpenPlanDetail():
+return openPlanDetail(_that.groupId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -170,12 +180,14 @@ return openCreatePlan(_that.item);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String message)?  toastError,TResult? Function( String message)?  toastSuccess,TResult? Function( AvaiblityItem item)?  openCreatePlan,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String message)?  toastError,TResult? Function( String message)?  toastSuccess,TResult? Function( AvaiblityItem item)?  openCreatePlan,TResult? Function( RecipeItem item)?  openRecipeDetail,TResult? Function( int groupId)?  openPlanDetail,}) {final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that.message);case _ToastSuccess() when toastSuccess != null:
 return toastSuccess(_that.message);case _OpenCreatePlan() when openCreatePlan != null:
-return openCreatePlan(_that.item);case _:
+return openCreatePlan(_that.item);case _OpenRecipeDetail() when openRecipeDetail != null:
+return openRecipeDetail(_that.item);case _OpenPlanDetail() when openPlanDetail != null:
+return openPlanDetail(_that.groupId);case _:
   return null;
 
 }
@@ -375,6 +387,147 @@ class __$OpenCreatePlanCopyWithImpl<$Res>
   return _then(_OpenCreatePlan(
 null == item ? _self.item : item // ignore: cast_nullable_to_non_nullable
 as AvaiblityItem,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _OpenRecipeDetail implements HomeEventState {
+  const _OpenRecipeDetail(this.item);
+  
+
+ final  RecipeItem item;
+
+/// Create a copy of HomeEventState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$OpenRecipeDetailCopyWith<_OpenRecipeDetail> get copyWith => __$OpenRecipeDetailCopyWithImpl<_OpenRecipeDetail>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OpenRecipeDetail&&(identical(other.item, item) || other.item == item));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,item);
+
+@override
+String toString() {
+  return 'HomeEventState.openRecipeDetail(item: $item)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$OpenRecipeDetailCopyWith<$Res> implements $HomeEventStateCopyWith<$Res> {
+  factory _$OpenRecipeDetailCopyWith(_OpenRecipeDetail value, $Res Function(_OpenRecipeDetail) _then) = __$OpenRecipeDetailCopyWithImpl;
+@useResult
+$Res call({
+ RecipeItem item
+});
+
+
+$RecipeItemCopyWith<$Res> get item;
+
+}
+/// @nodoc
+class __$OpenRecipeDetailCopyWithImpl<$Res>
+    implements _$OpenRecipeDetailCopyWith<$Res> {
+  __$OpenRecipeDetailCopyWithImpl(this._self, this._then);
+
+  final _OpenRecipeDetail _self;
+  final $Res Function(_OpenRecipeDetail) _then;
+
+/// Create a copy of HomeEventState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? item = null,}) {
+  return _then(_OpenRecipeDetail(
+null == item ? _self.item : item // ignore: cast_nullable_to_non_nullable
+as RecipeItem,
+  ));
+}
+
+/// Create a copy of HomeEventState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$RecipeItemCopyWith<$Res> get item {
+  
+  return $RecipeItemCopyWith<$Res>(_self.item, (value) {
+    return _then(_self.copyWith(item: value));
+  });
+}
+}
+
+/// @nodoc
+
+
+class _OpenPlanDetail implements HomeEventState {
+  const _OpenPlanDetail(this.groupId);
+  
+
+ final  int groupId;
+
+/// Create a copy of HomeEventState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$OpenPlanDetailCopyWith<_OpenPlanDetail> get copyWith => __$OpenPlanDetailCopyWithImpl<_OpenPlanDetail>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OpenPlanDetail&&(identical(other.groupId, groupId) || other.groupId == groupId));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,groupId);
+
+@override
+String toString() {
+  return 'HomeEventState.openPlanDetail(groupId: $groupId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$OpenPlanDetailCopyWith<$Res> implements $HomeEventStateCopyWith<$Res> {
+  factory _$OpenPlanDetailCopyWith(_OpenPlanDetail value, $Res Function(_OpenPlanDetail) _then) = __$OpenPlanDetailCopyWithImpl;
+@useResult
+$Res call({
+ int groupId
+});
+
+
+
+
+}
+/// @nodoc
+class __$OpenPlanDetailCopyWithImpl<$Res>
+    implements _$OpenPlanDetailCopyWith<$Res> {
+  __$OpenPlanDetailCopyWithImpl(this._self, this._then);
+
+  final _OpenPlanDetail _self;
+  final $Res Function(_OpenPlanDetail) _then;
+
+/// Create a copy of HomeEventState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? groupId = null,}) {
+  return _then(_OpenPlanDetail(
+null == groupId ? _self.groupId : groupId // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 

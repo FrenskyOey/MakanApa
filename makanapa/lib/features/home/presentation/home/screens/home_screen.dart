@@ -7,10 +7,15 @@ import 'package:makanapa/core/configs/routes/route_names.dart';
 import 'package:makanapa/core/extension/index.dart';
 import 'package:makanapa/core/helpers/snackbar_helper.dart';
 import 'package:makanapa/core/states/data_state.dart';
+import 'package:makanapa/core/themes/dimens_constant.dart';
 import 'package:makanapa/core/widgets/state/screen_content.dart';
-import 'package:makanapa/features/home/domain/models/dashboard.dart';
+import 'package:makanapa/features/home/presentation/home/components/body_component.dart';
+import 'package:makanapa/features/home/presentation/home/components/divider_component.dart';
+import 'package:makanapa/features/home/presentation/home/components/header_component.dart';
+import 'package:makanapa/features/home/presentation/home/components/upcoming_component.dart';
 import 'package:makanapa/features/home/presentation/home/controllers/home_controller.dart';
 import 'package:makanapa/features/home/presentation/home/controllers/state/home_event_state.dart';
+import 'package:makanapa/features/profile/presentation/profileSetting/controllers/profile_controller.dart';
 import 'package:makanapa/features/shared/main/main_controller.dart';
 import 'package:makanapa/features/shared/main/state/main_event.dart';
 
@@ -23,7 +28,8 @@ class HomeScreen extends HookConsumerWidget {
       if (!context.mounted) {
         return;
       }
-      await ref.read(homeControllerProvider.notifier).reloadDashboardData();
+      ref.read(homeControllerProvider.notifier).reloadDashboardData();
+      ref.read(profileControllerProvider.notifier).reloadProfileData();
     }
 
     useEffect(() {
@@ -60,6 +66,12 @@ class HomeScreen extends HookConsumerWidget {
           openCreatePlan: (item) {
             context.pushNamed(RouteNames.createPlan, extra: item);
           },
+          openRecipeDetail: (item) {
+            context.pushNamed(RouteNames.recipeDetailHome, extra: item);
+          },
+          openPlanDetail: (groupId) {
+            context.pushNamed(RouteNames.planDetail, extra: groupId);
+          },
           orElse: () {},
         );
       });
@@ -67,40 +79,50 @@ class HomeScreen extends HookConsumerWidget {
       return sub.cancel; // Dispose subscription
     }, const []);
 
-    final homeUiState = ref.watch(homeControllerProvider);
+    final (hideLoading, errorMessage) = ref.watch(
+      homeControllerProvider.select(
+        (value) => (value.hideLoading, value.errorMessages),
+      ),
+    );
 
-    DataState<Dashboard> screenState = Initial();
+    DataState<String> screenState = Initial();
 
-    // Use the statement to assign the value
-    if (homeUiState.hideLoading == false) {
+    if (hideLoading == false) {
       screenState = Loading();
-    } else if (homeUiState.errorMessages.isNotNullOrEmpty) {
-      screenState = Error(homeUiState.errorMessages!);
-    } else if (homeUiState.dashboardData != null) {
-      screenState = Success(homeUiState.dashboardData!);
+    } else if (errorMessage.isNotNullOrEmpty) {
+      screenState = Error(errorMessage!);
+    } else {
+      screenState = Success("");
     }
 
     return Scaffold(
+      appBar: AppBar(title: Text("Makan Apa")),
       body: SafeArea(
         child: ScreenContent(
           state: screenState,
           successWidget: (data) {
             return SizedBox.expand(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      final items = data.avaiblityItems;
-                      if (items.isEmpty) {
-                        return;
-                      }
-                      ref
-                          .read(mainControllerProvider.notifier)
-                          .openAvaiblityBottomSheet(data.avaiblityItems);
-                    },
-                    child: const Text('Buat Planning'),
+              child: CustomScrollView(
+                slivers: [
+                  SliverPadding(
+                    padding: EdgeInsetsGeometry.symmetric(
+                      horizontal: Dimens.md,
+                    ),
+                    sliver: const HeaderComponentWidget(),
+                  ),
+                  const BodyComponentWidget(),
+                  SliverPadding(
+                    padding: EdgeInsetsGeometry.symmetric(
+                      horizontal: Dimens.md,
+                    ),
+                    sliver: const DividerComponentWidget(),
+                  ),
+
+                  SliverPadding(
+                    padding: EdgeInsetsGeometry.symmetric(
+                      horizontal: Dimens.md,
+                    ),
+                    sliver: const UpcomingComponentWidget(),
                   ),
                 ],
               ),

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'profile_controller.dart';
+part of 'pager_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,52 +9,52 @@ part of 'profile_controller.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(ProfileController)
-const profileControllerProvider = ProfileControllerProvider._();
+@ProviderFor(PagerController)
+const pagerControllerProvider = PagerControllerProvider._();
 
-final class ProfileControllerProvider
-    extends $NotifierProvider<ProfileController, ProfileUIState> {
-  const ProfileControllerProvider._()
+final class PagerControllerProvider
+    extends $NotifierProvider<PagerController, double> {
+  const PagerControllerProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'profileControllerProvider',
+        name: r'pagerControllerProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$profileControllerHash();
+  String debugGetCreateSourceHash() => _$pagerControllerHash();
 
   @$internal
   @override
-  ProfileController create() => ProfileController();
+  PagerController create() => PagerController();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ProfileUIState value) {
+  Override overrideWithValue(double value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<ProfileUIState>(value),
+      providerOverride: $SyncValueProvider<double>(value),
     );
   }
 }
 
-String _$profileControllerHash() => r'654e1930419e3759f6184a83c861150cf778e4e6';
+String _$pagerControllerHash() => r'acdb5eaaf6182e1fc1f5236eb5ad3c4b38793a8f';
 
-abstract class _$ProfileController extends $Notifier<ProfileUIState> {
-  ProfileUIState build();
+abstract class _$PagerController extends $Notifier<double> {
+  double build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<ProfileUIState, ProfileUIState>;
+    final ref = this.ref as $Ref<double, double>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<ProfileUIState, ProfileUIState>,
-              ProfileUIState,
+              AnyNotifier<double, double>,
+              double,
               Object?,
               Object?
             >;
