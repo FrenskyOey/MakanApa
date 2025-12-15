@@ -53,13 +53,10 @@ class UpcomingComponentWidget extends HookConsumerWidget {
               child: InkWell(
                 borderRadius: BorderRadius.circular(Dimens.md),
                 onTap: () {
-                  if (upcomingData == null || upcomingData.isEmpty) {
-                    return;
-                  }
                   if (index < listLengths) {
                     ref
                         .read(homeControllerProvider.notifier)
-                        .toPlanDetail(upcomingData[index].groupId);
+                        .toPlanDetail(upcomingData![index].groupId);
                   } else {
                     final avaibleData = ref
                         .read(homeControllerProvider)

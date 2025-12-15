@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:makanapa/core/constants/color_filter_constant.dart';
 import 'package:makanapa/core/extension/index.dart';
-import 'package:makanapa/core/extension/src/spacing_extension.dart';
-import 'package:makanapa/core/extension/src/text_style_extension.dart';
 import 'package:makanapa/core/themes/dimens_constant.dart';
 import 'package:makanapa/features/home/domain/models/daily_meal.dart';
 import 'package:makanapa/features/home/presentation/home/controllers/home_controller.dart';

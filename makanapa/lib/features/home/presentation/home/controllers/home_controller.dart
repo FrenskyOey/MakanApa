@@ -23,7 +23,6 @@ class HomeController extends _$HomeController {
   @override
   HomeUiState build() {
     _repo = ref.read(mealPlanRepositoryProvider);
-    _initStream();
 
     ref.onDispose(() {
       _dashboardSubscription?.cancel();
@@ -44,7 +43,11 @@ class HomeController extends _$HomeController {
 
   Future<void> reloadDashboardData() async {
     state = state.copyWith(hideLoading: false, errorMessages: null);
+    _dashboardSubscription?.cancel();
     await Future.delayed(Duration(seconds: 2));
+
+    _initStream();
+
     final results = await _repo.getDashboardData();
     results.fold(
       (l) {

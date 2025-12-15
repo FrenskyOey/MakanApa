@@ -41,7 +41,7 @@ final class PlanControllerProvider
   }
 }
 
-String _$planControllerHash() => r'eac628465989a5ee259e9617ebd1ff801df6174a';
+String _$planControllerHash() => r'4b0a46ff7ee0d482cf0229e70995babee0e60752';
 
 abstract class _$PlanController extends $Notifier<PlanUiState> {
   PlanUiState build();
