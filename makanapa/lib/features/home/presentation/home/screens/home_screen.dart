@@ -12,6 +12,7 @@ import 'package:makanapa/core/widgets/state/screen_content.dart';
 import 'package:makanapa/features/home/presentation/home/components/body_component.dart';
 import 'package:makanapa/features/home/presentation/home/components/divider_component.dart';
 import 'package:makanapa/features/home/presentation/home/components/header_component.dart';
+import 'package:makanapa/features/home/presentation/home/components/home_loading_shimmer.dart';
 import 'package:makanapa/features/home/presentation/home/components/upcoming_component.dart';
 import 'package:makanapa/features/home/presentation/home/controllers/home_controller.dart';
 import 'package:makanapa/features/home/presentation/home/controllers/state/home_event_state.dart';
@@ -101,6 +102,7 @@ class HomeScreen extends HookConsumerWidget {
         child: ScreenContent(
           // To Do Shimmering loading
           state: screenState,
+          loadingWidget: const HomeLoadingShimmerWidget(),
           successWidget: (data) {
             return SizedBox.expand(
               child: CustomScrollView(

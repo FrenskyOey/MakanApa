@@ -33,12 +33,17 @@ class PlanController extends _$PlanController {
     state = state.copyWith(state: Loading());
     await _planSubscription?.cancel();
 
+    await Future.delayed(const Duration(milliseconds: 500));
+    if (!ref.mounted) {
+      return;
+    }
+
     _planSubscription = _repo.getWeeklyPlanStream(groupId).listen((groupData) {
       if (!ref.mounted) {
         return;
       }
       if (groupData != null) {
-        state = state.copyWith(state: Success(groupData));
+        state = state.copyWith(state: Success(""), data: groupData);
       }
     });
 

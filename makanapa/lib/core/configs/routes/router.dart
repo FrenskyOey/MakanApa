@@ -151,6 +151,17 @@ final routeProvider = Provider((ref) {
         },
       ),
       GoRoute(
+        name: RouteNames.recipeDetailPlan,
+        path: '/plan/recipe-detail',
+        builder: (BuildContext context, GoRouterState state) {
+          final item = state.extra as RecipeItem;
+          return RecipeDetailProviderScreen(
+            recipeItem: item,
+            heroTag: "plan_${item.id}",
+          );
+        },
+      ),
+      GoRoute(
         name: RouteNames.recipeDetailHome,
         path: '/home/recipe-detail',
         builder: (BuildContext context, GoRouterState state) {
