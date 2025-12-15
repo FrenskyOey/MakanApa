@@ -5,6 +5,7 @@ class AppColor {
   static const Color secondary = Color(0xFF638763);
   static const Color tertiary = Color(0xFFE8F7E8);
   static const Color error = Color(0xFFFF453A);
+  static const Color primaryBright = Color.fromARGB(255, 105, 224, 72);
 
   // Dynamic Colors (Theme-dependent logic)
 

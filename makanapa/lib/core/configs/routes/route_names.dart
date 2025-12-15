@@ -10,12 +10,17 @@ class RouteNames {
 
   // home screen routes
   static const String home = '/home';
+  static const String createPlan = '/plan/create';
+  static const String planDetail = '/plan/detail';
 
   // recipe routes
   static const String receipt = '/recipe';
+  static const String recipeDetailHome = '/home/recipe-detail';
   static const String recipeDetailRecipe = '/recipe/recipe-detail';
   static const String recipeDetailSearch = '/search/recipe-detail';
+  static const String recipeDetailPlan = '/plan/recipe-detail';
   static const String recipeSearch = '/search';
+  static const String recipeSelection = '/selection';
 
   // basket Routes
   static const String basket = '/basket';
