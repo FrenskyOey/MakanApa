@@ -395,3 +395,20 @@ flutter run --flavor staging -t lib/main_staging.dart
 ```bash
 flutter run --flavor production -t lib/main_prod.dart
 ```
+## 8. Design Decisions
+
+The architectural choices in this project were made not just to build a functional app, but to demonstrate advanced engineering principles and explore different paradigms within the Flutter ecosystem.
+
+### 🏛 Clean Architecture
+I adopted **Clean Architecture** to bridge the gap between intermediate and senior-level development. This structure ensures the application is highly **scalable** and **reliable**. By decoupling the layers, I focused on sharpening my skills in designing pure, testable business logic independent of the UI, adhering to industry standards for maintainable software.
+
+### 🔀 Hybrid State Management (Riverpod & BLoC)
+This project utilizes a unique hybrid approach, implementing both **Riverpod** and **BLoC**. The goal was to demonstrate proficiency in the two most battle-tested solutions in the industry:
+
+*   **Riverpod (MVVM):** Used primarily for Dependency Injection (DI) and managing UI state. It offers compile-time safety and a refined developer experience.
+*   **BLoC (MVI):** Integrated into specific features to implement the **Model-View-Intent (MVI)** pattern. This allows for a direct comparison between MVVM and MVI paradigms within the same codebase.
+
+### 💾 Isar Database
+**Isar** was selected as the local storage solution for two key reasons:
+1.  **Reactive Streams:** Its native support for watching queries allows it to act as a reactive **Single Source of Truth**, updating the UI automatically when data changes.
+2.  **Developer Experience:** The built-in **Isar Inspector** provides a real-time visual editor for the database while the app is running, which significantly simplifies debugging and data verification.
