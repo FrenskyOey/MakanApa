@@ -2,450 +2,294 @@
 
 ## Smart Meal Planning & Automated Shopping List Generator
 
-**Makan Apa** is a Flutter-based meal planning application designed to simplify weekly grocery shopping and meal preparation. This project serves as both a practical solution to a real-world problem and a deep dive into Flutter clean architecture patterns.
+**Makan Apa** is a Flutter-based meal planning application designed to simplify weekly grocery shopping and meal preparation. This project serves as both a practical solution to a real-world problem and a demonstration of Flutter clean architecture patterns.
 
-### 🤖 AI-Powered Features
-This application leverages artificial intelligence to enhance the user experience:
-- **AI-Generated Food Images** - Automatically creates appealing visuals for recipes
-- **Smart Ingredient Lists** - AI helps generate comprehensive ingredient requirements for each dish
-- **Recipe Assistance** - AI-powered food list generator
+---
+
+## ⚡ Quick Start (TL;DR)
+
+```bash
+# Clone repo and install dependencies
+git clone https://github.com/FrenskyOey/MakanApa.git
+cd MakanApa/makanapa
+flutter pub get
+
+# Configure environment variables (.env files)
+# Run the app (example for staging)
+flutter run --flavor staging -t lib/main_staging.dart
+```
+
+> Full setup instructions, including Supabase and Firebase setup, are detailed in the Setup section below.
+
+---
+
+## 🤖 AI-Assisted Development
+
+- SQL functions, triggers, and Edge Functions were generated using AI.
+- All schema design, architecture, and decision-making were manually created and reviewed.
+- Demonstrates a modern workflow: leveraging AI for efficiency while maintaining control and ownership.
 
 ---
 
 ## 1. Overview
 
-Going to the market weekly without a plan often leads to confusion about what to buy and what meals to prepare. **Makan Apa** solves this by allowing users to select their meals for the week, then automatically generating a comprehensive shopping list with all required ingredients.
+Weekly grocery trips without a plan often lead to confusion about what to buy and which meals to prepare. **Makan Apa** solves this by allowing users to select their meals for the week, then automatically generating a comprehensive shopping list with all required ingredients.
 
 ### The Problem
-- Manual meal planning is time-consuming and often forgotten
-- Creating shopping lists from scratch requires mentally tracking all ingredients
-- Grocery shopping without a plan leads to impulse purchases or missing items
+- Manual meal planning is time-consuming
+- Tracking ingredients mentally is error-prone
+- Shopping without a plan leads to missed items or impulse purchases
 
 ### The Solution
-Simply choose your desired dishes for the week, and the app handles the rest - from recipe details to ingredient quantities, complete with cooking instructions.
+Choose desired dishes for the week, and the app handles the rest — from recipe details to ingredient quantities, complete with cooking instructions.
 
 ### Target Users
 - Homemakers managing household meals
 - Working professionals who cook at home
-- Anyone looking to streamline their weekly meal preparation and grocery shopping
+- Anyone looking to streamline weekly meal preparation and grocery shopping
 
 ### Core Value Proposition
-- 📖 **Recipe Library** - Curated collection of recipes with detailed instructions
-- 🛒 **Auto-Generated Shopping Lists** - Ingredient lists created instantly based on selected meals
-- 👨‍🍳 **Step-by-Step Cooking Guides** - Clear instructions for meal preparation
+- 📖 **Recipe Library** – Curated collection of recipes with detailed instructions
+- 🛒 **Auto-Generated Shopping Lists** – Instant ingredient lists based on selected meals
+- 👨‍🍳 **Step-by-Step Cooking Guides** – Clear instructions for meal preparation
 
-This project also demonstrates proficiency in Flutter clean architecture, state management, and scalable app design patterns.
+---
 
 ## 2. Features
 
 ### 📅 Weekly Meal Planning
-- **Smart Dashboard** - View today's planned meals with quick access to yesterday's and tomorrow's menus
-- **4-Week Planning Horizon** - Create meal plans up to 4 weeks in advance
-- **Flexible Meal Scheduling** - Set lunch and dinner for each day, with the option to leave days unplanned
-- **Week-by-Week Navigation** - Browse upcoming weeks to review and adjust your meal plans
-- **Quick Recipe Access** - Tap any meal to view detailed ingredients and cooking instructions
-- **External Recipe Links** - Direct integration with Cookpad and YouTube for video tutorials
+- Smart Dashboard for daily meals
+- 4-Week Planning Horizon
+- Flexible Meal Scheduling (lunch/dinner)
+- Week-by-Week Navigation
+- Quick Recipe Access
+- External Recipe Links (Cookpad, YouTube)
 
 ### 🍽️ Recipe Library
-- **Comprehensive Recipe Database** - Browse all available recipes in the Makan Apa collection
-- **Advanced Filtering** - Filter recipes by food category for easier discovery
-- **Favorites System** - Save and quickly access your most-loved recipes
-- **Smart Search** - Find specific dishes quickly with the built-in search functionality
-- **Optimized Performance** - Pull-to-refresh and pagination for smooth browsing experience
-- **Detailed Recipe View** - Access complete ingredient lists and preparation steps
-- **Multi-Platform Cooking Guides** - Links to Cookpad and YouTube for visual cooking instructions
+- Browse all recipes
+- Advanced Filtering
+- Favorites System
+- Smart Search
+- Optimized Performance (pull-to-refresh & pagination)
+- Detailed Recipe View
+- Multi-Platform Cooking Guides
 
 ### 🛒 Smart Shopping List
-- **Auto-Generated Lists** - Automatically compiled shopping list based on the current week's meal plan
-- **Future Planning** - Preview next week's ingredient requirements
-- **Organized by Category** - Ingredients grouped into Meat, Vegetables, and Spices/Others for efficient shopping
+- Auto-Generated Lists
+- Future Planning Preview
+- Ingredients organized by category
 
 ### 👤 User Profile & Settings
-- **Personalized Profile** - Custom avatar and display name
-- **Profile Customization** - Edit name and avatar through the dedicated settings menu
-- **Security Management** - Change password functionality for account security
-- **Help Center** - Built-in FAQ section for app guidance
-- **Session Management** - Secure logout functionality
+- Personalized Profile (avatar & display name)
+- Profile Customization
+- Security Management (password change)
+- Help Center
+- Session Management
 
 ### 🔐 Authentication System
-- **Interactive Onboarding** - Engaging intro screens showcasing app capabilities
-- **Multiple Login Options** - Traditional email/password or convenient Google Sign-In
-- **Streamlined Registration** - Quick sign-up process with automatic account creation
+- Interactive Onboarding
+- Multiple Login Options (email/password, Google Sign-In)
+- Streamlined Registration
 
 ### ⚡ Additional Features
-- **Offline-First Architecture** - Access recipes and meal plans without internet connection (read-only mode)
-- **Smart Token Management** - Automatic refresh token handling with graceful session expiration
-- **Adaptive Theming** - Light and Dark mode support that follows system preferences
-- **Secure Authentication** - Token-based authentication with automatic session management
+- Offline-First Architecture (read-only mode)
+- Smart Token Management
+- Adaptive Theming (Light/Dark mode)
+- Secure Authentication
 
-## 3. Screenshots
-
-### 📱 Video Demos
-
-Get a complete walkthrough of the app's features:
-
-<div align="center">
+<details>
+<summary>📱 Screenshots & Video Demos</summary>
 
 | Onboarding & Profile | Recipe Features | Dashboard & Planning |
 |:---:|:---:|:---:|
-| [▶️ Watch Demo](https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-1.mp4) | [▶️ Watch Demo](https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-2.mp4) | [▶️ Watch Demo](https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-31.mp4) |
-| User authentication flow and profile management | Browse, search, and manage recipe collection | Weekly meal planning and dashboard overview |
+| [▶️ Demo](https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-1.mp4) | [▶️ Demo](https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-2.mp4) | [▶️ Demo](https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-31.mp4) |
+| Authentication & Profile | Browse & manage recipes | Weekly meal planning |
 
-</div>
+<p align="center">
+<img src="document/picture/1.png" width="30%" />
+<img src="document/picture/2.png" width="30%" />
+<img src="document/picture/3.png" width="30%" />
+</p>
+
+<p align="center">
+<img src="document/picture/4.png" width="30%" />
+<img src="document/picture/5.png" width="30%" />
+<img src="document/picture/6.png" width="30%" />
+</p>
+
+<p align="center">
+<img src="document/picture/7.png" width="30%" />
+<img src="document/picture/8.png" width="30%" />
+</p>
+
+<p align="center">
+<img src="document/picture/9.png" width="30%" />
+<img src="document/picture/10.png" width="30%" />
+<img src="document/picture/11.png" width="30%" />
+</p>
+
+<p align="center">
+<img src="document/picture/12.png" width="30%" />
+<img src="document/picture/13.png" width="30%" />
+</p>
+
+<p align="center">
+<img src="document/picture/14.png" width="30%" />
+<img src="document/picture/15.png" width="30%" />
+<img src="document/picture/16.png" width="30%" />
+</p>
+
+<p align="center">
+<img src="document/picture/17.png" width="30%" />
+<img src="document/picture/18.png" width="30%" />
+<img src="document/picture/19.png" width="30%" />
+</p>
+
+> **Note:** Shopping List feature is currently under development.
+
+</details>
 
 ---
 
-### 🎯 Onboarding Experience
-
-<p align="center">
-  <img src="document/picture/1.png" width="30%" />
-  <img src="document/picture/2.png" width="30%" />
-  <img src="document/picture/3.png" width="30%" />
-</p>
-
----
-
-### 📊 Dashboard & Meal Planning
-
-<p align="center">
-  <img src="document/picture/4.png" width="30%" />
-  <img src="document/picture/5.png" width="30%" />
-  <img src="document/picture/6.png" width="30%" />
-</p>
-
-<p align="center">
-  <img src="document/picture/7.png" width="30%" />
-  <img src="document/picture/8.png" width="30%" />
-</p>
-
----
-
-### 🍳 Recipe Library
-
-<p align="center">
-  <img src="document/picture/9.png" width="30%" />
-  <img src="document/picture/10.png" width="30%" />
-  <img src="document/picture/11.png" width="30%" />
-</p>
-
-<p align="center">
-  <img src="document/picture/12.png" width="30%" />
-  <img src="document/picture/13.png" width="30%" />
-</p>
-
----
-
-### 👤 Profile & Settings
-
-<p align="center">
-  <img src="document/picture/14.png" width="30%" />
-  <img src="document/picture/15.png" width="30%" />
-  <img src="document/picture/16.png" width="30%" />
-</p>
-
-<p align="center">
-  <img src="document/picture/17.png" width="30%" />
-  <img src="document/picture/18.png" width="30%" />
-  <img src="document/picture/19.png" width="30%" />
-</p>
-
----
-
-> **Note:** Shopping List feature is currently under development and will be updated soon.
-
-## 4. Tech Stack
+## 3. Tech Stack
 
 ### 📱 Core Framework
-- **Flutter** 3.35.6 (Stable Channel)
-- **Dart** 3.9.2
-- **DevTools** 2.48.0
+- Flutter 3.35.6
+- Dart 3.9.2
+- DevTools 2.48.0
 
 ### 🏗️ State Management
-A hybrid approach combining two powerful state management solutions:
+- **Riverpod** (Authentication, Profile, Dashboard)
+- **Bloc** (Recipe features)
 
-- **Riverpod** - Used for Authentication, Profile, and Dashboard features
-- **Bloc** - Implemented for Recipe features with Riverpod handling dependency injection
-  
-> **Why Hybrid?** This architecture demonstrates proficiency in multiple state management patterns, making the codebase accessible to developers familiar with either approach while showcasing advanced Flutter skills.
+> Hybrid approach demonstrates proficiency in multiple state management patterns.
 
 ### 🗄️ Backend & Database
-- **Supabase** - Complete backend solution
-  - **PostgreSQL Database** - Robust relational database with built-in RLS (Row Level Security)
-  - **Edge Functions** - Serverless REST API endpoints with AI-assisted code generation
-  - **Supabase Authentication** - JWT-based authentication with automatic hourly token refresh
-  - **Supabase Storage** - Image and asset storage with CDN delivery
-
-> **Why Supabase?** Easy maintenance with PostgreSQL, powerful Edge Functions as REST API alternative, superior security through RLS policies, and excellent AI code generation compatibility.
+- **Supabase**
+  - PostgreSQL with RLS
+  - Edge Functions (AI-assisted)
+  - Auth (JWT-based)
+  - Storage (images & assets)
 
 ### 💾 Local Storage
-- **Isar Community** - High-performance NoSQL database
-  - Real-time Stream support for reactive offline-first architecture
-  - Built-in Web UI for easy debugging and data inspection
-  - Enables seamless offline data synchronization
+- **Isar Community** – reactive offline-first database
 
 ### 🌐 Networking
-- **Dio** - HTTP client with interceptor support
-  - **LogInterceptor** - Request/response logging for debugging
-  - **Custom Token Interceptor** - Automatic token refresh and expiration handling
-  - **Custom Header Interceptor** - App version and device info tracking for backend logging
-- **Chucker** - Network inspection tool (currently disabled)
+- **Dio** (with interceptors & logging)
+- **Chucker** (disabled for now)
 
 ### 🔧 Dependency Injection
-- **Riverpod** - Type-safe dependency injection and service locator
+- **Riverpod** (type-safe DI)
 
 ### 🤖 AI Integration & Data Seeding
-Powered by **n8n** workflow automation for intelligent data generation:
-
-- **Recipe Generation** - Gemini AI generates authentic recipe names based on cuisine type
-- **Ingredient Lists** - ChatGPT creates detailed ingredient lists for 2-serving portions
-- **Food Photography** - Flux Pro Nano Banana generates Ghibli-style food imagery
-- **Automated Seeding** - Complete pipeline from AI generation to Supabase storage
+- **n8n workflows** for recipe generation, ingredient lists, and food images
 
 ### 📦 Key Packages & Tools
+- go_router, cached_network_image, flutter_hooks, hooks_riverpod
+- freezed, build_runner, json_serializable
+- dartz, equatable
+- flutter_dotenv, firebase_auth, mockito
 
-**UI & Navigation**
-- `go_router` - Declarative routing and navigation
-- `cached_network_image` - Efficient image loading and caching
-- `flutter_hooks` + `hooks_riverpod` - Lifecycle management and automatic disposal
+---
 
-**Code Generation**
-- `freezed` - Immutable model classes and union types
-- `build_runner` - Code generation for Isar and Riverpod
-- `json_serializable` - JSON serialization/deserialization
+## 4. Architecture Overview
 
-**Architecture & Patterns**
-- `dartz` - Functional programming with Either type for error handling
-- `equatable` - Value equality for models and state classes
-
-**Security & Configuration**
-- `flutter_dotenv` - Secure environment variable management
-- `firebase_auth` - Google Sign-In integration
-
-**Testing**
-- `mockito` - Mock generation for unit testing
-- `build_runner` - Test mock generation
-
-### 🎯 Architecture Highlights
-- **Offline-First Design** - Full read access without internet connectivity
-- **Clean Architecture** - Separation of concerns with clear layer boundaries
-- **Repository Pattern** - Abstracted data sources for testability
-- **Functional Error Handling** - Type-safe error propagation with Either
-- **Reactive Programming** - Stream-based data flow with Isar and Riverpod
-
-## 5. Architecture Overview
-
-This project adheres to **Clean Architecture** principles, organized using a **Feature-First** (Screaming Architecture) directory structure. This ensures that the codebase is scalable, maintainable, and testable, with a clear separation of concerns between the UI, business logic, and data handling.
-
-### 📂 Directory Structure
-
-The project structure is designed to reveal "what the app does" at a glance. Common utilities reside in `core`, while specific business capabilities are encapsulated within `features`.
+**Clean Architecture** with Feature-First structure:
 
 ```text
 lib/
-├── core/                  # Global configurations and utilities
-│   ├── configs/           # Routes, environment configs
-│   ├── constant/          # App constants, enums, extensions
-│   ├── handler/           # Error handling, logging
-│   ├── helper/            # UI helpers (Dialogs, Snackbars)
-│   ├── theme/             # App theme (Colors, Typography, Dimensions)
-│   └── widget/            # Reusable core widgets (Buttons, Inputs, etc.)
-│
-├── features/              # Feature-based modules (e.g., Home, Basket, Profile)
-│   ├── [feature_name]/
-│   │   ├── data/          # Data Layer (Impl details)
-│   │   │   ├── data_source/
-│   │   │   │   ├── remote/   # API calls
-│   │   │   │   └── local/    # Database access (Isar)
-│   │   │   ├── models/       # DTOs and Entity conversions
-│   │   │   └── repositories/ # Repository Implementations
-│   │   │
-│   │   ├── domain/        # Domain Layer (Pure Dart)
-│   │   │   ├── models/       # Business Objects
-│   │   │   └── repositories/ # Repository Interfaces
-│   │   │
-│   │   ├── presentation/  # Presentation Layer (UI & Logic)
-│   │   │   ├── components/   # Feature-specific widgets
-│   │   │   ├── controllers/  # State Management (Riverpod)
-│   │   │   └── screens/      # Full page views
-│   │   │
-│   │   └── provider/      # Dependency Injection (Riverpod providers)
-│
-└── shared/                # Logic/Widgets shared across multiple features
-    ├── data/
-    ├── domain/
-    └── provider/
+├── core/      # configs, constants, helpers, theme, widgets
+├── features/  # feature modules (data, domain, presentation, provider)
+└── shared/    # shared logic/widgets
 ```
 
-### 🏗 Layer Separation
+**Layer Separation**
+- **Domain** – pure Dart, core business logic
+- **Data** – repositories, DTOs, remote & local sources
+- **Presentation** – UI screens, controllers, providers
 
-The application is divided into three distinct layers:
+**Data Flow (Offline-First)**
+`UI -> Controller -> Repository -> Remote API -> Isar DB -> Stream -> UI`
 
-#### 1. Domain Layer (Inner Layer)
-*   The core of the application logic. It is purely written in Dart and has no dependencies on external libraries (like Flutter, HTTP, or Databases).
-*   **Contents:** Abstract Repository definitions and pure Domain Models.
+---
 
-#### 2. Data Layer (Outer Layer)
-*   Responsible for coordinating data from different sources.
-*   **Contents:**
-    *   **Data Sources:** Abstract and concrete implementations for Remote (API) and Local (Isar DB).
-    *   **DTOs (Data Transfer Objects):** Handles serialization/deserialization for APIs (`ResponseApi`) and Database Tables (`EntityLocal`).
-    *   **Repository Implementation:** The bridge that connects the Domain repositories to the actual Data Sources.
+## 5. Setup
 
-#### 3. Presentation Layer (UI Layer)
-*   Responsible for painting the screen and handling user interaction.
-*   **Contents:**
-    *   **Screens & Components:** Flutter Widgets.
-    *   **Controllers:** Manages `UI State`, side effects (`UI Effect`), and business logic using **Riverpod**.
-    *   **Providers:** Dependency injection definitions.
-
-### 🔄 Data Flow & Caching Strategy
-
-The app implements a **Reactive / Offline-First** repository pattern using **Isar Database** as the single source of truth for the UI.
-
-1.  **Trigger:** The UI triggers an action via the **Controller** (Riverpod).
-2.  **Fetch & Store:** The **Repository** fetches fresh data from the **Remote DataSource**.
-3.  **Persist:** Instead of returning data directly to the UI, the Repository saves the result into the **Local DataSource** (Isar DB).
-4.  **Reactive Stream:** The Local Database emits a stream of updated data.
-5.  **Update UI:** The **Controller** listens to this stream and updates the `UI State`.
-
-**Flow Visualization:**
-`UI -> Controller -> Repository -> Remote API -> Save to Isar DB -> Stream Update -> Controller -> UI Render`
-
-## 6. Setup
-
-Follow these steps to get the project up and running on your local machine.
+<details>
+<summary>Show Detailed Setup</summary>
 
 ### 🛠 Prerequisites
-
-Ensure you have the following installed:
-*   **Flutter SDK**: `3.35.6` (Stable Channel)
-*   **Dart SDK**: `3.9.2`
-*   **Make**: Required to run the custom build commands.
+- Flutter SDK 3.35.6
+- Dart SDK 3.9.2
+- Make (for code generation)
 
 ### 📥 Installation
-
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/your-username/your-repo-name.git
-    cd your-repo-name
-    ```
-
-2.  **Install Dependencies:**
-    ```bash
-    flutter pub get
-    ```
+```bash
+git clone https://github.com/FrenskyOey/MakanApa.git
+cd MakanApa/makanapa
+flutter pub get
+```
 
 ### 🔐 Environment Configuration
-
-This project relies on **Build Flavors** (Staging & Production) and requires specific environment configurations.
-
-1.  Locate the `environment.env.example` file in the root directory.
-2.  Create two new files in the root directory:
-    *   `environment_staging.env`
-    *   `environment_production.env`
-3.  Fill in the required secrets (API Keys, URLs) in both files.
-
-### 🔥 Firebase Setup (Google Sign-In)
-
-1.  Create a project in the [Firebase Console](https://console.firebase.google.com/).
-2.  **Android:**
-    *   Add your local **debug SHA-1 key** to the Firebase project settings.
-    *   Download `google-services.json` and place it in `android/app/`.
-3.  **iOS:**
-    *   Download `GoogleService-Info.plist` and place it in `ios/Runner/`.
+- Copy `environment.env.example` → `environment_staging.env` & `environment_production.env`
+- Fill required keys (Supabase URL/Anon Key, Firebase credentials)
 
 ### ⚡ Supabase Setup
+1. Create a Supabase project
+2. Apply SQL schema from `/master/`
+3. Deploy Edge Functions from `/master/`
+4. Add `SUPABASE_URL` & `SUPABASE_ANON_KEY` to `.env`
 
-1.  Create a new project on [Supabase](https://supabase.com/).
-2.  **Database Schema & Edge Functions:**
-    *   Navigate to the `master/` folder in this repository.
-    *   Apply the provided SQL schema to your new Supabase project.
-    *   Deploy the Edge Functions found in this directory.
-3.  Add your Supabase URL and Anon Key to your `.env` files.
+### 🔥 Firebase Setup
+- Add `google-services.json` (Android) & `GoogleService-Info.plist` (iOS)
 
 ### 🏗 Code Generation
-
-This project uses **Riverpod** and **Isar**, requiring code generation. A `Makefile` is provided for convenience.
-
-Run the following command to generate the necessary code:
-
 ```bash
 make build_runner
 ```
 
-### 🚀 Run the App
+### 🚀 Run App
+**Staging:** `flutter run --flavor staging -t lib/main_staging.dart`  
+**Production:** `flutter run --flavor production -t lib/main_prod.dart`
 
-This project uses **Flavors** and cannot be run with a standard `flutter run` command. You must specify the flavor and entry point.
+</details>
 
-#### Option A: VS Code (Recommended)
-This project includes a `.vscode/launch.json` configuration.
-1.  Go to the **Run and Debug** tab in VS Code.
-2.  Select either **"Makan Apa App (Staging)"** or **"Makan Apa App (Production)"**.
-3.  Press **F5** (Start Debugging).
+---
 
-#### Option B: Terminal
-Use the following commands to run the specific flavor:
+## 6. Design Decisions
 
-**Staging:**
-```bash
-flutter run --flavor staging -t lib/main_staging.dart
-```
+- **Clean Architecture** – scalable, testable, maintainable
+- **Hybrid State Management** – Riverpod (MVVM) + Bloc (MVI)
+- **Isar Database** – reactive streams & developer-friendly inspector
 
-**Production:**
-```bash
-flutter run --flavor production -t lib/main_prod.dart
-```
-## 7. Design Decisions
+---
 
-The architectural choices in this project were made not just to build a functional app, but to demonstrate advanced engineering principles and explore different paradigms within the Flutter ecosystem.
+## 7. Limitations
 
-### 🏛 Clean Architecture
-I adopted **Clean Architecture** to bridge the gap between intermediate and senior-level development. This structure ensures the application is highly **scalable** and **reliable**. By decoupling the layers, I focused on sharpening my skills in designing pure, testable business logic independent of the UI, adhering to industry standards for maintainable software.
+- Offline insert/update not supported yet
+- Android/iOS only (no web)
+- Currently supports only Indonesian language
+- Forgot password (Deep Links) disabled
+- Plan editing/deleting not implemented
+- Push notifications not yet integrated
+- Firebase Crashlytics & Analytics not configured
 
-### 🔀 Hybrid State Management (Riverpod & BLoC)
-This project utilizes a unique hybrid approach, implementing both **Riverpod** and **BLoC**. The goal was to demonstrate proficiency in the two most battle-tested solutions in the industry:
+---
 
-*   **Riverpod (MVVM):** Used primarily for Dependency Injection (DI) and managing UI state. It offers compile-time safety and a refined developer experience.
-*   **BLoC (MVI):** Integrated into specific features to implement the **Model-View-Intent (MVI)** pattern. This allows for a direct comparison between MVVM and MVI paradigms within the same codebase.
+## 8. Future Improvements
 
-### 💾 Isar Database
-**Isar** was selected as the local storage solution for two key reasons:
-1.  **Reactive Streams:** Its native support for watching queries allows it to act as a reactive **Single Source of Truth**, updating the UI automatically when data changes.
-2.  **Developer Experience:** The built-in **Isar Inspector** provides a real-time visual editor for the database while the app is running, which significantly simplifies debugging and data verification.
+- Full CRUD for plans
+- Enhanced recipe selection UI
+- Push notifications
+- Complete forgot password flow
+- CI/CD pipelines
+- Expand unit/widget tests
 
+---
 
-## 8. Limitations
+## 9. Contact & License
 
-While the core functionality of the application is complete, there are several known limitations and scope decisions made during development:
+**Email:** [frensky.lee@gmail.com](mailto:frensky.lee@gmail.com)  
+**LinkedIn:** [Frensky Oey](https://www.linkedin.com/in/frensky-oey-8aaa3926/)  
 
-*   **Offline Write Operations:** The app supports offline reading (caching), but **Optimistic UI** (offline inserts/updates) is not yet implemented due to the complexity of synchronization logic. An active internet connection is currently required to modify data.
-*   **Platform Support:** The application is strictly optimized for **Android and iOS**. Web support is currently unavailable due to specific dependencies with the local Isar database configuration.
-*   **Localization:** Currently This application only support to indonesia language
-*   **Forgot Password Flow:** The "Forgot Password" feature via Deep Links is currently disabled. This functionality requires a verified custom email domain provider, which is not yet set up for this project.
-*   **Plan Management:** Currently, users can create plans but cannot **Edit** or **Delete** them once saved. This CRUD functionality is planned for future updates.
-*   **Notifications:** Push Notifications are not yet integrated.
-*   **Monitoring:** Firebase Crashlytics and Analytics are not configured, as this project is intended for portfolio demonstration rather than immediate App Store/Play Store release.
-
-## 9. Future Improvements
-
-This project is currently in active development. The following features and technical improvements are planned for upcoming releases:
-
-*   **Full CRUD for Plans:** Implement the ability to edit and delete existing meal plans.
-*   **Enhanced Recipe Selection:** Revamp the UI/UX for adding recipes during plan creation, including advanced filtering and search capabilities.
-*   **Push Notifications:** Integrate local and remote notifications to remind users of their upcoming scheduled meals.
-*   **Authentication Flow:** complete the "Forgot Password" functionality using Deep Links and a verified email provider.
-*   **DevOps:** Improve CI/CD pipelines for automated builds and checks.
-*   **Testing:** Expand code coverage by adding comprehensive Unit Tests and Widget Tests.
-
-## 10. Contact & License
-
-### 📧 Contact
-
-If you have any questions, feedback, or job opportunities, feel free to reach out:
-
-*   **Email:** [frensky.lee@gmail.com](mailto:frensky.lee@gmail.com)
-*   **LinkedIn:** [Frensky Oey](https://www.linkedin.com/in/frensky-oey-8aaa3926/)
-
-### 📄 License
-
-This project is open-source and available under the **MIT License**.
+**License:** MIT License
