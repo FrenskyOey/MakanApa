@@ -77,3 +77,86 @@ This project also demonstrates proficiency in Flutter clean architecture, state 
 - **Smart Token Management** - Automatic refresh token handling with graceful session expiration
 - **Adaptive Theming** - Light and Dark mode support that follows system preferences
 - **Secure Authentication** - Token-based authentication with automatic session management
+
+## Screenshots
+
+### 📱 Video Demos
+
+Get a complete walkthrough of the app's features:
+
+<table>
+  <tr>
+    <td width="33%">
+      <h4 align="center">Onboarding & Profile</h4>
+      <video src="https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-1.mp4" controls width="100%"></video>
+    </td>
+    <td width="33%">
+      <h4 align="center">Recipe Features</h4>
+      <video src="https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-2.mp4" controls width="100%"></video>
+    </td>
+    <td width="33%">
+      <h4 align="center">Dashboard & Planning</h4>
+      <video src="https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-31.mp4" controls width="100%"></video>
+    </td>
+  </tr>
+</table>
+
+---
+
+### 🎯 Onboarding Experience
+
+<p align="center">
+  <img src="document/picture/1.png" width="30%" />
+  <img src="document/picture/2.png" width="30%" />
+  <img src="document/picture/3.png" width="30%" />
+</p>
+
+---
+
+### 📊 Dashboard & Meal Planning
+
+<p align="center">
+  <img src="document/picture/4.png" width="30%" />
+  <img src="document/picture/5.png" width="30%" />
+  <img src="document/picture/6.png" width="30%" />
+</p>
+
+<p align="center">
+  <img src="document/picture/7.png" width="30%" />
+  <img src="document/picture/8.png" width="30%" />
+</p>
+
+---
+
+### 🍳 Recipe Library
+
+<p align="center">
+  <img src="document/picture/9.png" width="30%" />
+  <img src="document/picture/10.png" width="30%" />
+  <img src="document/picture/11.png" width="30%" />
+</p>
+
+<p align="center">
+  <img src="document/picture/12.png" width="30%" />
+  <img src="document/picture/13.png" width="30%" />
+</p>
+
+---
+
+### 👤 Profile & Settings
+
+<p align="center">
+  <img src="document/picture/14.png" width="30%" />
+  <img src="document/picture/15.png" width="30%" />
+  <img src="document/picture/16.png" width="30%" />
+</p>
+
+<p align="center">
+  <img src="document/picture/17.png" width="30%" />
+  <img src="document/picture/18.png" width="30%" />
+  <img src="document/picture/19.png" width="30%" />
+</p>
+
+---
+
+> **Note:** Shopping List feature is currently under development and will be updated soon.
