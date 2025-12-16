@@ -42,7 +42,7 @@ class PlanItemWidget extends HookConsumerWidget {
             child: hasContent
                 ? Column(
                     children: [
-                      Dimens.md.space,
+                      Dimens.sm.space,
                       if (hasLunch)
                         _RecipeCard(
                           recipe: item.lunch!,
@@ -54,7 +54,7 @@ class PlanItemWidget extends HookConsumerWidget {
                           },
                         ),
 
-                      if (hasLunch && hasDinner) Dimens.lg.space,
+                      if (hasLunch && hasDinner) Dimens.md.space,
 
                       if (hasDinner)
                         _RecipeCard(
@@ -67,7 +67,7 @@ class PlanItemWidget extends HookConsumerWidget {
                           },
                         ),
 
-                      Dimens.lg.space,
+                      Dimens.sm.space,
                     ],
                   )
                 : _NoContentPlaceholder(),
@@ -82,7 +82,7 @@ class _NoContentPlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 30),
+      height: 70,
       alignment: Alignment.centerLeft,
       child: Text("Kosong", style: context.titleMedium),
     );
@@ -116,18 +116,28 @@ class _RecipeCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  recipe.name,
-                  style: context.titleMedium,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+            child: SizedBox(
+              height: 70,
+              child: Align(
+                alignment: AlignmentGeometry.centerLeft,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      recipe.name,
+                      style: context.titleMedium,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Dimens.sm.space,
+                    Text(
+                      "$mealTypeLabel · $cuisine",
+                      style: context.labelMedium,
+                    ),
+                  ],
                 ),
-                Dimens.sm.space,
-                Text("$mealTypeLabel · $cuisine", style: context.labelMedium),
-              ],
+              ),
             ),
           ),
           Dimens.md.space,

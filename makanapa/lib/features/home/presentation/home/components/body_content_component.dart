@@ -48,44 +48,72 @@ class BodyContentComponentWidget extends HookConsumerWidget {
         elevation: 0,
         margin: EdgeInsets.zero,
         // margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
           children: [
-            Expanded(
+            SizedBox.expand(
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12),
                   topRight: Radius.circular(12),
+                  bottomLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(12),
                 ),
                 child: Hero(tag: "home_${item.id}", child: image),
               ),
             ),
-            Dimens.ms.space,
 
-            Padding(
-              padding: const EdgeInsets.fromLTRB(
-                Dimens.ms,
-                0,
-                Dimens.ms,
-                Dimens.xs,
-              ),
-              child: Text(item.name, style: context.titleMedium),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(
-                Dimens.ms,
-                0,
-                Dimens.ms,
-                Dimens.xs,
-              ),
-              child: Text(
-                "$mealType . ${item.classType.description}",
-                style: context.labelMedium,
-              ),
-            ),
+            Align(
+              alignment: AlignmentGeometry.bottomLeft,
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                  bottomLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(12),
+                ),
+                child: Container(
+                  width: double.infinity,
+                  color: Colors.black.withValues(alpha: 0.5),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Dimens.sm.space,
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                          Dimens.ms,
+                          0,
+                          Dimens.ms,
+                          Dimens.xs,
+                        ),
+                        child: Text(
+                          item.name,
+                          style: context.titleMedium?.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                          Dimens.ms,
+                          0,
+                          Dimens.ms,
+                          Dimens.xs,
+                        ),
+                        child: Text(
+                          "$mealType . ${item.classType.description}",
+                          style: context.labelMedium?.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
 
-            Dimens.ms.space,
+                      Dimens.sm.space,
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       );
