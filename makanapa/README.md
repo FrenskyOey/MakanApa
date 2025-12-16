@@ -8,7 +8,7 @@
 This application leverages artificial intelligence to enhance the user experience:
 - **AI-Generated Food Images** - Automatically creates appealing visuals for recipes
 - **Smart Ingredient Lists** - AI helps generate comprehensive ingredient requirements for each dish
-- **Recipe Assistance** - AI-powered content generation for cooking instructions
+- **Recipe Assistance** - AI-powered food list generator
 
 ---
 
@@ -36,3 +36,44 @@ Simply choose your desired dishes for the week, and the app handles the rest - f
 
 This project also demonstrates proficiency in Flutter clean architecture, state management, and scalable app design patterns.
 
+## Features
+
+### 📅 Weekly Meal Planning
+- **Smart Dashboard** - View today's planned meals with quick access to yesterday's and tomorrow's menus
+- **4-Week Planning Horizon** - Create meal plans up to 4 weeks in advance
+- **Flexible Meal Scheduling** - Set lunch and dinner for each day, with the option to leave days unplanned
+- **Week-by-Week Navigation** - Browse upcoming weeks to review and adjust your meal plans
+- **Quick Recipe Access** - Tap any meal to view detailed ingredients and cooking instructions
+- **External Recipe Links** - Direct integration with Cookpad and YouTube for video tutorials
+
+### 🍽️ Recipe Library
+- **Comprehensive Recipe Database** - Browse all available recipes in the Makan Apa collection
+- **Advanced Filtering** - Filter recipes by food category for easier discovery
+- **Favorites System** - Save and quickly access your most-loved recipes
+- **Smart Search** - Find specific dishes quickly with the built-in search functionality
+- **Optimized Performance** - Pull-to-refresh and pagination for smooth browsing experience
+- **Detailed Recipe View** - Access complete ingredient lists and preparation steps
+- **Multi-Platform Cooking Guides** - Links to Cookpad and YouTube for visual cooking instructions
+
+### 🛒 Smart Shopping List
+- **Auto-Generated Lists** - Automatically compiled shopping list based on the current week's meal plan
+- **Future Planning** - Preview next week's ingredient requirements
+- **Organized by Category** - Ingredients grouped into Meat, Vegetables, and Spices/Others for efficient shopping
+
+### 👤 User Profile & Settings
+- **Personalized Profile** - Custom avatar and display name
+- **Profile Customization** - Edit name and avatar through the dedicated settings menu
+- **Security Management** - Change password functionality for account security
+- **Help Center** - Built-in FAQ section for app guidance
+- **Session Management** - Secure logout functionality
+
+### 🔐 Authentication System
+- **Interactive Onboarding** - Engaging intro screens showcasing app capabilities
+- **Multiple Login Options** - Traditional email/password or convenient Google Sign-In
+- **Streamlined Registration** - Quick sign-up process with automatic account creation
+
+### ⚡ Additional Features
+- **Offline-First Architecture** - Access recipes and meal plans without internet connection (read-only mode)
+- **Smart Token Management** - Automatic refresh token handling with graceful session expiration
+- **Adaptive Theming** - Light and Dark mode support that follows system preferences
+- **Secure Authentication** - Token-based authentication with automatic session management
