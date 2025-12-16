@@ -6,23 +6,6 @@
 
 ---
 
-## ⚡ Quick Start (TL;DR)
-
-```bash
-# Clone repo and install dependencies
-git clone https://github.com/FrenskyOey/MakanApa.git
-cd MakanApa/makanapa
-flutter pub get
-
-# Configure environment variables (.env files)
-# Run the app (example for staging)
-flutter run --flavor staging -t lib/main_staging.dart
-```
-
-> Full setup instructions, including Supabase and Firebase setup, are detailed in the Setup section below.
-
----
-
 ## 🤖 AI-Assisted Development
 
 - SQL functions, triggers, and Edge Functions were generated using AI.
