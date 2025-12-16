@@ -99,7 +99,6 @@ Choose desired dishes for the week, and the app handles the rest — from recipe
   <img src="document/picture/1.png" width="30%" />
   <img src="document/picture/4.png" width="30%" />
   <img src="document/picture/9.png" width="30%" />
-  <img src="document/picture/11.png" width="30%" />
 </p>
 
 > These screenshots highlight onboarding, dashboard, and recipe library features.
@@ -126,6 +125,7 @@ Choose desired dishes for the week, and the app handles the rest — from recipe
 
 <p align="center">
   <img src="document/picture/10.png" width="30%" />
+  <img src="document/picture/11.png" width="30%" />
   <img src="document/picture/12.png" width="30%" />
   <img src="document/picture/13.png" width="30%" />
 </p>
@@ -145,7 +145,6 @@ Choose desired dishes for the week, and the app handles the rest — from recipe
 > **Note:** Smart Shopping List feature is under development and will be updated soon.
 
 </details>
----
 
 ## 3. Tech Stack
 
