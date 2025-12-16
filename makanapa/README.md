@@ -395,7 +395,7 @@ flutter run --flavor staging -t lib/main_staging.dart
 ```bash
 flutter run --flavor production -t lib/main_prod.dart
 ```
-## 8. Design Decisions
+## 7. Design Decisions
 
 The architectural choices in this project were made not just to build a functional app, but to demonstrate advanced engineering principles and explore different paradigms within the Flutter ecosystem.
 
@@ -412,3 +412,40 @@ This project utilizes a unique hybrid approach, implementing both **Riverpod** a
 **Isar** was selected as the local storage solution for two key reasons:
 1.  **Reactive Streams:** Its native support for watching queries allows it to act as a reactive **Single Source of Truth**, updating the UI automatically when data changes.
 2.  **Developer Experience:** The built-in **Isar Inspector** provides a real-time visual editor for the database while the app is running, which significantly simplifies debugging and data verification.
+
+
+## 8. Limitations
+
+While the core functionality of the application is complete, there are several known limitations and scope decisions made during development:
+
+*   **Offline Write Operations:** The app supports offline reading (caching), but **Optimistic UI** (offline inserts/updates) is not yet implemented due to the complexity of synchronization logic. An active internet connection is currently required to modify data.
+*   **Platform Support:** The application is strictly optimized for **Android and iOS**. Web support is currently unavailable due to specific dependencies with the local Isar database configuration.
+*   **Localization:** Currently This application only support to indonesia language
+*   **Forgot Password Flow:** The "Forgot Password" feature via Deep Links is currently disabled. This functionality requires a verified custom email domain provider, which is not yet set up for this project.
+*   **Plan Management:** Currently, users can create plans but cannot **Edit** or **Delete** them once saved. This CRUD functionality is planned for future updates.
+*   **Notifications:** Push Notifications are not yet integrated.
+*   **Monitoring:** Firebase Crashlytics and Analytics are not configured, as this project is intended for portfolio demonstration rather than immediate App Store/Play Store release.
+
+## 9. Future Improvements
+
+This project is currently in active development. The following features and technical improvements are planned for upcoming releases:
+
+*   **Full CRUD for Plans:** Implement the ability to edit and delete existing meal plans.
+*   **Enhanced Recipe Selection:** Revamp the UI/UX for adding recipes during plan creation, including advanced filtering and search capabilities.
+*   **Push Notifications:** Integrate local and remote notifications to remind users of their upcoming scheduled meals.
+*   **Authentication Flow:** complete the "Forgot Password" functionality using Deep Links and a verified email provider.
+*   **DevOps:** Improve CI/CD pipelines for automated builds and checks.
+*   **Testing:** Expand code coverage by adding comprehensive Unit Tests and Widget Tests.
+
+## 10. Contact & License
+
+### 📧 Contact
+
+If you have any questions, feedback, or job opportunities, feel free to reach out:
+
+*   **Email:** [frensky.lee@gmail.com](mailto:frensky.lee@gmail.com)
+*   **LinkedIn:** [Frensky Oey](https://www.linkedin.com/in/frensky-oey-8aaa3926/)
+
+### 📄 License
+
+This project is open-source and available under the **MIT License**.
