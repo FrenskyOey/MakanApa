@@ -310,3 +310,88 @@ The app implements a **Reactive / Offline-First** repository pattern using **Isa
 
 **Flow Visualization:**
 `UI -> Controller -> Repository -> Remote API -> Save to Isar DB -> Stream Update -> Controller -> UI Render`
+
+## 6. Setup
+
+Follow these steps to get the project up and running on your local machine.
+
+### 🛠 Prerequisites
+
+Ensure you have the following installed:
+*   **Flutter SDK**: `3.35.6` (Stable Channel)
+*   **Dart SDK**: `3.9.2`
+*   **Make**: Required to run the custom build commands.
+
+### 📥 Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/your-username/your-repo-name.git
+    cd your-repo-name
+    ```
+
+2.  **Install Dependencies:**
+    ```bash
+    flutter pub get
+    ```
+
+### 🔐 Environment Configuration
+
+This project relies on **Build Flavors** (Staging & Production) and requires specific environment configurations.
+
+1.  Locate the `environment.env.example` file in the root directory.
+2.  Create two new files in the root directory:
+    *   `environment_staging.env`
+    *   `environment_production.env`
+3.  Fill in the required secrets (API Keys, URLs) in both files.
+
+### 🔥 Firebase Setup (Google Sign-In)
+
+1.  Create a project in the [Firebase Console](https://console.firebase.google.com/).
+2.  **Android:**
+    *   Add your local **debug SHA-1 key** to the Firebase project settings.
+    *   Download `google-services.json` and place it in `android/app/`.
+3.  **iOS:**
+    *   Download `GoogleService-Info.plist` and place it in `ios/Runner/`.
+
+### ⚡ Supabase Setup
+
+1.  Create a new project on [Supabase](https://supabase.com/).
+2.  **Database Schema & Edge Functions:**
+    *   Navigate to the `master/` folder in this repository.
+    *   Apply the provided SQL schema to your new Supabase project.
+    *   Deploy the Edge Functions found in this directory.
+3.  Add your Supabase URL and Anon Key to your `.env` files.
+
+### 🏗 Code Generation
+
+This project uses **Riverpod** and **Isar**, requiring code generation. A `Makefile` is provided for convenience.
+
+Run the following command to generate the necessary code:
+
+```bash
+make build_runner
+```
+
+## 🚀 Run the App
+
+This project uses **Flavors** and cannot be run with a standard `flutter run` command. You must specify the flavor and entry point.
+
+### Option A: VS Code (Recommended)
+This project includes a `.vscode/launch.json` configuration.
+1.  Go to the **Run and Debug** tab in VS Code.
+2.  Select either **"Makan Apa App (Staging)"** or **"Makan Apa App (Production)"**.
+3.  Press **F5** (Start Debugging).
+
+### Option B: Terminal
+Use the following commands to run the specific flavor:
+
+**Staging:**
+```bash
+flutter run --flavor staging -t lib/main_staging.dart
+```
+
+**Production:**
+```bash
+flutter run --flavor production -t lib/main_prod.dart
+```
