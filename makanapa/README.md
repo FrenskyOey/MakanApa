@@ -84,22 +84,14 @@ This project also demonstrates proficiency in Flutter clean architecture, state 
 
 Get a complete walkthrough of the app's features:
 
-<table>
-  <tr>
-    <td width="33%">
-      <h4 align="center">Onboarding & Profile</h4>
-      <video src="https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-1.mp4" controls width="100%"></video>
-    </td>
-    <td width="33%">
-      <h4 align="center">Recipe Features</h4>
-      <video src="https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-2.mp4" controls width="100%"></video>
-    </td>
-    <td width="33%">
-      <h4 align="center">Dashboard & Planning</h4>
-      <video src="https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-31.mp4" controls width="100%"></video>
-    </td>
-  </tr>
-</table>
+<div align="center">
+
+| Onboarding & Profile | Recipe Features | Dashboard & Planning |
+|:---:|:---:|:---:|
+| [▶️ Watch Demo](https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-1.mp4) | [▶️ Watch Demo](https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-2.mp4) | [▶️ Watch Demo](https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-31.mp4) |
+| User authentication flow and profile management | Browse, search, and manage recipe collection | Weekly meal planning and dashboard overview |
+
+</div>
 
 ---
 
