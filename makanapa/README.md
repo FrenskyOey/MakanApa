@@ -373,17 +373,17 @@ Run the following command to generate the necessary code:
 make build_runner
 ```
 
-## 🚀 Run the App
+### 🚀 Run the App
 
 This project uses **Flavors** and cannot be run with a standard `flutter run` command. You must specify the flavor and entry point.
 
-### Option A: VS Code (Recommended)
+#### Option A: VS Code (Recommended)
 This project includes a `.vscode/launch.json` configuration.
 1.  Go to the **Run and Debug** tab in VS Code.
 2.  Select either **"Makan Apa App (Staging)"** or **"Makan Apa App (Production)"**.
 3.  Press **F5** (Start Debugging).
 
-### Option B: Terminal
+#### Option B: Terminal
 Use the following commands to run the specific flavor:
 
 **Staging:**
