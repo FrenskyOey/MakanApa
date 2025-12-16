@@ -274,6 +274,7 @@ lib/
     ├── data/
     ├── domain/
     └── provider/
+```
 
 ## 🏗 Layer Separation
 
