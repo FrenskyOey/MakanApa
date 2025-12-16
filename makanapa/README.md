@@ -12,7 +12,7 @@ This application leverages artificial intelligence to enhance the user experienc
 
 ---
 
-## Overview
+## 1. Overview
 
 Going to the market weekly without a plan often leads to confusion about what to buy and what meals to prepare. **Makan Apa** solves this by allowing users to select their meals for the week, then automatically generating a comprehensive shopping list with all required ingredients.
 
@@ -36,7 +36,7 @@ Simply choose your desired dishes for the week, and the app handles the rest - f
 
 This project also demonstrates proficiency in Flutter clean architecture, state management, and scalable app design patterns.
 
-## Features
+## 2. Features
 
 ### 📅 Weekly Meal Planning
 - **Smart Dashboard** - View today's planned meals with quick access to yesterday's and tomorrow's menus
@@ -78,7 +78,7 @@ This project also demonstrates proficiency in Flutter clean architecture, state 
 - **Adaptive Theming** - Light and Dark mode support that follows system preferences
 - **Secure Authentication** - Token-based authentication with automatic session management
 
-## Screenshots
+## 3. Screenshots
 
 ### 📱 Video Demos
 
@@ -153,7 +153,7 @@ Get a complete walkthrough of the app's features:
 
 > **Note:** Shopping List feature is currently under development and will be updated soon.
 
-## Tech Stack
+## 4. Tech Stack
 
 ### 📱 Core Framework
 - **Flutter** 3.35.6 (Stable Channel)
@@ -232,7 +232,7 @@ Powered by **n8n** workflow automation for intelligent data generation:
 - **Functional Error Handling** - Type-safe error propagation with Either
 - **Reactive Programming** - Stream-based data flow with Isar and Riverpod
 
-# 6. Architecture Overview
+# 5. Architecture Overview
 
 This project adheres to **Clean Architecture** principles, organized using a **Feature-First** (Screaming Architecture) directory structure. This ensures that the codebase is scalable, maintainable, and testable, with a clear separation of concerns between the UI, business logic, and data handling.
 
