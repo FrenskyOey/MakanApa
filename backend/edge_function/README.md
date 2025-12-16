@@ -13,7 +13,7 @@ However, each function has been **carefully reviewed, guided, and refined by me*
 - I define the **requests**, **expected responses**, and **business logic** requirements.  
 - AI generates the initial function code based on those instructions.  
 - I **audit, test, and modify** the AI output to ensure correctness, security, and maintainability.
-- 
+  
 ## 2. Environment Variables & Secrets
 
 Before deploying or running these functions, you must configure the necessary secrets in your Supabase project. These environment variables are critical for database connections and authentication.
