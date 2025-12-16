@@ -232,11 +232,11 @@ Powered by **n8n** workflow automation for intelligent data generation:
 - **Functional Error Handling** - Type-safe error propagation with Either
 - **Reactive Programming** - Stream-based data flow with Isar and Riverpod
 
-# 5. Architecture Overview
+## 5. Architecture Overview
 
 This project adheres to **Clean Architecture** principles, organized using a **Feature-First** (Screaming Architecture) directory structure. This ensures that the codebase is scalable, maintainable, and testable, with a clear separation of concerns between the UI, business logic, and data handling.
 
-## 📂 Directory Structure
+### 📂 Directory Structure
 
 The project structure is designed to reveal "what the app does" at a glance. Common utilities reside in `core`, while specific business capabilities are encapsulated within `features`.
 
@@ -276,29 +276,29 @@ lib/
     └── provider/
 ```
 
-## 🏗 Layer Separation
+### 🏗 Layer Separation
 
 The application is divided into three distinct layers:
 
-### 1. Domain Layer (Inner Layer)
+#### 1. Domain Layer (Inner Layer)
 *   The core of the application logic. It is purely written in Dart and has no dependencies on external libraries (like Flutter, HTTP, or Databases).
 *   **Contents:** Abstract Repository definitions and pure Domain Models.
 
-### 2. Data Layer (Outer Layer)
+#### 2. Data Layer (Outer Layer)
 *   Responsible for coordinating data from different sources.
 *   **Contents:**
     *   **Data Sources:** Abstract and concrete implementations for Remote (API) and Local (Isar DB).
     *   **DTOs (Data Transfer Objects):** Handles serialization/deserialization for APIs (`ResponseApi`) and Database Tables (`EntityLocal`).
     *   **Repository Implementation:** The bridge that connects the Domain repositories to the actual Data Sources.
 
-### 3. Presentation Layer (UI Layer)
+#### 3. Presentation Layer (UI Layer)
 *   Responsible for painting the screen and handling user interaction.
 *   **Contents:**
     *   **Screens & Components:** Flutter Widgets.
     *   **Controllers:** Manages `UI State`, side effects (`UI Effect`), and business logic using **Riverpod**.
     *   **Providers:** Dependency injection definitions.
 
-## 🔄 Data Flow & Caching Strategy
+### 🔄 Data Flow & Caching Strategy
 
 The app implements a **Reactive / Offline-First** repository pattern using **Isar Database** as the single source of truth for the UI.
 
