@@ -1,8 +1,21 @@
-# MakanApa 🍳
+# Backend – Supabase & Automation
 
-This repo contains:
+## Overview
+This backend uses Supabase as BaaS with:
+- PostgreSQL + RLS
+- Edge Functions as API layer
+- n8n for AI-assisted data seeding
 
-1. `makanapa/` – Flutter app source code.
-2. `backend/` – Supabase schema, migrations, and n8n workflow automation.
+## What is included
+- Full database schema
+- RLS policies
+- Edge Functions source code
+- n8n workflows
 
-See the respective folders for detailed documentation.
+## What is NOT included
+- Secrets
+- Production API keys
+
+## Reproducibility
+This setup is not 1-click deploy by design.
+It documents real-world Supabase usage.
