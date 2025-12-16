@@ -58,97 +58,93 @@ Choose desired dishes for the week, and the app handles the rest — from recipe
 ## 2. Features
 
 ### 📅 Weekly Meal Planning
-- Smart Dashboard for daily meals
-- 4-Week Planning Horizon
-- Flexible Meal Scheduling (lunch/dinner)
-- Week-by-Week Navigation
-- Quick Recipe Access
-- External Recipe Links (Cookpad, YouTube)
+- **Smart Dashboard** – View today’s planned meals, with quick access to yesterday’s and tomorrow’s menus
+- **4-Week Planning Horizon** – Plan meals up to 4 weeks in advance
+- **Flexible Meal Scheduling** – Set lunch and dinner, with option to leave days unplanned
+- **Week-by-Week Navigation** – Browse upcoming weeks and adjust meals
+- **Quick Recipe Access** – Tap any meal for ingredients and cooking instructions
+- **External Recipe Links** – Direct integration with Cookpad & YouTube for tutorials
 
 ### 🍽️ Recipe Library
-- Browse all recipes
-- Advanced Filtering
-- Favorites System
-- Smart Search
-- Optimized Performance (pull-to-refresh & pagination)
-- Detailed Recipe View
-- Multi-Platform Cooking Guides
+- Browse all available recipes in Makan Apa
+- Filter by category for faster discovery
+- Save favorites for quick access
+- Smart search to find dishes quickly
+- Detailed recipe view with ingredient lists and steps
+- Multi-platform cooking guides (Cookpad & YouTube)
 
 ### 🛒 Smart Shopping List
-- Auto-Generated Lists
-- Future Planning Preview
-- Ingredients organized by category
+- Auto-generated ingredient lists based on selected meals
+- Preview next week’s ingredients
+- Organized by category (Meat, Vegetables, Spices/Others)
 
 ### 👤 User Profile & Settings
-- Personalized Profile (avatar & display name)
-- Profile Customization
-- Security Management (password change)
-- Help Center
-- Session Management
+- Personalized avatar and display name
+- Edit profile and manage security settings
+- Built-in FAQ for app guidance
+- Secure logout functionality
 
-### 🔐 Authentication System
-- Interactive Onboarding
-- Multiple Login Options (email/password, Google Sign-In)
-- Streamlined Registration
+### 🔐 Authentication
+- Interactive onboarding flow
+- Multiple login options: Email/password and Google Sign-In
+- Quick registration with automatic account creation
 
-### ⚡ Additional Features
-- Offline-First Architecture (read-only mode)
-- Smart Token Management
-- Adaptive Theming (Light/Dark mode)
-- Secure Authentication
+---
 
-<details>
-<summary>📱 Screenshots & Video Demos</summary>
+### 📱 Feature Previews
+
+**Key Screenshots (Visible Upfront)**
+
+<p align="center">
+  <img src="document/picture/1.png" width="30%" />
+  <img src="document/picture/4.png" width="30%" />
+  <img src="document/picture/9.png" width="30%" />
+  <img src="document/picture/11.png" width="30%" />
+</p>
+
+> These screenshots highlight onboarding, dashboard, and recipe library features.
 
 | Onboarding & Profile | Recipe Features | Dashboard & Planning |
 |:---:|:---:|:---:|
-| [▶️ Demo](https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-1.mp4) | [▶️ Demo](https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-2.mp4) | [▶️ Demo](https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-31.mp4) |
+| [▶️ Watch Demo](https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-1.mp4) | [▶️ Watch Demo](https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-2.mp4) | [▶️ Watch Demo](https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-31.mp4) |
 | Authentication & Profile | Browse & manage recipes | Weekly meal planning |
 
+<details>
+<summary>Expand Full Screenshots & Video Demos</summary>
+
 <p align="center">
-<img src="document/picture/1.png" width="30%" />
-<img src="document/picture/2.png" width="30%" />
-<img src="document/picture/3.png" width="30%" />
+  <img src="document/picture/2.png" width="30%" />
+  <img src="document/picture/3.png" width="30%" />
+  <img src="document/picture/5.png" width="30%" />
 </p>
 
 <p align="center">
-<img src="document/picture/4.png" width="30%" />
-<img src="document/picture/5.png" width="30%" />
-<img src="document/picture/6.png" width="30%" />
+  <img src="document/picture/6.png" width="30%" />
+  <img src="document/picture/7.png" width="30%" />
+  <img src="document/picture/8.png" width="30%" />
 </p>
 
 <p align="center">
-<img src="document/picture/7.png" width="30%" />
-<img src="document/picture/8.png" width="30%" />
+  <img src="document/picture/10.png" width="30%" />
+  <img src="document/picture/12.png" width="30%" />
+  <img src="document/picture/13.png" width="30%" />
 </p>
 
 <p align="center">
-<img src="document/picture/9.png" width="30%" />
-<img src="document/picture/10.png" width="30%" />
-<img src="document/picture/11.png" width="30%" />
+  <img src="document/picture/14.png" width="30%" />
+  <img src="document/picture/15.png" width="30%" />
+  <img src="document/picture/16.png" width="30%" />
 </p>
 
 <p align="center">
-<img src="document/picture/12.png" width="30%" />
-<img src="document/picture/13.png" width="30%" />
+  <img src="document/picture/17.png" width="30%" />
+  <img src="document/picture/18.png" width="30%" />
+  <img src="document/picture/19.png" width="30%" />
 </p>
 
-<p align="center">
-<img src="document/picture/14.png" width="30%" />
-<img src="document/picture/15.png" width="30%" />
-<img src="document/picture/16.png" width="30%" />
-</p>
-
-<p align="center">
-<img src="document/picture/17.png" width="30%" />
-<img src="document/picture/18.png" width="30%" />
-<img src="document/picture/19.png" width="30%" />
-</p>
-
-> **Note:** Shopping List feature is currently under development.
+> **Note:** Smart Shopping List feature is under development and will be updated soon.
 
 </details>
-
 ---
 
 ## 3. Tech Stack
