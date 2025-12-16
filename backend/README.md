@@ -10,11 +10,12 @@ This backend uses Supabase as BaaS with:
 - Full database schema
 - RLS policies
 - Edge Functions source code
-- n8n workflows
+- n8n sample workflow and results
 
 ## What is NOT included
 - Secrets
 - Production API keys
+- n8n json files
 
 ## Reproducibility
 This setup is not 1-click deploy by design.
