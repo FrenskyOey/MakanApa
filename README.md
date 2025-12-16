@@ -1,2 +1,8 @@
-# MakanApa
-This is my personal project for meal plan app using flutter and also Supabase as BE Services
+# MakanApa 🍳
+
+This repo contains:
+
+1. `makanapa/` – Flutter app source code.
+2. `backend/` – Supabase schema, migrations, and n8n workflow automation.
+
+See the respective folders for detailed documentation.
