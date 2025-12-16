@@ -152,3 +152,82 @@ Get a complete walkthrough of the app's features:
 ---
 
 > **Note:** Shopping List feature is currently under development and will be updated soon.
+
+## Tech Stack
+
+### 📱 Core Framework
+- **Flutter** 3.35.6 (Stable Channel)
+- **Dart** 3.9.2
+- **DevTools** 2.48.0
+
+### 🏗️ State Management
+A hybrid approach combining two powerful state management solutions:
+
+- **Riverpod** - Used for Authentication, Profile, and Dashboard features
+- **Bloc** - Implemented for Recipe features with Riverpod handling dependency injection
+  
+> **Why Hybrid?** This architecture demonstrates proficiency in multiple state management patterns, making the codebase accessible to developers familiar with either approach while showcasing advanced Flutter skills.
+
+### 🗄️ Backend & Database
+- **Supabase** - Complete backend solution
+  - **PostgreSQL Database** - Robust relational database with built-in RLS (Row Level Security)
+  - **Edge Functions** - Serverless REST API endpoints with AI-assisted code generation
+  - **Supabase Authentication** - JWT-based authentication with automatic hourly token refresh
+  - **Supabase Storage** - Image and asset storage with CDN delivery
+
+> **Why Supabase?** Easy maintenance with PostgreSQL, powerful Edge Functions as REST API alternative, superior security through RLS policies, and excellent AI code generation compatibility.
+
+### 💾 Local Storage
+- **Isar Community** - High-performance NoSQL database
+  - Real-time Stream support for reactive offline-first architecture
+  - Built-in Web UI for easy debugging and data inspection
+  - Enables seamless offline data synchronization
+
+### 🌐 Networking
+- **Dio** - HTTP client with interceptor support
+  - **LogInterceptor** - Request/response logging for debugging
+  - **Custom Token Interceptor** - Automatic token refresh and expiration handling
+  - **Custom Header Interceptor** - App version and device info tracking for backend logging
+- **Chucker** - Network inspection tool (currently disabled)
+
+### 🔧 Dependency Injection
+- **Riverpod** - Type-safe dependency injection and service locator
+
+### 🤖 AI Integration & Data Seeding
+Powered by **n8n** workflow automation for intelligent data generation:
+
+- **Recipe Generation** - Gemini AI generates authentic recipe names based on cuisine type
+- **Ingredient Lists** - ChatGPT creates detailed ingredient lists for 2-serving portions
+- **Food Photography** - Flux Pro Nano Banana generates Ghibli-style food imagery
+- **Automated Seeding** - Complete pipeline from AI generation to Supabase storage
+
+### 📦 Key Packages & Tools
+
+**UI & Navigation**
+- `go_router` - Declarative routing and navigation
+- `cached_network_image` - Efficient image loading and caching
+- `flutter_hooks` + `hooks_riverpod` - Lifecycle management and automatic disposal
+
+**Code Generation**
+- `freezed` - Immutable model classes and union types
+- `build_runner` - Code generation for Isar and Riverpod
+- `json_serializable` - JSON serialization/deserialization
+
+**Architecture & Patterns**
+- `dartz` - Functional programming with Either type for error handling
+- `equatable` - Value equality for models and state classes
+
+**Security & Configuration**
+- `flutter_dotenv` - Secure environment variable management
+- `firebase_auth` - Google Sign-In integration
+
+**Testing**
+- `mockito` - Mock generation for unit testing
+- `build_runner` - Test mock generation
+
+### 🎯 Architecture Highlights
+- **Offline-First Design** - Full read access without internet connectivity
+- **Clean Architecture** - Separation of concerns with clear layer boundaries
+- **Repository Pattern** - Abstracted data sources for testability
+- **Functional Error Handling** - Type-safe error propagation with Either
+- **Reactive Programming** - Stream-based data flow with Isar and Riverpod
