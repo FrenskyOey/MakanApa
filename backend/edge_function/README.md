@@ -1,12 +1,24 @@
-# Edge Functions – Backend Logic
+# Supabase Edge Functions for MakanApa 🍳
 
-This directory contains the server-side logic for **Makan Apa**, implemented using [Supabase Edge Functions](https://supabase.com/docs/guides/functions) (Deno).
+This folder contains all **Supabase Edge Functions** used in the MakanApa project.  
+These serverless functions are written in **TypeScript** and run on **Deno**.
 
-## 🔑 Environment Variables & Secrets
+---
+
+## 1. AI-Assisted Development
+
+All Edge Function code in this folder was **generated with the help of AI**.  
+However, each function has been **carefully reviewed, guided, and refined by me**, the developer.  
+
+- I define the **requests**, **expected responses**, and **business logic** requirements.  
+- AI generates the initial function code based on those instructions.  
+- I **audit, test, and modify** the AI output to ensure correctness, security, and maintainability.
+- 
+## 2. Environment Variables & Secrets
 
 Before deploying or running these functions, you must configure the necessary secrets in your Supabase project. These environment variables are critical for database connections and authentication.
 
-### Required Secrets
+### 🔑 Required Secrets
 Please refer to **`supabase_env.png`** (included in this folder) for the exact list of keys required.
 
 !Supabase Environment Secrets
@@ -22,7 +34,10 @@ supabase secrets set SUPABASE_DB_URL=your_postgres_connection_string
 
 ---
 
-## 🚀  Deployment
+## 3. Deployment
 
-### Deployment
+### 🚀 Deployment
 To deploy just copy index.ts to edge function in supabase dashboard
+
+
+## 🚀  Deployment
