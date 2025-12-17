@@ -12,9 +12,9 @@ abstract class BasketRemoteDataSource {
 abstract class BasketLocalDataSource {
   Future<void> cacheIngredientMainData(BasketDashboardResponse response);
   Future<void> cacheIngredientGroupData(BasketSummaryResponse response);
-  Stream<BasketItemEntity?> getBasketStream({
+  Stream<List<BasketItemEntity>> getBasketStream({
     required int groupId,
-    IngredientEnum? type,
+    IngredientEnum type,
   });
   Stream<BasketGroupEntity?> getIngredientsDashboard();
   Future<void> markIngredients(int groupId, int ingredientId, bool isMarked);

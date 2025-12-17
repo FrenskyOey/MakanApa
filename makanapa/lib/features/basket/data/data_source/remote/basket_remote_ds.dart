@@ -7,14 +7,18 @@ class BasketRemoteDs implements BasketRemoteDataSource {
   final Dio dio;
 
   BasketRemoteDs({required this.dio});
-
   @override
-  Future<BasketSummaryResponse> getIngredientByGroupId(int groupId) {
-    throw UnimplementedError();
+  Future<BasketSummaryResponse> getIngredientByGroupId(int groupId) async {
+    final response = await dio.post(
+      '/v1/ingredients-summary',
+      data: {'group_id': groupId},
+    );
+    return BasketSummaryResponse.fromJson(response.data['data']);
   }
 
   @override
-  Future<BasketDashboardResponse> getIngredientMainData() {
-    throw UnimplementedError();
+  Future<BasketDashboardResponse> getIngredientMainData() async {
+    final response = await dio.get('/v1/ingredients-dashboard');
+    return BasketDashboardResponse.fromJson(response.data['data']);
   }
 }
