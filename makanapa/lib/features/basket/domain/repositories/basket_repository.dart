@@ -10,7 +10,7 @@ abstract class BasketRepository {
 
   Stream<BasketGroup> getBasketData({
     required int groupId,
-    IngredientEnum type,
+    required IngredientEnum type,
   });
 
   Future<Either<String, void>> getIngridientData({required int groupId});

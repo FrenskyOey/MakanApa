@@ -14,24 +14,26 @@ class BasketRepo implements BasketRepository {
   @override
   Stream<BasketGroup> getBasketData({
     required int groupId,
-    IngredientEnum? type,
+    required IngredientEnum type,
   }) {
-    throw UnimplementedError();
+    return localDataSource.getBasketStream(groupId: groupId, type: type).map((
+      items,
+    ) {
+      return BasketGroup(
+        type: type.description,
+        data: items.map((e) => e.toDomain()).toList(),
+      );
+    });
   }
 
   @override
   Stream<BasketSummary> getIngredientOption() {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either<String, BasketSummary>> getIngredientsSummary() {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either<String, void>> getIngridientData({required int groupId}) {
-    throw UnimplementedError();
+    return localDataSource.getIngredientsDashboard().map((event) {
+      if (event == null) {
+        return const BasketSummary(currentGroup: null, upcomingGroup: []);
+      }
+      return event.toDomain();
+    });
   }
 
   @override
@@ -39,7 +41,34 @@ class BasketRepo implements BasketRepository {
     required int groupId,
     required int ingredientId,
     required bool isMarked,
-  }) {
-    throw UnimplementedError();
+  }) async {
+    try {
+      await localDataSource.markIngredients(groupId, ingredientId, isMarked);
+      return const Right(null);
+    } catch (e) {
+      return Left(e.toString());
+    }
+  }
+
+  @override
+  Future<Either<String, BasketSummary>> getIngredientsSummary() async {
+    try {
+      final response = await remoteDataSource.getIngredientMainData();
+      await localDataSource.cacheIngredientMainData(response);
+      return Right(response.toDomain());
+    } catch (e) {
+      return Left(e.toString());
+    }
+  }
+
+  @override
+  Future<Either<String, void>> getIngridientData({required int groupId}) async {
+    try {
+      final response = await remoteDataSource.getIngredientByGroupId(groupId);
+      await localDataSource.cacheIngredientGroupData(response);
+      return const Right(null);
+    } catch (e) {
+      return Left(e.toString());
+    }
   }
 }
