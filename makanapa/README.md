@@ -6,14 +6,6 @@
 
 ---
 
-## 🤖 AI-Assisted Development
-
-- SQL functions, triggers, and Edge Functions were generated using AI.
-- All schema design, architecture, and decision-making were manually created and reviewed.
-- Demonstrates a modern workflow: leveraging AI for efficiency while maintaining control and ownership.
-
----
-
 ## 1. Overview
 
 Weekly grocery trips without a plan often lead to confusion about what to buy and which meals to prepare. **Makan Apa** solves this by allowing users to select their meals for the week, then automatically generating a comprehensive shopping list with all required ingredients.
