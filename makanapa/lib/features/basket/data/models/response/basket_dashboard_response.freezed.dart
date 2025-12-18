@@ -221,8 +221,8 @@ return $default(_that.currentWeekIngredients,_that.upcomingPlans);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _BasketDashboardResponse implements BasketDashboardResponse {
-  const _BasketDashboardResponse({@JsonKey(name: 'current_week_ingredients') this.currentWeekIngredients, @JsonKey(name: 'upcoming_plan', defaultValue: []) required final  List<BasketUpcomingPlanResponse> upcomingPlans}): _upcomingPlans = upcomingPlans;
+class _BasketDashboardResponse extends BasketDashboardResponse {
+  const _BasketDashboardResponse({@JsonKey(name: 'current_week_ingredients') this.currentWeekIngredients, @JsonKey(name: 'upcoming_plan', defaultValue: []) required final  List<BasketUpcomingPlanResponse> upcomingPlans}): _upcomingPlans = upcomingPlans,super._();
   factory _BasketDashboardResponse.fromJson(Map<String, dynamic> json) => _$BasketDashboardResponseFromJson(json);
 
 @override@JsonKey(name: 'current_week_ingredients') final  BasketSummaryResponse? currentWeekIngredients;

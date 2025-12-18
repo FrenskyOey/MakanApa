@@ -36,6 +36,8 @@ class BasketItemEntity {
 
   BasketItem toDomain() {
     return BasketItem(
+      id: ingredientId,
+      groupId: groupId,
       name: name,
       unit: unit,
       qty: quantity,

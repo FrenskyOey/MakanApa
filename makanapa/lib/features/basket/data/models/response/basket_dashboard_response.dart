@@ -9,6 +9,8 @@ part 'basket_dashboard_response.g.dart';
 
 @freezed
 abstract class BasketDashboardResponse with _$BasketDashboardResponse {
+  const BasketDashboardResponse._();
+
   const factory BasketDashboardResponse({
     @JsonKey(name: 'current_week_ingredients')
     BasketSummaryResponse? currentWeekIngredients,

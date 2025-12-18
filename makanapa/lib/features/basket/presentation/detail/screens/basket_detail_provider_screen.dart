@@ -3,7 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:makanapa/features/basket/presentation/detail/screens/basket_detail_page.dart';
 
 class BasketDetailProviderScreen extends HookConsumerWidget {
-  const BasketDetailProviderScreen({super.key});
+  final int groupId;
+  const BasketDetailProviderScreen({super.key, required this.groupId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -104,3 +104,49 @@ final class BasketLocalDataSourceProvider
 
 String _$basketLocalDataSourceHash() =>
     r'1d8c60997c81c018afcc030daf2e89e6f649651b';
+
+@ProviderFor(basketRepository)
+const basketRepositoryProvider = BasketRepositoryProvider._();
+
+final class BasketRepositoryProvider
+    extends
+        $FunctionalProvider<
+          BasketRepository,
+          BasketRepository,
+          BasketRepository
+        >
+    with $Provider<BasketRepository> {
+  const BasketRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'basketRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$basketRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<BasketRepository> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  BasketRepository create(Ref ref) {
+    return basketRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(BasketRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<BasketRepository>(value),
+    );
+  }
+}
+
+String _$basketRepositoryHash() => r'c9799f91db4139777e45908271217e8ff9115100';

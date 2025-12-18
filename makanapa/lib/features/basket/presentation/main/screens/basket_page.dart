@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:makanapa/core/extension/index.dart';
-import 'package:makanapa/core/themes/dimens_constant.dart';
-import 'package:makanapa/core/widgets/gradient_text.dart';
+import 'package:makanapa/core/configs/routes/route_names.dart';
+import 'package:makanapa/core/helpers/snackbar_helper.dart';
+import 'package:makanapa/features/basket/presentation/main/controllers/basket_bloc_controller.dart';
+import 'package:makanapa/features/basket/presentation/main/controllers/state/basket_effect.dart';
+import 'package:makanapa/features/basket/presentation/main/controllers/state/basket_event.dart';
+import 'package:makanapa/features/basket/presentation/main/screens/basket_main_screen.dart';
+import 'package:makanapa/features/basket/presentation/main/screens/basket_upcoming_screen.dart';
 
 class BasketPage extends HookConsumerWidget {
   const BasketPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    /*
     useEffect(() {
-      context.read<DetailBloc>().add(LoadDetailEvent(recipeItem.id));
+      context.read<BasketBloc>().add(LoadMainDataEvent());
       return null;
     }, const []);
 
     useEffect(() {
-      final sub = context.read<DetailBloc>().sideEffects.listen((event) {
+      final sub = context.read<BasketBloc>().sideEffects.listen((event) {
         event.maybeWhen(
           toastError: (error) {
             SnackBarHelper.showError(context, error);
@@ -25,14 +31,8 @@ class BasketPage extends HookConsumerWidget {
           toastSuccess: (message) {
             SnackBarHelper.showSuccess(context, message);
           },
-          openUrlLink: (url) {
-            //launchingUrl("https://id.shp.ee/7CR2q55");
-            if (url.isNullOrEmpty) {
-              SnackBarHelper.showError(context, "Data url tidak ditemukan");
-              return;
-            }
-
-            launchingUrl(url);
+          openUpcomingItem: (groupId) {
+            context.pushNamed(RouteNames.upcomingBasket, extra: groupId);
           },
           orElse: () {},
         );
@@ -40,9 +40,26 @@ class BasketPage extends HookConsumerWidget {
 
       return sub.cancel; // Dispose subscription
     }, const []);
-    */
 
-    return Scaffold(
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Daftar Belanja"),
+          bottom: const TabBar(
+            tabs: [
+              Tab(icon: Icon(Icons.assignment), text: "Minggu Ini"),
+              Tab(icon: Icon(Icons.update), text: "Mingu Mendatang"),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [const BasketMainScreen(), const BasketUpcomingScreen()],
+        ),
+      ),
+    );
+
+    /*Scaffold(
       body: SafeArea(
         child: SizedBox.expand(
           child: Column(
@@ -58,30 +75,6 @@ class BasketPage extends HookConsumerWidget {
             ],
           ),
         ),
-
-        /*
-        child: BlocConsumer<DetailBloc, DetailUiState>(
-          listener: (context, state) {},
-          buildWhen: (previous, current) {
-            return previous.state != current.state;
-          },
-          builder: (context, state) {
-            return CustomScrollView(
-              slivers: [
-                SliverPersistentHeader(
-                  pinned: true,
-                  delegate: HeaderWidget(
-                    recipeItem: recipeItem,
-                    onBack: () => Navigator.pop(context),
-                    heroTag: heroTag,
-                  ),
-                ),
-                getWidgetBody(state.state),
-              ],
-            );
-          },
-        ),*/
-      ),
-    );
+        */
   }
 }

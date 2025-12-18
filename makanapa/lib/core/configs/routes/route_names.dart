@@ -24,6 +24,7 @@ class RouteNames {
 
   // basket Routes
   static const String basket = '/basket';
+  static const String upcomingBasket = '/basket/upcoming';
 
   // profile Routes
   static const String profile = '/profile';
