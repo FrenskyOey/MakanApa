@@ -45,7 +45,7 @@ extension DateTimeExtensions on DateTime {
 
     final monthName = months[month - 1];
     final dayIndex = dayNames[weekday - 1];
-    return '$dayIndex - $day $monthName $year';
+    return '$dayIndex, $day $monthName $year';
   }
 
   /// Returns a readable date format, e.g., 'Oct 24, 2025'.

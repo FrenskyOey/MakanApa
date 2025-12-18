@@ -5,5 +5,5 @@ part 'basket_effect.freezed.dart';
 class BasketEffect with _$BasketEffect {
   const factory BasketEffect.toastError(String messgae) = _ToastError;
   const factory BasketEffect.toastSuccess(String messgae) = _ToastSuccess;
-  const factory BasketEffect.openDetail(int groupId) = _OpenDetail;
+  const factory BasketEffect.openUpcomingItem(int groupId) = _OpenUpcomingItem;
 }
