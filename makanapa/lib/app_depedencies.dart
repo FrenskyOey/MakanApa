@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:isar_community/isar.dart';
+import 'package:makanapa/features/basket/data/models/entity/basket_group_isar_model.dart';
+import 'package:makanapa/features/basket/data/models/entity/basket_item_isar_model.dart';
 import 'package:makanapa/features/home/data/models/entity/dashboard_isar_model.dart';
 import 'package:makanapa/features/home/data/models/entity/weekly_detail_isar_model.dart';
 import 'package:makanapa/features/onboarding/data/models/entity/user_entity.dart';
@@ -25,6 +27,8 @@ Future<Isar> initializeIsar() async {
       RecipeIndexEntitySchema,
       DashboardEntitySchema,
       WeeklyDetailEntitySchema,
+      BasketItemEntitySchema,
+      BasketGroupEntitySchema,
     ],
     inspector: true,
     directory: directory.path,

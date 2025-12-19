@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:makanapa/core/configs/routes/route_names.dart';
-import 'package:makanapa/features/basket/presentation/screens/basket_screen.dart';
+import 'package:makanapa/features/basket/domain/models/basket_option.dart';
+import 'package:makanapa/features/basket/presentation/detail/screens/basket_detail_provider_screen.dart';
+import 'package:makanapa/features/basket/presentation/main/screens/basket_provider_screen.dart';
 import 'package:makanapa/features/home/domain/models/avaiblity_item.dart';
 import 'package:makanapa/features/home/presentation/create/screens/create_screen.dart';
 import 'package:makanapa/features/home/presentation/home/screens/home_screen.dart';
@@ -102,7 +104,7 @@ final routeProvider = Provider((ref) {
               GoRoute(
                 name: RouteNames.basket,
                 path: "/basket",
-                builder: (context, state) => const BasketScreen(),
+                builder: (context, state) => const BasketProviderScreen(),
               ),
             ],
           ),
@@ -211,6 +213,14 @@ final routeProvider = Provider((ref) {
         builder: (BuildContext context, GoRouterState state) {
           final groupId = state.extra as int;
           return PlanScreen(groupId: groupId);
+        },
+      ),
+      GoRoute(
+        name: RouteNames.upcomingBasket,
+        path: '/basket/upcoming',
+        builder: (BuildContext context, GoRouterState state) {
+          final item = state.extra as BasketOptionItem;
+          return BasketDetailProviderScreen(item: item);
         },
       ),
     ],
