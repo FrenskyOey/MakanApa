@@ -1,23 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:makanapa/core/configs/routes/route_names.dart';
 import 'package:makanapa/core/extension/index.dart';
+import 'package:makanapa/core/helpers/snackbar_helper.dart';
 import 'package:makanapa/core/themes/dimens_constant.dart';
-import 'package:makanapa/core/widgets/gradient_text.dart';
+import 'package:makanapa/features/basket/domain/models/basket_option.dart';
+import 'package:makanapa/features/basket/presentation/detail/components/meat_detail_widget.dart';
+import 'package:makanapa/features/basket/presentation/detail/components/other_detail_widget.dart';
+import 'package:makanapa/features/basket/presentation/detail/components/vegetable_detail_widget.dart';
+import 'package:makanapa/features/basket/presentation/detail/controllers/basket_detail_bloc_controller.dart';
+import 'package:makanapa/features/basket/presentation/detail/controllers/state/basket_detail_effect.dart';
+import 'package:makanapa/features/basket/presentation/detail/controllers/state/basket_detail_event.dart';
 
 class BasketDetailPage extends HookConsumerWidget {
-  const BasketDetailPage({super.key});
+  final BasketOptionItem item;
+  const BasketDetailPage({super.key, required this.item});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    /*
     useEffect(() {
-      context.read<DetailBloc>().add(LoadDetailEvent(recipeItem.id));
+      context.read<BasketDetailBloc>().add(LoadDetailEvent(item));
       return null;
     }, const []);
 
     useEffect(() {
-      final sub = context.read<DetailBloc>().sideEffects.listen((event) {
+      final sub = context.read<BasketDetailBloc>().sideEffects.listen((event) {
         event.maybeWhen(
           toastError: (error) {
             SnackBarHelper.showError(context, error);
@@ -25,14 +36,8 @@ class BasketDetailPage extends HookConsumerWidget {
           toastSuccess: (message) {
             SnackBarHelper.showSuccess(context, message);
           },
-          openUrlLink: (url) {
-            //launchingUrl("https://id.shp.ee/7CR2q55");
-            if (url.isNullOrEmpty) {
-              SnackBarHelper.showError(context, "Data url tidak ditemukan");
-              return;
-            }
-
-            launchingUrl(url);
+          openPlanDetail: (groupId) {
+            context.pushNamed(RouteNames.planDetail, extra: groupId);
           },
           orElse: () {},
         );
@@ -40,47 +45,54 @@ class BasketDetailPage extends HookConsumerWidget {
 
       return sub.cancel; // Dispose subscription
     }, const []);
-    */
 
-    return Scaffold(
-      body: SafeArea(
-        child: SizedBox.expand(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text("Basket Screen", style: context.textTheme.headlineMedium),
-              Dimens.xxl.space,
-              Icon(Icons.phonelink_erase, size: 80, color: context.secondary),
-              Dimens.xxl.space,
-              GradientText("COMING SOON"),
-              Dimens.xxl.space,
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "${item.startDate.toReadableDateWithoutYear} - ${item.endDate.toReadableDateWithoutYear}",
+          ),
+          bottom: const TabBar(
+            tabs: [
+              Tab(icon: Icon(Icons.eco_rounded), text: 'Sayuran'),
+              Tab(icon: Icon(Icons.kebab_dining_rounded), text: 'Daging'),
+              Tab(icon: Icon(Icons.photo_filter), text: 'Lainnya'),
             ],
           ),
         ),
-
-        /*
-        child: BlocConsumer<DetailBloc, DetailUiState>(
-          listener: (context, state) {},
-          buildWhen: (previous, current) {
-            return previous.state != current.state;
-          },
-          builder: (context, state) {
-            return CustomScrollView(
-              slivers: [
-                SliverPersistentHeader(
-                  pinned: true,
-                  delegate: HeaderWidget(
-                    recipeItem: recipeItem,
-                    onBack: () => Navigator.pop(context),
-                    heroTag: heroTag,
-                  ),
+        body: Column(
+          children: [
+            Expanded(
+              child: TabBarView(
+                children: [
+                  const VegetableDetailWidget(),
+                  const MeatDetailWidget(),
+                  const OtherDetailWidget(),
+                ],
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  Dimens.md,
+                  Dimens.ms,
+                  Dimens.md,
+                  Dimens.md,
                 ),
-                getWidgetBody(state.state),
-              ],
-            );
-          },
-        ),*/
+                child: ElevatedButton(
+                  onPressed: () {
+                    context.read<BasketDetailBloc>().add(
+                      OpenPlanDetailEvent(item.groupId),
+                    );
+                  },
+                  child: Text("Lihat Menu"),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

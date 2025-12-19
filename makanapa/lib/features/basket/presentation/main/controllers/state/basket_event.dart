@@ -17,8 +17,8 @@ class MarkingItemEvent extends BasketEvent {
 }
 
 class OpenDetailItemEvent extends BasketEvent {
-  final int groupId;
-  const OpenDetailItemEvent(this.groupId);
+  final BasketOptionItem item;
+  const OpenDetailItemEvent(this.item);
 }
 
 class SummaryUpdateStreamEvent extends BasketEvent {

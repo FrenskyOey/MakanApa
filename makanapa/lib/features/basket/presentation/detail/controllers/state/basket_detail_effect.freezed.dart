@@ -55,13 +55,13 @@ extension BasketDetailEffectPatterns on BasketDetailEffect {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ToastError value)?  toastError,TResult Function( _ToastSuccess value)?  toastSuccess,TResult Function( _OpenDetail value)?  openDetail,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ToastError value)?  toastError,TResult Function( _ToastSuccess value)?  toastSuccess,TResult Function( _OpenPlanDetail value)?  openPlanDetail,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that);case _OpenDetail() when openDetail != null:
-return openDetail(_that);case _:
+return toastSuccess(_that);case _OpenPlanDetail() when openPlanDetail != null:
+return openPlanDetail(_that);case _:
   return orElse();
 
 }
@@ -79,13 +79,13 @@ return openDetail(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ToastError value)  toastError,required TResult Function( _ToastSuccess value)  toastSuccess,required TResult Function( _OpenDetail value)  openDetail,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ToastError value)  toastError,required TResult Function( _ToastSuccess value)  toastSuccess,required TResult Function( _OpenPlanDetail value)  openPlanDetail,}){
 final _that = this;
 switch (_that) {
 case _ToastError():
 return toastError(_that);case _ToastSuccess():
-return toastSuccess(_that);case _OpenDetail():
-return openDetail(_that);case _:
+return toastSuccess(_that);case _OpenPlanDetail():
+return openPlanDetail(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -102,13 +102,13 @@ return openDetail(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ToastError value)?  toastError,TResult? Function( _ToastSuccess value)?  toastSuccess,TResult? Function( _OpenDetail value)?  openDetail,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ToastError value)?  toastError,TResult? Function( _ToastSuccess value)?  toastSuccess,TResult? Function( _OpenPlanDetail value)?  openPlanDetail,}){
 final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that);case _OpenDetail() when openDetail != null:
-return openDetail(_that);case _:
+return toastSuccess(_that);case _OpenPlanDetail() when openPlanDetail != null:
+return openPlanDetail(_that);case _:
   return null;
 
 }
@@ -125,12 +125,12 @@ return openDetail(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String messgae)?  toastError,TResult Function( String messgae)?  toastSuccess,TResult Function( int groupId)?  openDetail,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String messgae)?  toastError,TResult Function( String messgae)?  toastSuccess,TResult Function( int groupId)?  openPlanDetail,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that.messgae);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that.messgae);case _OpenDetail() when openDetail != null:
-return openDetail(_that.groupId);case _:
+return toastSuccess(_that.messgae);case _OpenPlanDetail() when openPlanDetail != null:
+return openPlanDetail(_that.groupId);case _:
   return orElse();
 
 }
@@ -148,12 +148,12 @@ return openDetail(_that.groupId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String messgae)  toastError,required TResult Function( String messgae)  toastSuccess,required TResult Function( int groupId)  openDetail,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String messgae)  toastError,required TResult Function( String messgae)  toastSuccess,required TResult Function( int groupId)  openPlanDetail,}) {final _that = this;
 switch (_that) {
 case _ToastError():
 return toastError(_that.messgae);case _ToastSuccess():
-return toastSuccess(_that.messgae);case _OpenDetail():
-return openDetail(_that.groupId);case _:
+return toastSuccess(_that.messgae);case _OpenPlanDetail():
+return openPlanDetail(_that.groupId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -170,12 +170,12 @@ return openDetail(_that.groupId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String messgae)?  toastError,TResult? Function( String messgae)?  toastSuccess,TResult? Function( int groupId)?  openDetail,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String messgae)?  toastError,TResult? Function( String messgae)?  toastSuccess,TResult? Function( int groupId)?  openPlanDetail,}) {final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that.messgae);case _ToastSuccess() when toastSuccess != null:
-return toastSuccess(_that.messgae);case _OpenDetail() when openDetail != null:
-return openDetail(_that.groupId);case _:
+return toastSuccess(_that.messgae);case _OpenPlanDetail() when openPlanDetail != null:
+return openPlanDetail(_that.groupId);case _:
   return null;
 
 }
@@ -318,8 +318,8 @@ as String,
 /// @nodoc
 
 
-class _OpenDetail implements BasketDetailEffect {
-  const _OpenDetail(this.groupId);
+class _OpenPlanDetail implements BasketDetailEffect {
+  const _OpenPlanDetail(this.groupId);
   
 
  final  int groupId;
@@ -328,13 +328,13 @@ class _OpenDetail implements BasketDetailEffect {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$OpenDetailCopyWith<_OpenDetail> get copyWith => __$OpenDetailCopyWithImpl<_OpenDetail>(this, _$identity);
+_$OpenPlanDetailCopyWith<_OpenPlanDetail> get copyWith => __$OpenPlanDetailCopyWithImpl<_OpenPlanDetail>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OpenDetail&&(identical(other.groupId, groupId) || other.groupId == groupId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OpenPlanDetail&&(identical(other.groupId, groupId) || other.groupId == groupId));
 }
 
 
@@ -343,15 +343,15 @@ int get hashCode => Object.hash(runtimeType,groupId);
 
 @override
 String toString() {
-  return 'BasketDetailEffect.openDetail(groupId: $groupId)';
+  return 'BasketDetailEffect.openPlanDetail(groupId: $groupId)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$OpenDetailCopyWith<$Res> implements $BasketDetailEffectCopyWith<$Res> {
-  factory _$OpenDetailCopyWith(_OpenDetail value, $Res Function(_OpenDetail) _then) = __$OpenDetailCopyWithImpl;
+abstract mixin class _$OpenPlanDetailCopyWith<$Res> implements $BasketDetailEffectCopyWith<$Res> {
+  factory _$OpenPlanDetailCopyWith(_OpenPlanDetail value, $Res Function(_OpenPlanDetail) _then) = __$OpenPlanDetailCopyWithImpl;
 @useResult
 $Res call({
  int groupId
@@ -362,17 +362,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$OpenDetailCopyWithImpl<$Res>
-    implements _$OpenDetailCopyWith<$Res> {
-  __$OpenDetailCopyWithImpl(this._self, this._then);
+class __$OpenPlanDetailCopyWithImpl<$Res>
+    implements _$OpenPlanDetailCopyWith<$Res> {
+  __$OpenPlanDetailCopyWithImpl(this._self, this._then);
 
-  final _OpenDetail _self;
-  final $Res Function(_OpenDetail) _then;
+  final _OpenPlanDetail _self;
+  final $Res Function(_OpenPlanDetail) _then;
 
 /// Create a copy of BasketDetailEffect
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? groupId = null,}) {
-  return _then(_OpenDetail(
+  return _then(_OpenPlanDetail(
 null == groupId ? _self.groupId : groupId // ignore: cast_nullable_to_non_nullable
 as int,
   ));
