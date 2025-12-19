@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:makanapa/core/configs/routes/route_names.dart';
+import 'package:makanapa/features/basket/domain/models/basket_option.dart';
 import 'package:makanapa/features/basket/presentation/detail/screens/basket_detail_provider_screen.dart';
 import 'package:makanapa/features/basket/presentation/main/screens/basket_provider_screen.dart';
 import 'package:makanapa/features/home/domain/models/avaiblity_item.dart';
@@ -218,8 +219,8 @@ final routeProvider = Provider((ref) {
         name: RouteNames.upcomingBasket,
         path: '/basket/upcoming',
         builder: (BuildContext context, GoRouterState state) {
-          final groupId = state.extra as int;
-          return BasketDetailProviderScreen(groupId: groupId);
+          final item = state.extra as BasketOptionItem;
+          return BasketDetailProviderScreen(item: item);
         },
       ),
     ],

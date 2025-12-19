@@ -96,7 +96,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketUiState>
     OpenDetailItemEvent event,
     Emitter<BasketUiState> emit,
   ) async {
-    emitEffect(BasketEffect.openUpcomingItem(event.groupId));
+    emitEffect(BasketEffect.openUpcomingItem(event.item));
   }
 
   Future<void> _onUpdateSummary(

@@ -1,46 +1,62 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:makanapa/core/extension/index.dart';
 import 'package:makanapa/core/themes/app_color.dart';
-import 'package:makanapa/core/themes/dimens_constant.dart';
-import 'package:makanapa/features/basket/presentation/main/components/shopping_list_item.dart';
-import 'package:makanapa/features/basket/presentation/main/controllers/basket_bloc_controller.dart';
-import 'package:makanapa/features/basket/presentation/main/controllers/state/basket_event.dart';
+import 'package:makanapa/features/basket/presentation/main/components/base_group_item.dart';
 import 'package:makanapa/features/basket/presentation/main/controllers/state/basket_ui_state.dart';
 
-class MeatGroupItem extends HookConsumerWidget {
+class MeatGroupItem extends BaseGroupItem {
   const MeatGroupItem({super.key});
 
   @override
+  bool checkRebuild(BasketUiState previous, BasketUiState current) {
+    return previous.meatBasket != current.meatBasket;
+  }
+
+  @override
+  Color getBaseColor() {
+    return AppColor.error;
+  }
+
+  @override
+  List getItemGroup(BasketUiState state) {
+    return state.meatBasket;
+  }
+
+  @override
+  String getTitle() {
+    return "Daging";
+  }
+}
+
+/*
+    @override
   Widget build(BuildContext context, WidgetRef ref) {
     return BlocBuilder<BasketBloc, BasketUiState>(
-      buildWhen: (previous, current) {
-        return previous.meatBasket != current.meatBasket;
-      },
+      buildWhen: checkRebuild,
       builder: (context, state) {
-        final basketGroup = state.meatBasket;
+        final basketGroup = getItemGroup(state);
+        final baseColor = getBaseColor();
+
         return SliverMainAxisGroup(
           slivers: <Widget>[
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(
+                padding: EdgeInsets.fromLTRB(
                   Dimens.md,
-                  0,
+                  getTopPadding(),
                   Dimens.lg,
                   Dimens.sm,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Daging", style: context.titleMedium),
+                    Text(getTitle(), style: context.titleMedium),
                     Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: Dimens.md,
                         vertical: Dimens.xs,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColor.error,
+                        color: baseColor,
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
@@ -54,13 +70,12 @@ class MeatGroupItem extends HookConsumerWidget {
                 ),
               ),
             ),
-
             SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
                 final item = basketGroup[index];
                 return ShoppingListItem(
                   item: item,
-                  itemColor: AppColor.error,
+                  itemColor: baseColor,
                   onPressed: () {
                     context.read<BasketBloc>().add(
                       MarkingItemEvent(!item.isMarked, item.groupId, item.id),
@@ -69,11 +84,10 @@ class MeatGroupItem extends HookConsumerWidget {
                 );
               }, childCount: basketGroup.length),
             ),
-
             const SliverToBoxAdapter(child: SizedBox(height: Dimens.md)),
           ],
         );
       },
     );
   }
-}
+}*/

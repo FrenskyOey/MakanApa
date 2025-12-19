@@ -65,7 +65,7 @@ class ShoppingListItem extends StatelessWidget {
 
                 // Quantity Badge
                 Container(
-                  width: 70,
+                  width: 80,
                   padding: const EdgeInsets.symmetric(vertical: Dimens.sm),
                   decoration: BoxDecoration(
                     color: itemColor, // Very light background
@@ -74,7 +74,10 @@ class ShoppingListItem extends StatelessWidget {
                   child: Center(
                     child: Text(
                       '${item.qty} ${item.unit}',
-                      style: context.labelMedium?.copyWith(color: Colors.white),
+                      style: context.labelMedium?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ),

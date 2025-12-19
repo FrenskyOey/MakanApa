@@ -125,12 +125,12 @@ return openUpcomingItem(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String messgae)?  toastError,TResult Function( String messgae)?  toastSuccess,TResult Function( int groupId)?  openUpcomingItem,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String messgae)?  toastError,TResult Function( String messgae)?  toastSuccess,TResult Function( BasketOptionItem item)?  openUpcomingItem,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that.messgae);case _ToastSuccess() when toastSuccess != null:
 return toastSuccess(_that.messgae);case _OpenUpcomingItem() when openUpcomingItem != null:
-return openUpcomingItem(_that.groupId);case _:
+return openUpcomingItem(_that.item);case _:
   return orElse();
 
 }
@@ -148,12 +148,12 @@ return openUpcomingItem(_that.groupId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String messgae)  toastError,required TResult Function( String messgae)  toastSuccess,required TResult Function( int groupId)  openUpcomingItem,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String messgae)  toastError,required TResult Function( String messgae)  toastSuccess,required TResult Function( BasketOptionItem item)  openUpcomingItem,}) {final _that = this;
 switch (_that) {
 case _ToastError():
 return toastError(_that.messgae);case _ToastSuccess():
 return toastSuccess(_that.messgae);case _OpenUpcomingItem():
-return openUpcomingItem(_that.groupId);case _:
+return openUpcomingItem(_that.item);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -170,12 +170,12 @@ return openUpcomingItem(_that.groupId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String messgae)?  toastError,TResult? Function( String messgae)?  toastSuccess,TResult? Function( int groupId)?  openUpcomingItem,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String messgae)?  toastError,TResult? Function( String messgae)?  toastSuccess,TResult? Function( BasketOptionItem item)?  openUpcomingItem,}) {final _that = this;
 switch (_that) {
 case _ToastError() when toastError != null:
 return toastError(_that.messgae);case _ToastSuccess() when toastSuccess != null:
 return toastSuccess(_that.messgae);case _OpenUpcomingItem() when openUpcomingItem != null:
-return openUpcomingItem(_that.groupId);case _:
+return openUpcomingItem(_that.item);case _:
   return null;
 
 }
@@ -319,10 +319,10 @@ as String,
 
 
 class _OpenUpcomingItem implements BasketEffect {
-  const _OpenUpcomingItem(this.groupId);
+  const _OpenUpcomingItem(this.item);
   
 
- final  int groupId;
+ final  BasketOptionItem item;
 
 /// Create a copy of BasketEffect
 /// with the given fields replaced by the non-null parameter values.
@@ -334,16 +334,16 @@ _$OpenUpcomingItemCopyWith<_OpenUpcomingItem> get copyWith => __$OpenUpcomingIte
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OpenUpcomingItem&&(identical(other.groupId, groupId) || other.groupId == groupId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OpenUpcomingItem&&(identical(other.item, item) || other.item == item));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,groupId);
+int get hashCode => Object.hash(runtimeType,item);
 
 @override
 String toString() {
-  return 'BasketEffect.openUpcomingItem(groupId: $groupId)';
+  return 'BasketEffect.openUpcomingItem(item: $item)';
 }
 
 
@@ -354,7 +354,7 @@ abstract mixin class _$OpenUpcomingItemCopyWith<$Res> implements $BasketEffectCo
   factory _$OpenUpcomingItemCopyWith(_OpenUpcomingItem value, $Res Function(_OpenUpcomingItem) _then) = __$OpenUpcomingItemCopyWithImpl;
 @useResult
 $Res call({
- int groupId
+ BasketOptionItem item
 });
 
 
@@ -371,10 +371,10 @@ class __$OpenUpcomingItemCopyWithImpl<$Res>
 
 /// Create a copy of BasketEffect
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? groupId = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? item = null,}) {
   return _then(_OpenUpcomingItem(
-null == groupId ? _self.groupId : groupId // ignore: cast_nullable_to_non_nullable
-as int,
+null == item ? _self.item : item // ignore: cast_nullable_to_non_nullable
+as BasketOptionItem,
   ));
 }
 

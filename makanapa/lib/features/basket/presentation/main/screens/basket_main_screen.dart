@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:makanapa/core/themes/dimens_constant.dart';
 import 'package:makanapa/core/widgets/state/screen_content.dart';
 import 'package:makanapa/features/basket/presentation/main/screens/basket_empty_page.dart';
 import 'package:makanapa/features/basket/presentation/main/components/basket_shimmer_loading.dart';
@@ -46,6 +47,7 @@ class BasketMainScreen extends HookConsumerWidget {
                     VegetableGroupItem(),
                     MeatGroupItem(),
                     OtherGroupItem(),
+                    SliverToBoxAdapter(child: SizedBox(height: Dimens.md)),
                   ],
                 );
               }

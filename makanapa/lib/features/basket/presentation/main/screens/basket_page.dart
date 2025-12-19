@@ -31,8 +31,8 @@ class BasketPage extends HookConsumerWidget {
           toastSuccess: (message) {
             SnackBarHelper.showSuccess(context, message);
           },
-          openUpcomingItem: (groupId) {
-            context.pushNamed(RouteNames.upcomingBasket, extra: groupId);
+          openUpcomingItem: (item) {
+            context.pushNamed(RouteNames.upcomingBasket, extra: item);
           },
           orElse: () {},
         );
@@ -49,7 +49,7 @@ class BasketPage extends HookConsumerWidget {
           bottom: const TabBar(
             tabs: [
               Tab(icon: Icon(Icons.assignment), text: "Minggu Ini"),
-              Tab(icon: Icon(Icons.update), text: "Mingu Mendatang"),
+              Tab(icon: Icon(Icons.update), text: "Minggu Mendatang"),
             ],
           ),
         ),

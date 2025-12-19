@@ -66,7 +66,7 @@ class BasketUpcomingScreen extends HookConsumerWidget {
                           ),
                           onPressed: () {
                             context.read<BasketBloc>().add(
-                              OpenDetailItemEvent(item.groupId),
+                              OpenDetailItemEvent(item),
                             );
                           },
                         );
