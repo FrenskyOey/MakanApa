@@ -1,9 +1,28 @@
 # Makan Apa 🍳
 
+![Flutter](https://img.shields.io/badge/Flutter-3.35.6-02569B?logo=flutter)
+![Dart](https://img.shields.io/badge/Dart-3.9.2-0175C2?logo=dart)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-blue)
+
 ## Smart Meal Planning & Automated Shopping List Generator
-ffmpeg -i /Users/frenskylee/Desktop/final-demo.mp4 \
-/Users/frenskylee/Desktop/final-demo.gif
 **Makan Apa** is a Flutter-based meal planning application designed to simplify weekly grocery shopping and meal preparation. This project serves as both a practical solution to a real-world problem and a demonstration of Flutter clean architecture patterns.
+
+**Repository:** [github.com/FrenskyOey/MakanApa](https://github.com/FrenskyOey/MakanApa/tree/main/makanapa)
+---
+
+## 📑 Table of Contents
+
+- [Overview](#1-overview)
+- [Features](#2-features)
+- [Feature Previews](#-feature-previews)
+- [Tech Stack](#3-tech-stack)
+- [Architecture Overview](#4-architecture-overview)
+- [Setup](#5-setup)
+- [Design Decisions](#6-design-decisions)
+- [Limitations](#7-limitations)
+- [Future Improvements](#8-future-improvements)
+- [Contact & License](#9-contact--license)
 
 ---
 
@@ -28,6 +47,25 @@ Choose desired dishes for the week, and the app handles the rest — from recipe
 - 📖 **Recipe Library** – Curated collection of recipes with detailed instructions
 - 🛒 **Auto-Generated Shopping Lists** – Instant ingredient lists based on selected meals
 - 👨‍🍳 **Step-by-Step Cooking Guides** – Clear instructions for meal preparation
+
+### 🤖 AI-Powered Features
+This application leverages artificial intelligence to enhance the user experience:
+- **AI-Generated Food Images** – Ghibli-style imagery using Flux Pro Nano Banana
+- **Smart Ingredient Lists** – ChatGPT-generated comprehensive ingredient requirements for 2-serving portions
+- **Recipe Database** – Gemini AI generates authentic recipe names based on cuisine type
+- **Automated Data Pipeline** – n8n workflow automation from AI generation to Supabase storage
+
+---
+
+## 💡 Why This Project?
+
+This application demonstrates:
+- **Real-World Problem Solving** – Addressing actual pain points in meal planning and grocery shopping
+- **Modern Architecture Patterns** – Clean Architecture with feature-first approach and offline-first design
+- **Full-Stack Capabilities** – Flutter frontend + Supabase backend + n8n automation
+- **AI Integration Skills** – Leveraging multiple AI services (Gemini, ChatGPT, Flux) for intelligent content generation
+- **Production-Ready Practices** – Proper error handling, offline support, token management, and security considerations
+- **Multi-Paradigm State Management** – Proficiency in both Riverpod and Bloc patterns
 
 ---
 
@@ -68,8 +106,9 @@ Choose desired dishes for the week, and the app handles the rest — from recipe
 
 ### 📱 Other Feature
 - Dark & Light mode
-- Handling Auth Token and Reload Refresh token for calling Supabase API
-- First Offline mecanism
+- Handling Auth Token and Automatic token refresh for calling Supabase API
+- Error handling management
+- Offline-First mechanism
 
 ---
 
@@ -256,9 +295,35 @@ make build_runner
 
 ## 6. Design Decisions
 
-- **Clean Architecture** – scalable, testable, maintainable
-- **Hybrid State Management** – Riverpod (MVVM) + Bloc (MVI)
-- **Isar Database** – reactive streams & developer-friendly inspector
+### Why Clean Architecture?
+- **Scalability** – Easy to add new features without impacting existing code
+- **Testability** – Each layer can be tested independently with clear boundaries
+- **Maintainability** – Changes in one layer don't ripple through the entire codebase
+- **Team Collaboration** – Clear structure makes it easier for multiple developers to work simultaneously
+
+### Why Hybrid State Management (Riverpod + Bloc)?
+- **Demonstrates Versatility** – Shows proficiency in multiple modern Flutter patterns
+- **Practical Flexibility** – Riverpod for simple MVVM patterns, Bloc for complex MVI flows
+- **Interview Ready** – Accessible to developers familiar with either approach
+- **Learning Showcase** – Highlights deep understanding of Flutter state management evolution
+
+### Why Isar Database?
+- **Reactive Streams** – Native stream support perfect for offline-first architecture
+- **Developer Experience** – Built-in web inspector makes debugging intuitive
+- **Performance** – Fast NoSQL database optimized for mobile
+- **Type Safety** – Strong typing with code generation reduces runtime errors
+
+### Why Supabase over Firebase?
+- **PostgreSQL Power** – Full relational database capabilities with RLS security
+- **Edge Functions** – Serverless API with better AI code generation support
+- **Open Source** – Self-hostable with no vendor lock-in
+- **Cost Effective** – Generous free tier for portfolio projects
+
+### Why Feature-First Structure?
+- **Screaming Architecture** – Folder structure clearly communicates app features
+- **Modularity** – Each feature is self-contained and independently deployable
+- **Scalability** – Easy to add, remove, or modify features without affecting others
+- **Team Organization** – Features can be owned by different team members
 
 ---
 
@@ -291,3 +356,11 @@ make build_runner
 **LinkedIn:** [Frensky Oey](https://www.linkedin.com/in/frensky-oey-8aaa3926/)  
 
 **License:** MIT License
+
+<div align="center">
+
+### ⭐ If you find this project helpful, please consider giving it a star!
+
+**Made with ❤️ using Flutter**
+
+</div>
