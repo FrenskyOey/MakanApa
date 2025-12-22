@@ -1,7 +1,8 @@
 # Makan Apa 🍳
 
 ## Smart Meal Planning & Automated Shopping List Generator
-
+ffmpeg -i /Users/frenskylee/Desktop/final-demo.mp4 \
+/Users/frenskylee/Desktop/final-demo.gif
 **Makan Apa** is a Flutter-based meal planning application designed to simplify weekly grocery shopping and meal preparation. This project serves as both a practical solution to a real-world problem and a demonstration of Flutter clean architecture patterns.
 
 ---
@@ -64,49 +65,67 @@ Choose desired dishes for the week, and the app handles the rest — from recipe
 - Interactive onboarding flow
 - Multiple login options: Email/password and Google Sign-In
 - Quick registration with automatic account creation
-- Handling Auth Token and Reload Refresh token in Dio Interceptor
+
+### 📱 Other Feature
+- Dark & Light mode
+- Handling Auth Token and Reload Refresh token for calling Supabase API
+- First Offline mecanism
 
 ---
 
 ### 📱 Feature Previews
 
-**Key Screenshots (Visible Upfront)**
+**App Demo**
 
 <p align="center">
-  <img src="document/picture/1.png" width="30%" />
-  <img src="document/picture/4.png" width="30%" />
-  <img src="document/picture/9.png" width="30%" />
+  <img src="document/video/final-demo.gif" width="80%" alt="Makan Apa Demo" />
 </p>
 
-> These screenshots highlight onboarding, dashboard, and recipe library features.
-
-| Onboarding & Profile | Recipe Features | Dashboard & Planning |
-|:---:|:---:|:---:|
-| [▶️ Watch Demo](https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-1.mp4) | [▶️ Watch Demo](https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-2.mp4) | [▶️ Watch Demo](https://github.com/FrenskyOey/MakanApa/raw/main/makanapa/document/video/progress-31.mp4) |
-| Authentication & Profile | Browse & manage recipes | Weekly meal planning |
+---
 
 <details>
-<summary>Expand Full Screenshots & Video Demos</summary>
+<summary><b>📸 View All Screenshots</b></summary>
 
+<br>
+
+#### 🎯 Onboarding Experience
 <p align="center">
+  <img src="document/picture/1.png" width="30%" />
   <img src="document/picture/2.png" width="30%" />
   <img src="document/picture/3.png" width="30%" />
+</p>
+
+---
+
+#### 📊 Dashboard & Meal Planning
+<p align="center">
+  <img src="document/picture/4.png" width="30%" />
   <img src="document/picture/5.png" width="30%" />
+  <img src="document/picture/6.png" width="30%" />
 </p>
 
 <p align="center">
-  <img src="document/picture/6.png" width="30%" />
   <img src="document/picture/7.png" width="30%" />
   <img src="document/picture/8.png" width="30%" />
 </p>
 
+---
+
+#### 🍳 Recipe Library
 <p align="center">
+  <img src="document/picture/9.png" width="30%" />
   <img src="document/picture/10.png" width="30%" />
   <img src="document/picture/11.png" width="30%" />
+</p>
+
+<p align="center">
   <img src="document/picture/12.png" width="30%" />
   <img src="document/picture/13.png" width="30%" />
 </p>
 
+---
+
+#### 👤 Profile & Settings
 <p align="center">
   <img src="document/picture/14.png" width="30%" />
   <img src="document/picture/15.png" width="30%" />
@@ -114,15 +133,18 @@ Choose desired dishes for the week, and the app handles the rest — from recipe
 </p>
 
 <p align="center">
-  <img src="document/picture/20.png" width="30%" />
-  <img src="document/picture/21.png" width="30%" />
-  <img src="document/picture/22.png" width="30%" />
-</p>
-
-<p align="center">
   <img src="document/picture/17.png" width="30%" />
   <img src="document/picture/18.png" width="30%" />
   <img src="document/picture/19.png" width="30%" />
+</p>
+
+---
+
+#### 🛒 Shopping List
+<p align="center">
+  <img src="document/picture/20.png" width="30%" />
+  <img src="document/picture/21.png" width="30%" />
+  <img src="document/picture/22.png" width="30%" />
 </p>
 
 </details>
