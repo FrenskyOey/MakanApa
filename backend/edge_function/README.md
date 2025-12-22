@@ -40,4 +40,3 @@ supabase secrets set SUPABASE_DB_URL=your_postgres_connection_string
 To deploy just copy index.ts to edge function in supabase dashboard
 
 
-## 🚀  Deployment
