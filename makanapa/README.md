@@ -231,22 +231,62 @@ This application demonstrates:
 
 ## 4. Architecture Overview
 
-**Clean Architecture** with Feature-First structure:
+### Clean Architecture with Feature-First Structure
+
+This project follows **Clean Architecture** principles using a **feature-first** approach, making each feature self-contained and the codebase easy to navigate.
 
 ```text
 lib/
-├── core/      # configs, constants, helpers, theme, widgets
-├── features/  # feature modules (data, domain, presentation, provider)
-└── shared/    # shared logic/widgets
+├── core/              # Shared utilities, theme, widgets, configs
+├── features/          # Feature modules
+│   ├── home/
+│   │   ├── data/          # API & DB implementations
+│   │   ├── domain/        # Business logic & interfaces
+│   │   ├── presentation/  # UI, controllers, state
+│   │   └── provider/      # Dependency injection
+│   ├── recipe/
+│   ├── profile/
+│   └── ...
+└── shared/            # Cross-feature shared code
 ```
 
-**Layer Separation**
-- **Domain** – pure Dart, core business logic
-- **Data** – repositories, DTOs, remote & local sources
-- **Presentation** – UI screens, controllers, providers
+### Three-Layer Architecture
 
-**Data Flow (Offline-First)**
-`UI -> Controller -> Repository -> Remote API -> Isar DB -> Stream -> UI`
+**Domain Layer** (Pure Business Logic)
+- Repository interfaces
+- Domain models
+- Use cases
+
+**Data Layer** (Data Management)
+- Repository implementations
+- Remote data sources (Supabase API)
+- Local data sources (Isar DB)
+- DTOs and entity models
+
+**Presentation Layer** (UI)
+- Screens and components
+- Controllers (Riverpod/Bloc)
+- UI state management
+
+### Offline-First Data Flow
+
+```
+UI → Controller → Repository → Remote API → Save to Isar DB
+                                                    ↓
+                                              Stream Event
+                                                    ↓
+                  Controller ← Listen to Stream ← Isar DB
+                       ↓
+                  Update State
+                       ↓
+                  UI Re-renders
+```
+
+**How it works:**
+1. App loads cached data from Isar instantly (offline support)
+2. Fresh data fetched from API and saved to Isar
+3. Isar emits stream event on data change
+4. Controller listens and updates UI automatically
 
 ---
 
