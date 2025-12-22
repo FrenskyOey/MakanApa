@@ -39,6 +39,7 @@ Choose desired dishes for the week, and the app handles the rest — from recipe
 - **Week-by-Week Navigation** – Browse upcoming weeks and adjust meals
 - **Quick Recipe Access** – Tap any meal for ingredients and cooking instructions
 - **External Recipe Links** – Direct integration with Cookpad & YouTube for tutorials
+- **Auto-Generated Shopping Lists** – Instant shopping lists based on selected meals
 
 ### 🍽️ Recipe Library
 - Browse all available recipes in Makan Apa
@@ -63,6 +64,7 @@ Choose desired dishes for the week, and the app handles the rest — from recipe
 - Interactive onboarding flow
 - Multiple login options: Email/password and Google Sign-In
 - Quick registration with automatic account creation
+- Handling Auth Token and Reload Refresh token in Dio Interceptor
 
 ---
 
@@ -112,12 +114,16 @@ Choose desired dishes for the week, and the app handles the rest — from recipe
 </p>
 
 <p align="center">
+  <img src="document/picture/20.png" width="30%" />
+  <img src="document/picture/21.png" width="30%" />
+  <img src="document/picture/22.png" width="30%" />
+</p>
+
+<p align="center">
   <img src="document/picture/17.png" width="30%" />
   <img src="document/picture/18.png" width="30%" />
   <img src="document/picture/19.png" width="30%" />
 </p>
-
-> **Note:** Smart Shopping List feature is under development and will be updated soon.
 
 </details>
 
@@ -253,7 +259,7 @@ make build_runner
 - Push notifications
 - Complete forgot password flow
 - CI/CD pipelines
-- Expand unit/widget tests
+- Expand more unit/widget tests
 
 ---
 

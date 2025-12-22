@@ -12,17 +12,11 @@ class BasketDetailProviderScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      body: SafeArea(
-        child: BlocProvider(
-          create: (context) {
-            return BasketDetailBloc(
-              repository: ref.read(basketRepositoryProvider),
-            );
-          },
-          child: BasketDetailPage(item: item),
-        ),
-      ),
+    return BlocProvider(
+      create: (context) {
+        return BasketDetailBloc(repository: ref.read(basketRepositoryProvider));
+      },
+      child: BasketDetailPage(item: item),
     );
   }
 }
