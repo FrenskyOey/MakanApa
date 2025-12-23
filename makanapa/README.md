@@ -8,7 +8,7 @@
 ## Smart Meal Planning & Automated Shopping List Generator
 **Makan Apa** is a Flutter-based meal planning application designed to simplify weekly grocery shopping and meal preparation. This project serves as both a practical solution to a real-world problem and a demonstration of Flutter clean architecture patterns.
 
-**Repository:** [github.com/FrenskyOey/MakanApa](https://github.com/FrenskyOey/MakanApa/tree/main/makanapa)
+**Repository:** [github.com/FrenskyOey/MakanApa/](https://github.com/FrenskyOey/MakanApa/tree/main/makanapa)
 ---
 
 ## 📑 Table of Contents

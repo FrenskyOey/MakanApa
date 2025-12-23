@@ -20,7 +20,7 @@ class BasketPage extends HookConsumerWidget {
     useEffect(() {
       context.read<BasketBloc>().add(LoadMainDataEvent());
       return null;
-    }, const []);
+    });
 
     useEffect(() {
       final sub = context.read<BasketBloc>().sideEffects.listen((event) {
@@ -58,23 +58,5 @@ class BasketPage extends HookConsumerWidget {
         ),
       ),
     );
-
-    /*Scaffold(
-      body: SafeArea(
-        child: SizedBox.expand(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text("Basket Screen", style: context.textTheme.headlineMedium),
-              Dimens.xxl.space,
-              Icon(Icons.phonelink_erase, size: 80, color: context.secondary),
-              Dimens.xxl.space,
-              GradientText("COMING SOON"),
-              Dimens.xxl.space,
-            ],
-          ),
-        ),
-        */
   }
 }
