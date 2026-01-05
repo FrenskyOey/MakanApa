@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:makanapa/features/basket/data/data_source/local/basket_local_ds.dart';
 import 'package:makanapa/features/basket/data/models/entity/basket_group_isar_model.dart';
@@ -14,6 +16,7 @@ import 'package:isar_community/isar.dart';
 void main() {
   late Isar isar;
   late BasketLocalDs basketLocalDs;
+  late Directory tempDir;
 
   setUpAll(() async {
     // Only happens once for the whole file
@@ -21,10 +24,11 @@ void main() {
   });
 
   setUp(() async {
+    tempDir = await Directory.systemTemp.createTemp('');
     // Create an in-memory Isar instance with all schemas
     isar = await Isar.open(
       [BasketItemEntitySchema, BasketGroupEntitySchema],
-      directory: '', // Empty string for in-memory
+      directory: tempDir.path,
       name: 'test_${DateTime.now().millisecondsSinceEpoch}',
     );
 
@@ -33,6 +37,11 @@ void main() {
 
   tearDown(() async {
     await isar.close(deleteFromDisk: true);
+
+    // 4. Double check the folder is gone
+    if (await tempDir.exists()) {
+      await tempDir.delete(recursive: true);
+    }
   });
 
   group('cacheIngredientGroupData', () {
