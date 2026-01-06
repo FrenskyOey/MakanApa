@@ -48,7 +48,11 @@ class LoginController extends _$LoginController {
   Future<void> loginWithEmail(String email, String password) async {
     state = state.copyWith(isLoginLoading: true);
     await Future.delayed(const Duration(seconds: 2));
+    if (_eventController.isClosed) return;
+
     final response = await _repo.signInWithEmailAndPassword(email, password);
+
+    if (_eventController.isClosed) return;
 
     response.fold(
       (l) {
@@ -64,7 +68,12 @@ class LoginController extends _$LoginController {
   Future<void> loginWithGoogle(GoogleSignInRequest request) async {
     state = state.copyWith(isLoginLoading: true);
     await Future.delayed(const Duration(seconds: 2));
+    if (_eventController.isClosed) return;
+
     final response = await _repo.signInWithGoogle(request);
+
+    if (_eventController.isClosed) return;
+
     response.fold(
       (l) {
         _eventController.add(LoginEventState.toastError(l));
