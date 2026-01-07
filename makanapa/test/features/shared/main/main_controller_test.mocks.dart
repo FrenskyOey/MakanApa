@@ -49,4 +49,9 @@ class MockAvaiblityItem extends _i1.Mock implements _i2.AvaiblityItem {
             returnValue: _FakeDateTime_0(this, Invocation.getter(#endDate)),
           )
           as DateTime);
+
+  @override
+  List<Object?> get props =>
+      (super.noSuchMethod(Invocation.getter(#props), returnValue: <Object?>[])
+          as List<Object?>);
 }

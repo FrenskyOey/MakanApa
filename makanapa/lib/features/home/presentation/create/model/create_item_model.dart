@@ -13,9 +13,13 @@ class CreateItem {
     this.dinnerItem,
   });
 
-  CreateItem copyWith({RecipeItem? lunchItem, RecipeItem? dinnerItem}) {
+  CreateItem copyWith({
+    int? indexes,
+    RecipeItem? lunchItem,
+    RecipeItem? dinnerItem,
+  }) {
     return CreateItem(
-      indexes: indexes,
+      indexes: indexes ?? this.indexes,
       date: date,
       lunchItem: lunchItem,
       dinnerItem: dinnerItem,

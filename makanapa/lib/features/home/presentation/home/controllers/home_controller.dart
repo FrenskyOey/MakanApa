@@ -16,6 +16,7 @@ part 'home_controller.g.dart';
 class HomeController extends _$HomeController {
   late MealPlanRepository _repo;
   StreamSubscription? _dashboardSubscription;
+  bool _mounted = true;
 
   final _eventController = StreamController<HomeEventState>.broadcast();
   Stream<HomeEventState> get events => _eventController.stream;
@@ -23,15 +24,17 @@ class HomeController extends _$HomeController {
   @override
   HomeUiState build() {
     _repo = ref.read(mealPlanRepositoryProvider);
+    _mounted = true;
 
     ref.onDispose(() {
+      _mounted = false;
       _dashboardSubscription?.cancel();
       _eventController.close();
     });
     return HomeUiState();
   }
 
-  void _initStream() async {
+  void _initStream() {
     final streams = _repo.getDashboardStream();
     _dashboardSubscription = streams.listen((dashboards) {
       if (dashboards == null) {
@@ -45,10 +48,12 @@ class HomeController extends _$HomeController {
     state = state.copyWith(hideLoading: false, errorMessages: null);
     _dashboardSubscription?.cancel();
     await Future.delayed(Duration(seconds: 2));
+    if (!_mounted) return;
 
     _initStream();
 
     final results = await _repo.getDashboardData();
+    if (!_mounted) return;
     results.fold(
       (l) {
         LogHelper.debug("Errors : $l");
