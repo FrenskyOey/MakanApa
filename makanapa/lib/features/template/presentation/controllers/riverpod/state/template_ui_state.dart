@@ -1,5 +1,4 @@
 /*
-
 class TemplateUIState {
   final DataState<Template> state;
   final bool hideLoading;
@@ -13,7 +12,4 @@ class TemplateUIState {
     );
   }
 }
-
-
-
- */
+*/

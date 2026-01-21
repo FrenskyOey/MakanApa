@@ -1,12 +1,16 @@
 /*
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'template.freezed.dart';
+class Template extends Equatable {
+  final content String;
+  final int id;
 
-@freezed
-abstract class Template with _$Template {
-  const factory Template({
-    @Default("") String content,
-  }) = _Template;
+  const Template({
+    required this.id,
+    required this.content
+  });
+
+  @override
+  List<Object?> get props => [id, content];
 }
 */

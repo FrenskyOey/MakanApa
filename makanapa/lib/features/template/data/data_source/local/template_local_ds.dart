@@ -4,40 +4,38 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'template_local_ds.g.dart';
 
-class TemplateLocalDataSourceImpl implements TemplateLocalDataSource {
+class TemplateLocalDS implements TemplateLocalDataSource {
   final Isar isar;
   TemplateLocalDataSourceImpl({required this.isar});
+
   @override
-   Future<TemplateEntity> getTemplate(); async {
-    try {
-      final isOpen = isar.isOpen;
-      if (!isOpen) {
-        return [];
-      }
-      final result = await isar.writeTxn(() async {
-        return await isar.templateIsarModel.where().findAll();
-      });
-      return messages.get(0);
-    } catch (e) {
-      rethrow;
-    }
+   Future<List<TemplateEntity>> getTemplate() async {
+    final result = await isar
+    .templateIsarModel
+    .where()
+    .sortByDataId()
+    //.limit(10)
+    .findAll();
+    return result;
   }
 
   @override
   Future<void> saveTemplate(Template template) async {
-    try {
-      final isOpen = isar.isOpen;
-      if (!isOpen) {
-        return;
-      }
+    isar.writeTxn(() async {
+      await isar.templateIsarModel.put(TemplateIsarModel.fromEntity(template));
+    });
+  }
 
-      await isar.writeTxn(() async {
-        await isar.templateIsarModel
-            .put(TemplateIsarModel.fromEntity(template));
-      });
-    } catch (e) {
-      rethrow;
-    }
+  @override
+  Future<void> saveTemplate(List<Template> templates) {
+    final templateEntity = faqs.map((template) {
+      return TemplateIsarModel.fromEntity(template);
+    }).toList();
+
+    return isar.writeTxn(() async {
+      // Use putAllByIndex to perform an upsert based on the 'dataId' index.
+      await isar.templateIsarModel.putAllByDataId(templateEntity);
+    });
   }
 }
 

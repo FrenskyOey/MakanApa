@@ -1,10 +1,12 @@
 /*
 abstract class TemplateRemoteDataSource {
-  Future<TemplateResponse> getTemplate();
+  Future<List<TemplateResponse>> getTemplateList();
+  Future<TemplateResponse> getTemplateObject();
 }
 
 abstract class TemplateLocalDataSource {
-  Future<TemplateEntity> getTemplate();
+  Future<List<TemplateEntity>> getTemplate() getTemplate();
   Future<void> saveTemplate(Template template);
+  Future<void> saveTemplate(List<Template> templates)
 }
 */
