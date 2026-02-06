@@ -99,12 +99,12 @@ This application demonstrates:
 - Built-in FAQ for app guidance
 - Secure logout functionality
 
-### 🔐 Authentication
+### 🔐 Authentications
 - Interactive onboarding flow
 - Multiple login options: Email/password and Google Sign-In
 - Quick registration with automatic account creation
 
-### 📱 Other Feature
+### 📱 Other Features
 - Dark & Light mode
 - Handling Auth Token and Automatic token refresh for calling Supabase API
 - Error handling management
